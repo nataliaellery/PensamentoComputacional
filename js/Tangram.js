@@ -2,6 +2,7 @@ var Tangram = function (fase) {
   	this.fundo = new Image();
 	this.fase=fase;
 	if(this.fase==1)this.fundo.src = "img/Match2/FundoMatch21.png";
+	else if(this.fase==2)this.fundo.src = "img/Match2/FundoMatch22.png";
 	this.ativo=true;
 	this.pulou=false;
 	this.ganhou=false;
@@ -51,7 +52,6 @@ var Tangram = function (fase) {
 			this.newPosRot6.push(new Imagem(20,70+(150*this.i), 179, 179,"img/Match2/Obj"+(this.i+1)+"Match2Fase1.png"));
 			this.newPosRot7.push(new Imagem(20,70+(150*this.i), 179, 179,"img/Match2/Obj"+(this.i+1)+"Match2Fase1.png"));
 			this.rotacoes.push(0);
-			//this.rotacoes.push(this.dicaRotacao[this.i]);
 			this.locked.push(false);
 			this.acertou.push(false);
 			this.dicaMostrada.push(false);
@@ -89,6 +89,73 @@ var Tangram = function (fase) {
 		this.dicaImagem[1].x=492;this.dicaImagem[1].y=282;
 		this.dicaImagem[2].x=580;this.dicaImagem[2].y=280;
 		for(this.i=0;this.i<3;this.i++){
+			this.dicaImagem[this.i].width=this.figs[this.i].width;
+			this.dicaImagem[this.i].height=this.figs[this.i].height;
+		}
+	}else if(this.fase==2){
+		//easy
+		this.dicaRotacao=new Array(0,0,0,0);
+		for(this.i=0;this.i<4;this.i++){
+			this.tipoFigs.push(this.i);
+			this.figs.push(new Imagem(20,70+(150*this.i), 179, 179,"img/Match2/Obj"+(this.i+1)+"Match2Fase2.png"));
+			this.dicaImagem.push(new Imagem(20,70, 179, 179,"img/Match2/Obj"+(this.i+1)+"MatchHigh2Fase2.png"));
+			this.newPosRot0.push(new Imagem(20,70+(150*this.i), 179, 179,"img/Match2/Obj"+(this.i+1)+"Match2Fase2.png"));
+			this.newPosRot1.push(new Imagem(20,70+(150*this.i), 179, 179,"img/Match2/Obj"+(this.i+1)+"Match2Fase2.png"));
+			this.newPosRot2.push(new Imagem(20,70+(150*this.i), 179, 179,"img/Match2/Obj"+(this.i+1)+"Match2Fase2.png"));
+			this.newPosRot3.push(new Imagem(20,70+(150*this.i), 179, 179,"img/Match2/Obj"+(this.i+1)+"Match2Fase2.png"));
+			this.newPosRot4.push(new Imagem(20,70+(150*this.i), 179, 179,"img/Match2/Obj"+(this.i+1)+"Match2Fase2.png"));
+			this.newPosRot5.push(new Imagem(20,70+(150*this.i), 179, 179,"img/Match2/Obj"+(this.i+1)+"Match2Fase2.png"));
+			this.newPosRot6.push(new Imagem(20,70+(150*this.i), 179, 179,"img/Match2/Obj"+(this.i+1)+"Match2Fase2.png"));
+			this.newPosRot7.push(new Imagem(20,70+(150*this.i), 179, 179,"img/Match2/Obj"+(this.i+1)+"Match2Fase2.png"));
+			this.rotacoes.push(0);
+			//this.rotacoes.push(this.dicaRotacao[this.i]);
+			this.locked.push(false);
+			this.acertou.push(false);
+			this.dicaMostrada.push(false);
+		}
+		this.figs[0].width=334;this.figs[0].height=85;
+		this.figs[1].width=167;this.figs[1].height=85;
+		this.figs[2].width=236;this.figs[2].height=118;
+		this.figs[3].width=236;this.figs[3].height=118;
+		//Gambiarra pq as figuras tem tamanhos diferentes em cada rotacao
+		this.newPosRot0[0].x=0;this.newPosRot0[0].y=0;this.newPosRot0[0].width=0;this.newPosRot0[0].height=0;
+		this.newPosRot1[0].x=0;this.newPosRot1[0].y=0;this.newPosRot1[0].width=0;this.newPosRot1[0].height=0;
+		this.newPosRot2[0].x=0;this.newPosRot2[0].y=0;this.newPosRot2[0].width=0;this.newPosRot2[0].height=0;
+		this.newPosRot3[0].x=0;this.newPosRot3[0].y=0;this.newPosRot3[0].width=0;this.newPosRot3[0].height=0;
+		this.newPosRot4[0].x=0;this.newPosRot4[0].y=0;this.newPosRot4[0].width=0;this.newPosRot4[0].height=0;
+		this.newPosRot5[0].x=0;this.newPosRot5[0].y=0;this.newPosRot5[0].width=0;this.newPosRot5[0].height=0;
+		this.newPosRot6[0].x=0;this.newPosRot6[0].y=0;this.newPosRot6[0].width=0;this.newPosRot6[0].height=0;
+		this.newPosRot7[0].x=0;this.newPosRot7[0].y=0;this.newPosRot7[0].width=0;this.newPosRot7[0].height=0;		
+		this.newPosRot0[1].x=0;this.newPosRot0[1].y=0;this.newPosRot0[1].width=0;this.newPosRot0[1].height=0;
+		this.newPosRot1[1].x=0;this.newPosRot1[1].y=0;this.newPosRot1[1].width=0;this.newPosRot1[1].height=0;
+		this.newPosRot2[1].x=0;this.newPosRot2[1].y=0;this.newPosRot2[1].width=0;this.newPosRot2[1].height=0;
+		this.newPosRot3[1].x=0;this.newPosRot3[1].y=0;this.newPosRot3[1].width=0;this.newPosRot3[1].height=0;
+		this.newPosRot4[1].x=0;this.newPosRot4[1].y=0;this.newPosRot4[1].width=0;this.newPosRot4[1].height=0;
+		this.newPosRot5[1].x=0;this.newPosRot5[1].y=0;this.newPosRot5[1].width=0;this.newPosRot5[1].height=0;
+		this.newPosRot6[1].x=0;this.newPosRot6[1].y=0;this.newPosRot6[1].width=0;this.newPosRot6[1].height=0;
+		this.newPosRot7[1].x=0;this.newPosRot7[1].y=0;this.newPosRot7[1].width=0;this.newPosRot7[1].height=0;		
+		this.newPosRot0[2].x=0;this.newPosRot0[2].y=0;this.newPosRot0[2].width=0;this.newPosRot0[2].height=0;
+		this.newPosRot1[2].x=0;this.newPosRot1[2].y=0;this.newPosRot1[2].width=0;this.newPosRot1[2].height=0;
+		this.newPosRot2[2].x=0;this.newPosRot2[2].y=0;this.newPosRot2[2].width=0;this.newPosRot2[2].height=0;
+		this.newPosRot3[2].x=0;this.newPosRot3[2].y=0;this.newPosRot3[2].width=0;this.newPosRot3[2].height=0;
+		this.newPosRot4[2].x=0;this.newPosRot4[2].y=0;this.newPosRot4[2].width=0;this.newPosRot4[2].height=0;
+		this.newPosRot5[2].x=0;this.newPosRot5[2].y=0;this.newPosRot5[2].width=0;this.newPosRot5[2].height=0;
+		this.newPosRot6[2].x=0;this.newPosRot6[2].y=0;this.newPosRot6[2].width=0;this.newPosRot6[2].height=0;
+		this.newPosRot7[2].x=0;this.newPosRot7[2].y=0;this.newPosRot7[2].width=0;this.newPosRot7[2].height=0;	
+		this.newPosRot0[3].x=0;this.newPosRot0[3].y=0;this.newPosRot0[3].width=0;this.newPosRot0[3].height=0;
+		this.newPosRot1[3].x=0;this.newPosRot1[3].y=0;this.newPosRot1[3].width=0;this.newPosRot1[3].height=0;
+		this.newPosRot2[3].x=0;this.newPosRot2[3].y=0;this.newPosRot2[3].width=0;this.newPosRot2[3].height=0;
+		this.newPosRot3[3].x=0;this.newPosRot3[3].y=0;this.newPosRot3[3].width=0;this.newPosRot3[3].height=0;
+		this.newPosRot4[3].x=0;this.newPosRot4[3].y=0;this.newPosRot4[3].width=0;this.newPosRot4[3].height=0;
+		this.newPosRot5[3].x=0;this.newPosRot5[3].y=0;this.newPosRot5[3].width=0;this.newPosRot5[3].height=0;
+		this.newPosRot6[3].x=0;this.newPosRot6[3].y=0;this.newPosRot6[3].width=0;this.newPosRot6[3].height=0;
+		this.newPosRot7[3].x=0;this.newPosRot7[3].y=0;this.newPosRot7[3].width=0;this.newPosRot7[3].height=0;
+		//Rever isso aqui----------------------------------------------
+		this.dicaImagem[0].x=405;this.dicaImagem[0].y=115;
+		this.dicaImagem[1].x=492;this.dicaImagem[1].y=282;
+		this.dicaImagem[2].x=580;this.dicaImagem[2].y=280;
+		this.dicaImagem[3].x=580;this.dicaImagem[3].y=280;
+		for(this.i=0;this.i<4;this.i++){
 			this.dicaImagem[this.i].width=this.figs[this.i].width;
 			this.dicaImagem[this.i].height=this.figs[this.i].height;
 		}
@@ -220,6 +287,7 @@ Tangram.prototype.Draw = function(){
 
 Tangram.prototype.MouseDown = function(mouseEvent) {	
 	this.trace="";
+	this.dicaAtual=-1;
 	for(this.i=(this.figs.length-1);this.i>=0;this.i--){
 		if(!this.locked[this.i]){
 			if(posMouseX>this.figs[this.i].x && posMouseX<this.figs[this.i].x+this.figs[this.i].width && posMouseY>this.figs[this.i].y && posMouseY<this.figs[this.i].y+this.figs[this.i].height){
