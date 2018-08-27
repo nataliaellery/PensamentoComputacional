@@ -7,10 +7,10 @@ var gameHeight=600;
 var context;
 var gameCanvas;
 
-//var telaAtual = "EscolhaPersonagem";
-//var tela = new TelaEscolha();
-var telaAtual = "Tamgram";
-var tela = new Tangram(1);
+var telaAtual = "EscolhaPersonagem";
+var tela = new TelaEscolha();
+//var telaAtual = "Tamgram";
+//var tela = new Tangram(1);
 var genero=1;//0=menina//1=menino
 var nomeJogador="";
 
