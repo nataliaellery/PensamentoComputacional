@@ -9,8 +9,8 @@ var gameCanvas;
 
 //var telaAtual = "EscolhaPersonagem";
 //var tela = new TelaEscolha();
-var telaAtual = "Tamgram";
-var tela = new Tangram(2);
+var telaAtual = "Sequencia";
+var tela = new Sequencia(1);
 var genero=1;//0=menina//1=menino
 var nomeJogador="";
 
