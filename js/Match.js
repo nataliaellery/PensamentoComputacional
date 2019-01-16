@@ -365,6 +365,7 @@ Match.prototype.Draw = function(){
 	
 	context.drawImage(this.botaoLeft.img, this.botaoLeft.x, this.botaoLeft.y);
 	context.drawImage(this.botaoRight.img, this.botaoRight.x, this.botaoRight.y);
+	context.drawImage(this.botaoPular.img, this.botaoPular.x, this.botaoPular.y);
 	
 	context.fillText("" + this.trace,150,70);
 	context.font="24px Georgia";
@@ -431,6 +432,31 @@ Match.prototype.MouseUp = function(mouseEvent) {
 		else if(this.fase==4)for(this.i=0;this.i<this.figs.length;this.i++)this.figs[this.i].img.src="img/Match/Match4.png";
 		else if(this.fase==5)for(this.i=0;this.i<this.figs.length;this.i++)this.figs[this.i].img.src="img/Match/Match5.png";
 		else if(this.fase==6)for(this.i=0;this.i<this.figs.length;this.i++)this.figs[this.i].img.src="img/Match/Match6.png";
+		//Pular a fase
+		if(this.tempo>=60){
+			if(posMouseX>this.botaoPular.x && posMouseX<(this.botaoPular.x + this.botaoPular.width) && posMouseY>this.botaoPular.y && posMouseY<(this.botaoPular.y + this.botaoPular.height)){
+				this.pulou=true;
+			}
+		}
+		for(this.i=0;this.i<this.dicas;this.i++){
+			if(posMouseX>710-(this.i*60) && posMouseX<710-(this.i*60)+56 && posMouseY>20  && posMouseY<20+34){
+				this.dicas--;
+				this.haDicas=false;
+				for(this.j=0;this.j<this.dicaMostrada.length;this.j++){
+					if(!this.dicaMostrada[this.j]){
+						this.haDicas=true;
+						break;
+					}
+				}
+				if(this.haDicas){
+					this.MostraDica(this.j);	
+				}else{
+					this.dicas=0;
+					this.msg="Acabaram as dicas";
+				}
+				break;
+			}
+		}
 	}else{
 		if(!this.locked[this.selected]){
 			if(posMouseX>this.botaoRight.x && posMouseX<this.botaoRight.x+this.botaoRight.width && posMouseY>this.botaoRight.y && posMouseY<this.botaoRight.y+this.botaoRight.height){
@@ -466,25 +492,6 @@ Match.prototype.MouseUp = function(mouseEvent) {
 	}
 	this.follow=-1;
 	
-	for(this.i=0;this.i<this.dicas;this.i++){
-		if(posMouseX>710-(this.i*60) && posMouseX<710-(this.i*60)+56 && posMouseY>20  && posMouseY<20+34){
-			this.dicas--;
-			this.haDicas=false;
-			for(this.j=0;this.j<this.dicaMostrada.length;this.j++){
-				if(!this.dicaMostrada[this.j]){
-					this.haDicas=true;
-					break;
-				}
-			}
-			if(this.haDicas){
-				this.MostraDica(this.j);	
-			}else{
-				this.dicas=0;
-				this.msg="Acabaram as dicas";
-			}
-			break;
-		}
-	}
 	//aqui tenho que fazer a verificação se tá na posicão certa
 	this.ganhou=true;
 	for(this.i=0;this.i<this.acertou.length;this.i++)if(!this.acertou[this.i])this.ganhou=false;
