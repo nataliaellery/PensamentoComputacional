@@ -6,8 +6,11 @@
         <script src="js/Imagem.js"></script>
         <script src="js/Programacao.js"></script>
         <script src="js/Match.js"></script>
-        <script src="js/Sequencia.js"></script>
+        <script src="js/Pontos.js"></script>
         <script src="js/Tangram.js"></script>
+        <script src="js/Sequencia.js"></script>
+        <script src="js/Classifica.js"></script>
+        <script src="js/ObjClassifica.js"></script>
         <script src="js/PersonagemProg.js"></script>
         <script src="js/TelaEscolha.js"></script>
         <script src="js/TelaNome.js"></script>
