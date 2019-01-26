@@ -77,7 +77,9 @@ var Programacao = function (fase) {
 	this.contApagouAll=0;
 	this.contPlay=0;
 	this.pulou=false;
+	this.imgPular= new Imagem(1000,560,0,0,"img/TelaConfirma.png");
 	this.contLoop=0;
+	this.contInstrLoop=0;
 //Dados para passar por parâmetro
 	//prog1----------------------------------	
 //	this.trace="fase:" + fase;
@@ -390,7 +392,7 @@ var Programacao = function (fase) {
 Programacao.prototype.Draw = function(){
 	
 	if(this.ativo){
-		context.drawImage(this.fundo, -10, -10,850,650);
+		//context.drawImage(this.fundo, -10, -10,850,650);
 		context.drawImage(this.cenario, 80, -21);
 		context.font="30px Georgia";
 
@@ -418,264 +420,266 @@ Programacao.prototype.Draw = function(){
 					this.contTempo=0;
 			}
 		}else{
-			//Aqui que acontece toda a movimentação
-			this.VerificaRemoveuComando();
-			this.MoveBonecoDemo();
-			//Essa é a parte que avisa quando passa o mouse pelos comandos
-			if(posMouseX>this.rectComUp.x && posMouseX<(this.rectComUp.x + this.rectComUp.width) && posMouseY>this.rectComUp.y && posMouseY<(this.rectComUp.y + this.rectComUp.height)){
-				this.isWalkingUp=true;				
-				this.isWalkingLeft=false;
-				this.isWalkingDown=false;
-				this.isWalkingRight=false;
-			}else if(posMouseX>this.rectComDown.x && posMouseX<(this.rectComDown.x + this.rectComDown.width) && posMouseY>this.rectComDown.y && posMouseY<(this.rectComDown.y + this.rectComDown.height)){
-				this.isWalkingRight=false;				
-				this.isWalkingLeft=false;
-				this.isWalkingDown=true;
-				this.isWalkingUp=false;
-			}else if(posMouseX>this.rectComRight.x && posMouseX<(this.rectComRight.x + this.rectComRight.width) && posMouseY>this.rectComRight.y && posMouseY<(this.rectComRight.y + this.rectComRight.height)){
-				this.isWalkingLeft=false;
-				this.isWalkingRight=true;
-				this.isWalkingDown=false;
-				this.isWalkingUp=false;
-			}else if(posMouseX>this.rectComLeft.x && posMouseX<(this.rectComLeft.x + this.rectComLeft.width) && posMouseY>this.rectComLeft.y && posMouseY<(this.rectComLeft.y + this.rectComLeft.height)){
-				this.isWalkingUp=false;
-				this.isWalkingRight=false;
-				this.isWalkingDown=false;
-				this.isWalkingLeft=true;
-			}else{
-				//Essa é a parte que faz o bonequinho de demonstração parar quando o mouse não está mais em cima
-				//dos comandos
-				if(this.isWalkingLeft){
+			if(!this.pulou){
+				//Aqui que acontece toda a movimentação
+				this.VerificaRemoveuComando();
+				this.MoveBonecoDemo();
+				//Essa é a parte que avisa quando passa o mouse pelos comandos
+				if(posMouseX>this.rectComUp.x && posMouseX<(this.rectComUp.x + this.rectComUp.width) && posMouseY>this.rectComUp.y && posMouseY<(this.rectComUp.y + this.rectComUp.height)){
+					this.isWalkingUp=true;				
 					this.isWalkingLeft=false;
-					this.demo.animaParado("Left");
-				}else if(this.isWalkingRight){
-					this.isWalkingRight=false;
-					this.demo.animaParado("Right");
-				}else if(this.isWalkingUp){
-					this.isWalkingUp=false;
-					this.demo.animaParado("Up");
-				}else if(this.isWalkingDown){
 					this.isWalkingDown=false;
-					this.demo.animaParado("Down");
-				}
-				this.isWalkingLeft=false;
-				this.isWalkingUp=false;
-				this.isWalkingRight=false;
-				this.isWalkingDown=false;
-				this.demo.x=645;
-				this.demo.y=425;
-			}
-			//Aqui reinicia as variáveis que verificam se o mouse
-			//está passando por cima de algum comando para esconder
-			//o botão de excluir o comando
-			this.excluiComando=-1;
-			this.botaoExclui.x=1000;
-			//Caso o mouse esteja clicado e esteja segurando algum comando (variável follow)
-			//então essa parte faz o comando seguir o mouse
-			if(this.follow=="Up"){
-				this.comUp.x+=posMouseX-this.mouseAntX;
-				this.comUp.y+=posMouseY-this.mouseAntY;
-				this.mouseAntX=posMouseX;
-				this.mouseAntY=posMouseY;
-			}else if(this.follow=="Down"){
-				this.comDown.x+=posMouseX-this.mouseAntX;
-				this.comDown.y+=posMouseY-this.mouseAntY;
-				this.mouseAntX=posMouseX;
-				this.mouseAntY=posMouseY;
-			}else if(this.follow=="Left"){
-				this.comLeft.x+=posMouseX-this.mouseAntX;
-				this.comLeft.y+=posMouseY-this.mouseAntY;
-				this.mouseAntX=posMouseX;
-				this.mouseAntY=posMouseY;
-			}else if(this.follow=="Right"){
-				this.comRight.x+=posMouseX-this.mouseAntX;
-				this.comRight.y+=posMouseY-this.mouseAntY;
-				this.mouseAntX=posMouseX;
-				this.mouseAntY=posMouseY;
-			}else if(this.fase>7 && this.follow=="Loop"){
-				this.comLoop.x+=posMouseX-this.mouseAntX;
-				this.comLoop.y+=posMouseY-this.mouseAntY;
-				this.mouseAntX=posMouseX;
-				this.mouseAntY=posMouseY;
-			}else{
-				//caso nenhum comando esteja seguindo o mouse, todos voltam pro lugar de origem
-				this.comUp.x=this.rectComUp.x;
-				this.comUp.y=this.rectComUp.y;
-				this.comDown.x=this.rectComDown.x;
-				this.comDown.y=this.rectComDown.y;
-				this.comLeft.x=this.rectComLeft.x;
-				this.comLeft.y=this.rectComLeft.y;
-				this.comRight.x=this.rectComRight.x;
-				this.comRight.y=this.rectComRight.y;
-				if(this.fase>7){				
-					this.comLoop.x=this.rectComLoop.x;
-					this.comLoop.y=this.rectComLoop.y;
-				}
-			}
-			//Aqui começam as verificações das coisas que podem acontecer enquanto não está
-			//sendo executado nenhum programa
-			this.insideLoop=false;
-			this.maisOver=false;
-			this.menosOver=false;
-			if(!this.executaComando){
-				for(this.i=this.indice;this.i<this.comandoPosicao.length;this.i++){
-					if(posMouseX>this.comandoPosicao[this.i].x && posMouseX<this.comandoPosicao[this.i].x+this.comandoPosicao[this.i].width && posMouseY>this.comandoPosicao[this.i].y && posMouseY<this.comandoPosicao[this.i].y+this.comandoPosicao[this.i].height){
-						//Caso o mouse passar por algum comando, essa
-						//variável vai confirmar qual é o comando que
-						//o mouse está por cima
-						this.excluiComando=this.i;
-						if(this.follow=="none"){
-							//Aqui faz o botão excluir ser posicionado em cima do comando
-							this.botaoExclui.x=this.comandoPosicao[this.i].x;
-							this.botaoExclui.y=this.comandoPosicao[this.i].y;
-							if(this.fase>7 && this.comando[this.i].substring(0,4)=="Loop"){
-								this.cont=this.i;
-								this.cont2=this.i;
-								if(this.comTotalLoop[this.i]==20000 || this.comTotalLoop[this.i]==0){
-									if(this.comTotalLoop[this.i]==20000){
-										this.cont2--;
-										while(this.cont2>0 && this.comTotalLoop[this.cont2]==10000){
-											this.cont2--;
-										}
-										if(posMouseX>(this.comandoPosicao[this.i].x+51) && posMouseX<(this.comandoPosicao[this.i].x+51+12) && posMouseY>(this.comandoPosicao[this.i].y) && posMouseY<(this.comandoPosicao[this.i].y+12)){
-											this.maisOver=true;   
-										}else if(posMouseX>(this.comandoPosicao[this.i].x+51) && posMouseX<(this.comandoPosicao[this.i].x+51+12) && posMouseY>(this.comandoPosicao[this.i].y) && posMouseY<(this.comandoPosicao[this.i].y+27+12)){
-											this.menosOver=true;	
-										}
-									}else{
-										if(posMouseX>(this.comandoPosicao[this.i].x+51) && posMouseX<(this.comandoPosicao[this.i].x+51+12) && posMouseY>(this.comandoPosicao[this.i].y) && posMouseY<(this.comandoPosicao[this.i].y+12)){
-											this.maisOver=true;   
-										}else if(posMouseX>(this.comandoPosicao[this.i].x+51) && posMouseX<(this.comandoPosicao[this.i].x+51+12) && posMouseY>(this.comandoPosicao[this.i].y) && posMouseY<(this.comandoPosicao[this.i].y+27+12)){
-											this.menosOver=true;	
-										}	 
-									}
-									this.updateLoop=this.cont;
-									this.updateLoopId=this.cont2;
-								}
-							}
-						//ESSA PARTE É PRA VER SE ALGUEM TÁ COLOCANDO O COMANDO DENTRO DO LOOP
-						//ACHO QUE É ISSO MESMO, ALI NO ADDCOMANDO ELE VAI VERIFICAR ESSS COISAS
-						}else if(this.comando[this.i]=="Loop"){
-							this.insideLoop=true;
-							this.highlightLoop.x=this.comandoPosicao[this.i].x;
-							this.highlightLoop.y=this.comandoPosicao[this.i].y;
-						}else if(this.comando[this.i].substring(0,4)=="Loop"){
-							this.multipleLoop=true;
-							this.highlightLoop.x=this.comandoPosicao[this.i].x;
-							this.highlightLoop.y=this.comandoPosicao[this.i].y;
-						}
-					}
-				}
-			}
-			//Aqui é o código mais maluco que eu já fiz
-			//responsável por mostrar na tela o programa
-			//que o usuário fez executando
-			if(this.executaComando){
-				//Enquanto o indice for menor que os comandos 
-				//executados, continua executando o programa
-				if(this.indice<this.comando.length){
-					//O ponto atual do personagem vai ficar vazio novamente
-					this.pontos[this.pontoX].j[this.pontoY].status="Vazio";
-					//O highlight vai ficar em cima do comando sendo executado
-					this.highlightCom.x=this.comandoPosicao[this.indice+this.comAtualLoop[this.indice]].x;
-					this.highlightCom.y=this.comandoPosicao[this.indice+this.comAtualLoop[this.indice]].y;
-					//A animação do personagem deve ser na direção que o comando indica
-					this.personagem.animaWalk(this.comando[this.indice+this.comAtualLoop[this.indice]]);
-					//Essa partezinha prepara o ponto, pra verificar
-					//se é possível ir para o próximo quadrado, caso contrário
-					//ele vai fazer a animação mas vai ficar paradinho
-					if(this.preparaPontos){
-						if(this.comando[this.indice+this.comAtualLoop[this.indice]]=="Left" || this.comando[this.indice+this.comAtualLoop[this.indice]]=="LoopLeft"){
-							if(this.pontoX-1>=0 && this.pontos[this.pontoX-1].j[this.pontoY].status=="Vazio")this.pontoX--;
-							else this.andaParado=true;
-						}else if(this.comando[this.indice+this.comAtualLoop[this.indice]]=="Right" || this.comando[this.indice+this.comAtualLoop[this.indice]]=="LoopRight"){
-							if(this.pontoX+1<this.pontos.length && this.pontos[this.pontoX+1].j[this.pontoY].status=="Vazio")this.pontoX++;
-							else this.andaParado=true;
-						}else if(this.comando[this.indice+this.comAtualLoop[this.indice]]=="Up" || this.comando[this.indice+this.comAtualLoop[this.indice]]=="LoopUp"){
-							if(this.pontoY-1>=0 && this.pontos[this.pontoX].j[this.pontoY-1].status=="Vazio")this.pontoY--;
-							else this.andaParado=true;
-						}else if(this.comando[this.indice+this.comAtualLoop[this.indice]]=="Down" || this.comando[this.indice+this.comAtualLoop[this.indice]]=="LoopDown"){
-							if(this.pontoY+1<this.pontos[0].j.length && this.pontos[this.pontoX].j[this.pontoY+1].status=="Vazio")this.pontoY++;
-							else this.andaParado=true;
-						}
-						this.preparaPontos=false;
-					}else{
-						//Depois de preparar os pontos vem pra cá
-						//ele repete quantas vezes precisar cada comando (pros casos de Loop)
-						if(this.quantidade[this.indice]>0){
-							if(this.andaParado){
-								//Se é um caminho impossível ele anda parado
-								//por um tempinho heheheheh
-								this.contAnda++;
-							}else{
-								//Se é um caminho possível ele anda em uma velocidade até
-								//chegar à posição x e y do quadradinho
-								if(this.personagem.x>(this.pontos[this.pontoX].j[this.pontoY].x-(this.personagem.width/2))+1){
-									this.personagem.x-=this.velocidadeX;
-								}else if(this.personagem.x<(this.pontos[this.pontoX].j[this.pontoY].x-(this.personagem.width/2))-1){
-									this.personagem.x+=this.velocidadeX;
-								}else this.xOk=true;
-								if(this.personagem.y>(this.pontos[this.pontoX].j[this.pontoY].y-this.personagem.height)){
-									this.personagem.y-=this.velocidadeY;
-								}else if(this.personagem.y<(this.pontos[this.pontoX].j[this.pontoY].y-this.personagem.height)-1){
-									this.personagem.y+=this.velocidadeY;
-								}else this.yOk=true;
-							}
-							//Se chegou no x e y certinho ou andou parado até 40, então faz as verificações finais
-							if((this.xOk && this.yOk) || this.contAnda>40){
-								//AQUI VERIFICA SE GANHOU OU NÃO
-								if(this.pontoX==this.pontoFinalX && this.pontoY==this.pontoFinalY){
-									if((this.indice+this.comTotalLoop[this.indice])==this.comando.length-1 && this.quantidade[this.indice]<=1){
-										//Muda o quadrado pra verde se ganhou
-										this.square.src="img/Programacao/GreenSquare.png";
-										this.ganhou=true;
-									//Muda o quadrado pra verde se passou por cima
-									//mas não parou no lugar certo
-									}else this.square.src="img/Programacao/YellowSquare.png";
-								//Muda pra azul que é o normal se não conseguiu
-								}else this.square.src="img/Programacao/OrangeSquare.png";
-								//Zera tudo pra próxuma vez----
-								this.contAnda=0;
-								this.andaParado=false;
-								this.xOk=false;
-								this.yOk=false;
-								this.preparaPontos=true;
-								this.comAtualLoop[this.indice]++;
-								//comAtual é dentro do lop qual comando está sendo executado - quando executam
-								//tds dentro do loop, aí sim que diminue a "quantidade"
-								if(this.comAtualLoop[this.indice]>this.comTotalLoop[this.indice]){
-									this.comAtualLoop[this.indice]=0;									
-									this.quantidade[this.indice]--;
-									//pra mostrar bonitinho tbm na tela
-									this.quantidade[this.indice+this.comTotalLoop[this.indice]]=this.quantidade[this.indice];
-								}
-								//quando passar por tds as "quantidades" aí tem que diminuir do indice
-								//os comandos que estavam dentro do loop
-								//caraca que coisa complexa e maneira
-								if(this.quantidade[this.indice]<=0){
-									this.indice+=this.comTotalLoop[this.indice]+1;
-								}
-							}
-						}
-					}
+					this.isWalkingRight=false;
+				}else if(posMouseX>this.rectComDown.x && posMouseX<(this.rectComDown.x + this.rectComDown.width) && posMouseY>this.rectComDown.y && posMouseY<(this.rectComDown.y + this.rectComDown.height)){
+					this.isWalkingRight=false;				
+					this.isWalkingLeft=false;
+					this.isWalkingDown=true;
+					this.isWalkingUp=false;
+				}else if(posMouseX>this.rectComRight.x && posMouseX<(this.rectComRight.x + this.rectComRight.width) && posMouseY>this.rectComRight.y && posMouseY<(this.rectComRight.y + this.rectComRight.height)){
+					this.isWalkingLeft=false;
+					this.isWalkingRight=true;
+					this.isWalkingDown=false;
+					this.isWalkingUp=false;
+				}else if(posMouseX>this.rectComLeft.x && posMouseX<(this.rectComLeft.x + this.rectComLeft.width) && posMouseY>this.rectComLeft.y && posMouseY<(this.rectComLeft.y + this.rectComLeft.height)){
+					this.isWalkingUp=false;
+					this.isWalkingRight=false;
+					this.isWalkingDown=false;
+					this.isWalkingLeft=true;
 				}else{
-					//Quando acabou de passar por todos os comandos
-					//diz que não está mais executando, volta pro indice 0
-					//e zera outras maluquices ali tbm
-					this.executaComando=false;
-					this.personagem.animaParado(this.comando[this.comando.length-1]);
-						this.indice=0;
-					for(this.i=0;this.i<this.comando.length;this.i++){
-						this.comAtualLoop[this.i]=0;	
-						//isso aqui é pq quando termina tem que colocar o valor
-						//que tava antes de volta :0
-						this.quantidade[this.i]=this.quantidadeTotal[this.i];
+					//Essa é a parte que faz o bonequinho de demonstração parar quando o mouse não está mais em cima
+					//dos comandos
+					if(this.isWalkingLeft){
+						this.isWalkingLeft=false;
+						this.demo.animaParado("Left");
+					}else if(this.isWalkingRight){
+						this.isWalkingRight=false;
+						this.demo.animaParado("Right");
+					}else if(this.isWalkingUp){
+						this.isWalkingUp=false;
+						this.demo.animaParado("Up");
+					}else if(this.isWalkingDown){
+						this.isWalkingDown=false;
+						this.demo.animaParado("Down");
 					}
-					//o highlight sai da tela, bom, deveria voltar
-					//não entendi esse if aqui, pq será que fiz isso?
-					if(this.indice>0)this.highlightCom.x=this.comandoPosicao[this.indice-1].x;
-					this.highlightCom.x=1000;
-				}	
+					this.isWalkingLeft=false;
+					this.isWalkingUp=false;
+					this.isWalkingRight=false;
+					this.isWalkingDown=false;
+					this.demo.x=645;
+					this.demo.y=425;
+				}
+				//Aqui reinicia as variáveis que verificam se o mouse
+				//está passando por cima de algum comando para esconder
+				//o botão de excluir o comando
+				this.excluiComando=-1;
+				this.botaoExclui.x=1000;
+				//Caso o mouse esteja clicado e esteja segurando algum comando (variável follow)
+				//então essa parte faz o comando seguir o mouse
+				if(this.follow=="Up"){
+					this.comUp.x+=posMouseX-this.mouseAntX;
+					this.comUp.y+=posMouseY-this.mouseAntY;
+					this.mouseAntX=posMouseX;
+					this.mouseAntY=posMouseY;
+				}else if(this.follow=="Down"){
+					this.comDown.x+=posMouseX-this.mouseAntX;
+					this.comDown.y+=posMouseY-this.mouseAntY;
+					this.mouseAntX=posMouseX;
+					this.mouseAntY=posMouseY;
+				}else if(this.follow=="Left"){
+					this.comLeft.x+=posMouseX-this.mouseAntX;
+					this.comLeft.y+=posMouseY-this.mouseAntY;
+					this.mouseAntX=posMouseX;
+					this.mouseAntY=posMouseY;
+				}else if(this.follow=="Right"){
+					this.comRight.x+=posMouseX-this.mouseAntX;
+					this.comRight.y+=posMouseY-this.mouseAntY;
+					this.mouseAntX=posMouseX;
+					this.mouseAntY=posMouseY;
+				}else if(this.fase>7 && this.follow=="Loop"){
+					this.comLoop.x+=posMouseX-this.mouseAntX;
+					this.comLoop.y+=posMouseY-this.mouseAntY;
+					this.mouseAntX=posMouseX;
+					this.mouseAntY=posMouseY;
+				}else{
+					//caso nenhum comando esteja seguindo o mouse, todos voltam pro lugar de origem
+					this.comUp.x=this.rectComUp.x;
+					this.comUp.y=this.rectComUp.y;
+					this.comDown.x=this.rectComDown.x;
+					this.comDown.y=this.rectComDown.y;
+					this.comLeft.x=this.rectComLeft.x;
+					this.comLeft.y=this.rectComLeft.y;
+					this.comRight.x=this.rectComRight.x;
+					this.comRight.y=this.rectComRight.y;
+					if(this.fase>7){				
+						this.comLoop.x=this.rectComLoop.x;
+						this.comLoop.y=this.rectComLoop.y;
+					}
+				}
+				//Aqui começam as verificações das coisas que podem acontecer enquanto não está
+				//sendo executado nenhum programa
+				this.insideLoop=false;
+				this.maisOver=false;
+				this.menosOver=false;
+				if(!this.executaComando){
+					for(this.i=this.indice;this.i<this.comandoPosicao.length;this.i++){
+						if(posMouseX>this.comandoPosicao[this.i].x && posMouseX<this.comandoPosicao[this.i].x+this.comandoPosicao[this.i].width && posMouseY>this.comandoPosicao[this.i].y && posMouseY<this.comandoPosicao[this.i].y+this.comandoPosicao[this.i].height){
+							//Caso o mouse passar por algum comando, essa
+							//variável vai confirmar qual é o comando que
+							//o mouse está por cima
+							this.excluiComando=this.i;
+							if(this.follow=="none"){
+								//Aqui faz o botão excluir ser posicionado em cima do comando
+								this.botaoExclui.x=this.comandoPosicao[this.i].x;
+								this.botaoExclui.y=this.comandoPosicao[this.i].y;
+								if(this.fase>7 && this.comando[this.i].substring(0,4)=="Loop"){
+									this.cont=this.i;
+									this.cont2=this.i;
+									if(this.comTotalLoop[this.i]==20000 || this.comTotalLoop[this.i]==0){
+										if(this.comTotalLoop[this.i]==20000){
+											this.cont2--;
+											while(this.cont2>0 && this.comTotalLoop[this.cont2]==10000){
+												this.cont2--;
+											}
+											if(posMouseX>(this.comandoPosicao[this.i].x+51) && posMouseX<(this.comandoPosicao[this.i].x+51+12) && posMouseY>(this.comandoPosicao[this.i].y) && posMouseY<(this.comandoPosicao[this.i].y+12)){
+												this.maisOver=true;   
+											}else if(posMouseX>(this.comandoPosicao[this.i].x+51) && posMouseX<(this.comandoPosicao[this.i].x+51+12) && posMouseY>(this.comandoPosicao[this.i].y) && posMouseY<(this.comandoPosicao[this.i].y+27+12)){
+												this.menosOver=true;	
+											}
+										}else{
+											if(posMouseX>(this.comandoPosicao[this.i].x+51) && posMouseX<(this.comandoPosicao[this.i].x+51+12) && posMouseY>(this.comandoPosicao[this.i].y) && posMouseY<(this.comandoPosicao[this.i].y+12)){
+												this.maisOver=true;   
+											}else if(posMouseX>(this.comandoPosicao[this.i].x+51) && posMouseX<(this.comandoPosicao[this.i].x+51+12) && posMouseY>(this.comandoPosicao[this.i].y) && posMouseY<(this.comandoPosicao[this.i].y+27+12)){
+												this.menosOver=true;	
+											}	 
+										}
+										this.updateLoop=this.cont;
+										this.updateLoopId=this.cont2;
+									}
+								}
+							//ESSA PARTE É PRA VER SE ALGUEM TÁ COLOCANDO O COMANDO DENTRO DO LOOP
+							//ACHO QUE É ISSO MESMO, ALI NO ADDCOMANDO ELE VAI VERIFICAR ESSS COISAS
+							}else if(this.comando[this.i]=="Loop"){
+								this.insideLoop=true;
+								this.highlightLoop.x=this.comandoPosicao[this.i].x;
+								this.highlightLoop.y=this.comandoPosicao[this.i].y;
+							}else if(this.comando[this.i].substring(0,4)=="Loop"){
+								this.multipleLoop=true;
+								this.highlightLoop.x=this.comandoPosicao[this.i].x;
+								this.highlightLoop.y=this.comandoPosicao[this.i].y;
+							}
+						}
+					}
+				}
+				//Aqui é o código mais maluco que eu já fiz
+				//responsável por mostrar na tela o programa
+				//que o usuário fez executando
+				if(this.executaComando){
+					//Enquanto o indice for menor que os comandos 
+					//executados, continua executando o programa
+					if(this.indice<this.comando.length){
+						//O ponto atual do personagem vai ficar vazio novamente
+						this.pontos[this.pontoX].j[this.pontoY].status="Vazio";
+						//O highlight vai ficar em cima do comando sendo executado
+						this.highlightCom.x=this.comandoPosicao[this.indice+this.comAtualLoop[this.indice]].x;
+						this.highlightCom.y=this.comandoPosicao[this.indice+this.comAtualLoop[this.indice]].y;
+						//A animação do personagem deve ser na direção que o comando indica
+						this.personagem.animaWalk(this.comando[this.indice+this.comAtualLoop[this.indice]]);
+						//Essa partezinha prepara o ponto, pra verificar
+						//se é possível ir para o próximo quadrado, caso contrário
+						//ele vai fazer a animação mas vai ficar paradinho
+						if(this.preparaPontos){
+							if(this.comando[this.indice+this.comAtualLoop[this.indice]]=="Left" || this.comando[this.indice+this.comAtualLoop[this.indice]]=="LoopLeft"){
+								if(this.pontoX-1>=0 && this.pontos[this.pontoX-1].j[this.pontoY].status=="Vazio")this.pontoX--;
+								else this.andaParado=true;
+							}else if(this.comando[this.indice+this.comAtualLoop[this.indice]]=="Right" || this.comando[this.indice+this.comAtualLoop[this.indice]]=="LoopRight"){
+								if(this.pontoX+1<this.pontos.length && this.pontos[this.pontoX+1].j[this.pontoY].status=="Vazio")this.pontoX++;
+								else this.andaParado=true;
+							}else if(this.comando[this.indice+this.comAtualLoop[this.indice]]=="Up" || this.comando[this.indice+this.comAtualLoop[this.indice]]=="LoopUp"){
+								if(this.pontoY-1>=0 && this.pontos[this.pontoX].j[this.pontoY-1].status=="Vazio")this.pontoY--;
+								else this.andaParado=true;
+							}else if(this.comando[this.indice+this.comAtualLoop[this.indice]]=="Down" || this.comando[this.indice+this.comAtualLoop[this.indice]]=="LoopDown"){
+								if(this.pontoY+1<this.pontos[0].j.length && this.pontos[this.pontoX].j[this.pontoY+1].status=="Vazio")this.pontoY++;
+								else this.andaParado=true;
+							}
+							this.preparaPontos=false;
+						}else{
+							//Depois de preparar os pontos vem pra cá
+							//ele repete quantas vezes precisar cada comando (pros casos de Loop)
+							if(this.quantidade[this.indice]>0){
+								if(this.andaParado){
+									//Se é um caminho impossível ele anda parado
+									//por um tempinho heheheheh
+									this.contAnda++;
+								}else{
+									//Se é um caminho possível ele anda em uma velocidade até
+									//chegar à posição x e y do quadradinho
+									if(this.personagem.x>(this.pontos[this.pontoX].j[this.pontoY].x-(this.personagem.width/2))+1){
+										this.personagem.x-=this.velocidadeX;
+									}else if(this.personagem.x<(this.pontos[this.pontoX].j[this.pontoY].x-(this.personagem.width/2))-1){
+										this.personagem.x+=this.velocidadeX;
+									}else this.xOk=true;
+									if(this.personagem.y>(this.pontos[this.pontoX].j[this.pontoY].y-this.personagem.height)){
+										this.personagem.y-=this.velocidadeY;
+									}else if(this.personagem.y<(this.pontos[this.pontoX].j[this.pontoY].y-this.personagem.height)-1){
+										this.personagem.y+=this.velocidadeY;
+									}else this.yOk=true;
+								}
+								//Se chegou no x e y certinho ou andou parado até 40, então faz as verificações finais
+								if((this.xOk && this.yOk) || this.contAnda>40){
+									//AQUI VERIFICA SE GANHOU OU NÃO
+									if(this.pontoX==this.pontoFinalX && this.pontoY==this.pontoFinalY){
+										if((this.indice+this.comTotalLoop[this.indice])==this.comando.length-1 && this.quantidade[this.indice]<=1){
+											//Muda o quadrado pra verde se ganhou
+											this.square.src="img/Programacao/GreenSquare.png";
+											this.ganhou=true;
+										//Muda o quadrado pra verde se passou por cima
+										//mas não parou no lugar certo
+										}else this.square.src="img/Programacao/YellowSquare.png";
+									//Muda pra azul que é o normal se não conseguiu
+									}else this.square.src="img/Programacao/OrangeSquare.png";
+									//Zera tudo pra próxuma vez----
+									this.contAnda=0;
+									this.andaParado=false;
+									this.xOk=false;
+									this.yOk=false;
+									this.preparaPontos=true;
+									this.comAtualLoop[this.indice]++;
+									//comAtual é dentro do lop qual comando está sendo executado - quando executam
+									//tds dentro do loop, aí sim que diminue a "quantidade"
+									if(this.comAtualLoop[this.indice]>this.comTotalLoop[this.indice]){
+										this.comAtualLoop[this.indice]=0;									
+										this.quantidade[this.indice]--;
+										//pra mostrar bonitinho tbm na tela
+										this.quantidade[this.indice+this.comTotalLoop[this.indice]]=this.quantidade[this.indice];
+									}
+									//quando passar por tds as "quantidades" aí tem que diminuir do indice
+									//os comandos que estavam dentro do loop
+									//caraca que coisa complexa e maneira
+									if(this.quantidade[this.indice]<=0){
+										this.indice+=this.comTotalLoop[this.indice]+1;
+									}
+								}
+							}
+						}
+					}else{
+						//Quando acabou de passar por todos os comandos
+						//diz que não está mais executando, volta pro indice 0
+						//e zera outras maluquices ali tbm
+						this.executaComando=false;
+						this.personagem.animaParado(this.comando[this.comando.length-1]);
+							this.indice=0;
+						for(this.i=0;this.i<this.comando.length;this.i++){
+							this.comAtualLoop[this.i]=0;	
+							//isso aqui é pq quando termina tem que colocar o valor
+							//que tava antes de volta :0
+							this.quantidade[this.i]=this.quantidadeTotal[this.i];
+						}
+						//o highlight sai da tela, bom, deveria voltar
+						//não entendi esse if aqui, pq será que fiz isso?
+						if(this.indice>0)this.highlightCom.x=this.comandoPosicao[this.indice-1].x;
+						this.highlightCom.x=1000;
+					}	
+				}
 			}
 		}
 
@@ -716,87 +720,129 @@ Programacao.prototype.Draw = function(){
 		}
 		context.drawImage(this.demo.imagem, this.demo.x, this.demo.y);
 
-		context.fillText("Tempo: " + Math.round(this.tempo),10,40);
+				
+		if(this.fase==8 || this.fase==9){
+			context.font="24px Georgia";
+			context.fillText("Tempo: " + Math.round(this.tempo),10,40);
+			context.fillStyle="#556270";
+			context.fillText("Comandos: " + this.contInstrucoes,140,40);
+			context.fillStyle="#4ECDC4";
+			context.fillText("Deletados: " + this.contApagouIndiv,290,40);
+			context.fillStyle="#C7F464";
+			context.fillText("Excluiu todos: " + this.contApagouAll,430,40);
+			context.fillStyle="#FF6B6B";
+			context.fillText("Play: " + this.contPlay,600,40);
+			context.fillStyle="#C44D58";
+			context.fillText("Loops: " + this.contLoop,700,40);
+			context.fillStyle="black";
+			context.fillText("Comandos em Loop: " + this.contInstrLoop,565,80);
+		}else{
+			context.font="28px Georgia";
+			context.fillText("Tempo: " + Math.round(this.tempo),10,40);
+			context.fillStyle="#FF003C";
+			context.fillText("Comandos: " + this.contInstrucoes,160,40);
+			context.fillStyle="#FF8A00";
+			context.fillText("Deletados: " + this.contApagouIndiv,340,40);
+			context.fillStyle="#FABE28";
+			context.fillText("Excluiu todos: " + this.contApagouAll,500,40);
+			context.fillStyle="#88C100";
+			context.fillText("Play: " + this.contPlay,710,40)
+		}
+		context.fillStyle="black";
+		context.font="30px Georgia";
 		context.fillText("" + this.trace,150,70);
 		context.fillText(" " + this.msgErro ,160,40);
+		if(this.pulou){
+			context.drawImage(this.imgPular.img, 0, 0, 800, 600);
+		}
 	}
 }
 
 Programacao.prototype.MouseDown = function(mouseEvent) {	
-	//Para verificar se está clicando em um comando e poder levar ele pro programa
-	if(posMouseX>this.rectComUp.x && posMouseX<(this.rectComUp.x + this.rectComUp.width) && posMouseY>this.rectComUp.y && posMouseY<(this.rectComUp.y + this.rectComUp.height)){
-		this.mouseAntX=posMouseX;
-		this.mouseAntY=posMouseY;
-		this.follow="Up";
-	}else if(posMouseX>this.rectComDown.x && posMouseX<(this.rectComDown.x + this.rectComDown.width) && posMouseY>this.rectComDown.y && posMouseY<(this.rectComDown.y + this.rectComDown.height)){
-		this.mouseAntX=posMouseX;
-		this.mouseAntY=posMouseY;
-		this.follow="Down";
-	}else if(posMouseX>this.rectComRight.x && posMouseX<(this.rectComRight.x + this.rectComRight.width) && posMouseY>this.rectComRight.y && posMouseY<(this.rectComRight.y + this.rectComRight.height)){
-		this.mouseAntX=posMouseX;
-		this.mouseAntY=posMouseY;
-		this.follow="Right";
-	}else if(posMouseX>this.rectComLeft.x && posMouseX<(this.rectComLeft.x + this.rectComLeft.width) && posMouseY>this.rectComLeft.y && posMouseY<(this.rectComLeft.y + this.rectComLeft.height)){
-		this.mouseAntX=posMouseX;
-		this.mouseAntY=posMouseY;
-		this.follow="Left";
-	}else if(this.fase>7 && posMouseX>this.rectComLoop.x && posMouseX<(this.rectComLoop.x + this.rectComLoop.width) && posMouseY>this.rectComLoop.y && posMouseY<(this.rectComLoop.y + this.rectComLoop.height)){
-		this.mouseAntX=posMouseX;
-		this.mouseAntY=posMouseY;
-		this.follow="Loop";
+	if(!this.pulou){
+		//Para verificar se está clicando em um comando e poder levar ele pro programa
+		if(posMouseX>this.rectComUp.x && posMouseX<(this.rectComUp.x + this.rectComUp.width) && posMouseY>this.rectComUp.y && posMouseY<(this.rectComUp.y + this.rectComUp.height)){
+			this.mouseAntX=posMouseX;
+			this.mouseAntY=posMouseY;
+			this.follow="Up";
+		}else if(posMouseX>this.rectComDown.x && posMouseX<(this.rectComDown.x + this.rectComDown.width) && posMouseY>this.rectComDown.y && posMouseY<(this.rectComDown.y + this.rectComDown.height)){
+			this.mouseAntX=posMouseX;
+			this.mouseAntY=posMouseY;
+			this.follow="Down";
+		}else if(posMouseX>this.rectComRight.x && posMouseX<(this.rectComRight.x + this.rectComRight.width) && posMouseY>this.rectComRight.y && posMouseY<(this.rectComRight.y + this.rectComRight.height)){
+			this.mouseAntX=posMouseX;
+			this.mouseAntY=posMouseY;
+			this.follow="Right";
+		}else if(posMouseX>this.rectComLeft.x && posMouseX<(this.rectComLeft.x + this.rectComLeft.width) && posMouseY>this.rectComLeft.y && posMouseY<(this.rectComLeft.y + this.rectComLeft.height)){
+			this.mouseAntX=posMouseX;
+			this.mouseAntY=posMouseY;
+			this.follow="Left";
+		}else if(this.fase>7 && posMouseX>this.rectComLoop.x && posMouseX<(this.rectComLoop.x + this.rectComLoop.width) && posMouseY>this.rectComLoop.y && posMouseY<(this.rectComLoop.y + this.rectComLoop.height)){
+			this.mouseAntX=posMouseX;
+			this.mouseAntY=posMouseY;
+			this.follow="Loop";
+		}
 	}
 }
 
 Programacao.prototype.MouseUp = function(mouseEvent) {
-	if(!this.executaComando){
-		if(!this.ganhou){
-			//Se apertar no botão play
-			if(posMouseX>this.botaoPlay.x && posMouseX<(this.botaoPlay.x + this.botaoPlay.width) && posMouseY>this.botaoPlay.y && posMouseY<(this.botaoPlay.y + this.botaoPlay.height)){
-				
-				this.loopVazio=false;
-				for(this.i=0;this.i<this.comando.length;this.i++){
-					if(this.comando[this.i]=="Loop")this.loopVazio=true;
-				}
-				if(this.loopVazio){
+	if(!this.pulou){
+		if(!this.executaComando){
+			if(!this.ganhou){
+				//Se apertar no botão play
+				if(posMouseX>this.botaoPlay.x && posMouseX<(this.botaoPlay.x + this.botaoPlay.width) && posMouseY>this.botaoPlay.y && posMouseY<(this.botaoPlay.y + this.botaoPlay.height)){
+
 					this.loopVazio=false;
-					this.msgErro="Você não pode executar um laço de repetição vazio.";
-				}else{
-					this.executaComando=true;
-					this.contPlay++;
+					for(this.i=0;this.i<this.comando.length;this.i++){
+						if(this.comando[this.i]=="Loop")this.loopVazio=true;
+					}
+					if(this.loopVazio){
+						this.loopVazio=false;
+						this.msgErro="Você não pode executar um laço de repetição vazio.";
+					}else if(this.comando.length>0){
+						this.executaComando=true;
+						this.contPlay++;
+					}
+				//Se apagar todos
+				}else if(posMouseX>this.botaoExcluiTudo.x && posMouseX<(this.botaoExcluiTudo.x + this.botaoExcluiTudo.width) && posMouseY>this.botaoExcluiTudo.y && posMouseY<(this.botaoExcluiTudo.y + this.botaoExcluiTudo.height) && this.comando.length>0){
+					this.contApagouAll++;			
+					this.RemoveTudo();
 				}
-			//Se apagar todos
-			}else if(posMouseX>this.botaoExcluiTudo.x && posMouseX<(this.botaoExcluiTudo.x + this.botaoExcluiTudo.width) && posMouseY>this.botaoExcluiTudo.y && posMouseY<(this.botaoExcluiTudo.y + this.botaoExcluiTudo.height)){
-				this.contApagouAll++;			
-				this.RemoveTudo();
-			}
-			//Apagar um comando individual
-			if(posMouseX>this.botaoExclui.x && posMouseX<(this.botaoExclui.x + this.botaoExclui.width) && posMouseY>this.botaoExclui.y && posMouseY<(this.botaoExclui.y + this.botaoExclui.height)){
-				this.removeUltimo=true;
-				this.contApagouIndiv++;
-			}
-			//Aumentar as repetições
-			if(this.maisOver || this.menosOver){
-				if(this.maisOver)this.quantidade[this.excluiComando]++;
-				else if(this.quantidade[this.excluiComando]>1)this.quantidade[this.excluiComando]--;
-				this.quantidadeTotal[this.excluiComando]=this.quantidade[this.excluiComando];
-				while(this.comTotalLoop[this.excluiComando]>=10000){
-					this.excluiComando--;
+				//Apagar um comando individual
+				if(posMouseX>this.botaoExclui.x && posMouseX<(this.botaoExclui.x + this.botaoExclui.width) && posMouseY>this.botaoExclui.y && posMouseY<(this.botaoExclui.y + this.botaoExclui.height)){
+					this.removeUltimo=true;
+					this.contApagouIndiv++;
+				}
+				//Aumentar as repetições
+				if(this.maisOver || this.menosOver){
 					if(this.maisOver)this.quantidade[this.excluiComando]++;
 					else if(this.quantidade[this.excluiComando]>1)this.quantidade[this.excluiComando]--;
 					this.quantidadeTotal[this.excluiComando]=this.quantidade[this.excluiComando];
+					while(this.comTotalLoop[this.excluiComando]>=10000){
+						this.excluiComando--;
+						if(this.maisOver)this.quantidade[this.excluiComando]++;
+						else if(this.quantidade[this.excluiComando]>1)this.quantidade[this.excluiComando]--;
+						this.quantidadeTotal[this.excluiComando]=this.quantidade[this.excluiComando];
+					}
+
 				}
-				
-			}
-			//Verificar se soltou um comando no programa
-			if(posMouseX>this.novaInter.x && posMouseX<(this.novaInter.x + 520) && posMouseY>this.novaInter.y && posMouseY<(this.novaInter.y + 200)){
-				if(this.follow!="none")this.AddComando(this.follow);
-			}
-			//Pular a fase
-			if(this.tempo>=60){
-				if(posMouseX>this.botaoPular.x && posMouseX<(this.botaoPular.x + this.botaoPular.width) && posMouseY>this.botaoPular.y && posMouseY<(this.botaoPular.y + this.botaoPular.height)){
-					this.pulou=true;
+				//Verificar se soltou um comando no programa
+				if(posMouseX>this.novaInter.x && posMouseX<(this.novaInter.x + 520) && posMouseY>this.novaInter.y && posMouseY<(this.novaInter.y + 200)){
+					if(this.follow!="none")this.AddComando(this.follow);
+				}
+				//Pular a fase
+				if(this.tempo>=60){
+					if(posMouseX>this.botaoPular.x && posMouseX<(this.botaoPular.x + this.botaoPular.width) && posMouseY>this.botaoPular.y && posMouseY<(this.botaoPular.y + this.botaoPular.height)){
+						this.pulou=true;
+					}
 				}
 			}
+		}
+	}else{
+		if(posMouseX>455 && posMouseX<590 && posMouseY>365 && posMouseY<445){
+			this.pulou=false;
+		}else if(posMouseX>210 && posMouseX<340 && posMouseY>365 && posMouseY<445){
+			this.ativo=false;
 		}
 	}
 	this.follow="none";

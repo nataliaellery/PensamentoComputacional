@@ -9,6 +9,7 @@ var Match = function (fase) {
 	else if(this.fase==6)this.fundo.src = "img/Match/FundoMatch6.png";
 	this.ativo=true;
 	this.pulou=false;
+	this.imgPular= new Imagem(1000,560,0,0,"img/TelaConfirma.png");
 	this.ganhou=false;
 	this.tempo=0;
 	this.contTempo=0;
@@ -29,6 +30,11 @@ var Match = function (fase) {
 	this.trace="";
 	this.msg="";
 	this.dicaAtual=-1;
+	//Dados para coletar//
+	this.cliques=0;
+	this.contDicas=0;
+	this.giros=0;
+	//-------------------//
 	if(this.fase==1){
 		//easy
 		this.dicaRotacao=new Array(0,2,4,6);
@@ -307,54 +313,56 @@ Match.prototype.Draw = function(){
 		context.restore();
 	}
 	
-	//Aqui faz as peças clicadas seguirem o mouse
-	if(this.follow!=-1){
-		//this.trace="x:"+this.figs[this.follow].x+"-y:"+this.figs[this.follow].y;
-		if(this.fase==1){
-			if(this.rotacoes[this.follow]==0){
-				this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/10*7);
-				this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/10*5);		
-			}else if(this.rotacoes[this.follow]==2){
-				this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/10*5);
-				this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/10*7);		
-			}else if(this.rotacoes[this.follow]==4){
-				this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/10*3);
-				this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/10*5);		
-			}else if(this.rotacoes[this.follow]==6){
-				this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/10*5);
-				this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/10*3);		
+	if(!this.pulou){
+		//Aqui faz as peças clicadas seguirem o mouse
+		if(this.follow!=-1){
+			//this.trace="x:"+this.figs[this.follow].x+"-y:"+this.figs[this.follow].y;
+			if(this.fase==1){
+				if(this.rotacoes[this.follow]==0){
+					this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/10*7);
+					this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/10*5);		
+				}else if(this.rotacoes[this.follow]==2){
+					this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/10*5);
+					this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/10*7);		
+				}else if(this.rotacoes[this.follow]==4){
+					this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/10*3);
+					this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/10*5);		
+				}else if(this.rotacoes[this.follow]==6){
+					this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/10*5);
+					this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/10*3);		
+				}
+			}else if(this.fase==2){
+				if(this.rotacoes[this.follow]==0){
+					this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/10*3);
+					this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/10*3);		
+				}else if(this.rotacoes[this.follow]==2){
+					this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/10*7);
+					this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/10*3);		
+				}else if(this.rotacoes[this.follow]==4){
+					this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/10*7);
+					this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/10*7);		
+				}else if(this.rotacoes[this.follow]==6){
+					this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/10*3);
+					this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/10*7);		
+				}
+			}else if(this.fase==4){
+				if(this.rotacoes[this.follow]==0){
+					this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/7*2);
+					this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/9*7);		
+				}else if(this.rotacoes[this.follow]==2){
+					this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/10*2);
+					this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/10*3);		
+				}else if(this.rotacoes[this.follow]==4){
+					this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/10*7);
+					this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/10*2);		
+				}else if(this.rotacoes[this.follow]==6){
+					this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/10*8);
+					this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/10*7);		
+				}
+			}else{
+				this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/2);
+				this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/2);
 			}
-		}else if(this.fase==2){
-			if(this.rotacoes[this.follow]==0){
-				this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/10*3);
-				this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/10*3);		
-			}else if(this.rotacoes[this.follow]==2){
-				this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/10*7);
-				this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/10*3);		
-			}else if(this.rotacoes[this.follow]==4){
-				this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/10*7);
-				this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/10*7);		
-			}else if(this.rotacoes[this.follow]==6){
-				this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/10*3);
-				this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/10*7);		
-			}
-		}else if(this.fase==4){
-			if(this.rotacoes[this.follow]==0){
-				this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/7*2);
-				this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/9*7);		
-			}else if(this.rotacoes[this.follow]==2){
-				this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/10*2);
-				this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/10*3);		
-			}else if(this.rotacoes[this.follow]==4){
-				this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/10*7);
-				this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/10*2);		
-			}else if(this.rotacoes[this.follow]==6){
-				this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/10*8);
-				this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/10*7);		
-			}
-		}else{
-			this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/2);
-			this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/2);
 		}
 	}
 	
@@ -370,131 +378,156 @@ Match.prototype.Draw = function(){
 	context.fillText("" + this.trace,150,70);
 	context.font="24px Georgia";
 	context.fillText("" + this.msg,420,40);
-	context.font="40px Georgia";
+	context.font="28px Georgia";
 	context.fillText("Tempo: " + Math.round(this.tempo),10,40);
+	context.fillStyle="#FF003C";
+	context.fillText("Cliques: " + this.cliques,160,40);
+	context.fillStyle="#FF8A00";
+	context.fillText("Giros: " + this.giros,320,40);
+	context.fillStyle="#FABE28";
+	context.fillText("Dicas: " + this.contDicas,470,40);
+	context.fillStyle="black";
+	context.font="40px Georgia";
+	if(this.pulou){
+		context.drawImage(this.imgPular.img, 0, 0, 800, 600);
+	}
 }
 
 Match.prototype.MouseDown = function(mouseEvent) {	
-	for(this.i=(this.figs.length-1);this.i>=0;this.i--){
-		if(!this.locked[this.i]){			
-			if(posMouseX>this.figs[this.i].x && posMouseX<this.figs[this.i].x+this.figs[this.i].width && posMouseY>this.figs[this.i].y && posMouseY<this.figs[this.i].y+this.figs[this.i].height){
-				//o que estiver selecionado vai pra frente da tela:
-				//gravei no aux//
-				this.aux=this.figs[this.figs.length-1];
-				this.auxR=this.rotacoes[this.rotacoes.length-1];
-				//o i recebe o ultimo//
-				this.figs[this.figs.length-1]=this.figs[this.i];
-				this.rotacoes[this.rotacoes.length-1]=this.rotacoes[this.i];
-				//o ultimo recebe o aux//
-				this.figs[this.i]=this.aux;
-				this.rotacoes[this.i]=this.auxR;
-				//o follow recebe o ultimo//
-				this.follow=this.figs.length-1;
-				this.selected=this.figs.length-1;
-				//arruma o negocio do selecionado//
-				if(this.fase==1){
-					for(this.j=0;this.j<this.figs.length;this.j++)this.figs[this.j].img.src="img/Match/Match1.png";
-					this.figs[this.follow].img.src="img/Match/MatchSel1.png";
-				}else if(this.fase==2){
-					for(this.j=0;this.j<this.figs.length;this.j++)this.figs[this.j].img.src="img/Match/Match2.png";
-					this.figs[this.follow].img.src="img/Match/MatchSel2.png";
-				}else if(this.fase==3){
-					for(this.j=0;this.j<this.figs.length;this.j++)this.figs[this.j].img.src="img/Match/Match3.png";
-					this.figs[this.follow].img.src="img/Match/MatchSel3.png";
-				}else if(this.fase==4){
-					for(this.j=0;this.j<this.figs.length;this.j++)this.figs[this.j].img.src="img/Match/Match4.png";
-					this.figs[this.follow].img.src="img/Match/MatchSel4.png";
-				}else if(this.fase==5){
-					for(this.j=0;this.j<this.figs.length;this.j++)this.figs[this.j].img.src="img/Match/Match5.png";
-					this.figs[this.follow].img.src="img/Match/MatchSel5.png";
-				}else if(this.fase==6){
-					for(this.j=0;this.j<this.figs.length;this.j++)this.figs[this.j].img.src="img/Match/Match6.png";
-					this.figs[this.follow].img.src="img/Match/MatchSel6.png";
+	if(!this.pulou){
+		for(this.i=(this.figs.length-1);this.i>=0;this.i--){
+			if(!this.locked[this.i]){			
+				if(posMouseX>this.figs[this.i].x && posMouseX<this.figs[this.i].x+this.figs[this.i].width && posMouseY>this.figs[this.i].y && posMouseY<this.figs[this.i].y+this.figs[this.i].height){
+					this.cliques++;
+					//o que estiver selecionado vai pra frente da tela:
+					//gravei no aux//
+					this.aux=this.figs[this.figs.length-1];
+					this.auxR=this.rotacoes[this.rotacoes.length-1];
+					//o i recebe o ultimo//
+					this.figs[this.figs.length-1]=this.figs[this.i];
+					this.rotacoes[this.rotacoes.length-1]=this.rotacoes[this.i];
+					//o ultimo recebe o aux//
+					this.figs[this.i]=this.aux;
+					this.rotacoes[this.i]=this.auxR;
+					//o follow recebe o ultimo//
+					this.follow=this.figs.length-1;
+					this.selected=this.figs.length-1;
+					//arruma o negocio do selecionado//
+					if(this.fase==1){
+						for(this.j=0;this.j<this.figs.length;this.j++)this.figs[this.j].img.src="img/Match/Match1.png";
+						this.figs[this.follow].img.src="img/Match/MatchSel1.png";
+					}else if(this.fase==2){
+						for(this.j=0;this.j<this.figs.length;this.j++)this.figs[this.j].img.src="img/Match/Match2.png";
+						this.figs[this.follow].img.src="img/Match/MatchSel2.png";
+					}else if(this.fase==3){
+						for(this.j=0;this.j<this.figs.length;this.j++)this.figs[this.j].img.src="img/Match/Match3.png";
+						this.figs[this.follow].img.src="img/Match/MatchSel3.png";
+					}else if(this.fase==4){
+						for(this.j=0;this.j<this.figs.length;this.j++)this.figs[this.j].img.src="img/Match/Match4.png";
+						this.figs[this.follow].img.src="img/Match/MatchSel4.png";
+					}else if(this.fase==5){
+						for(this.j=0;this.j<this.figs.length;this.j++)this.figs[this.j].img.src="img/Match/Match5.png";
+						this.figs[this.follow].img.src="img/Match/MatchSel5.png";
+					}else if(this.fase==6){
+						for(this.j=0;this.j<this.figs.length;this.j++)this.figs[this.j].img.src="img/Match/Match6.png";
+						this.figs[this.follow].img.src="img/Match/MatchSel6.png";
+					}
+					break;
 				}
-				break;
 			}
 		}
-	}
-	if(posMouseX>this.botaoRight.x && posMouseX<(this.botaoRight.x+this.botaoRight.width) && posMouseY>this.botaoRight.y && posMouseY<(this.botaoRight.y+this.botaoRight.height)){
-		
-	}else if(posMouseX>this.botaoLeft.x && posMouseX<this.botaoLeft.x+this.botaoLeft.width && posMouseY>this.botaoLeft.y && posMouseY<this.botaoLeft.y+this.botaoLeft.height){
-		
-	}else if(this.follow==-1){
-		this.selected=-1;
+		if(posMouseX>this.botaoRight.x && posMouseX<(this.botaoRight.x+this.botaoRight.width) && posMouseY>this.botaoRight.y && posMouseY<(this.botaoRight.y+this.botaoRight.height)){
+
+		}else if(posMouseX>this.botaoLeft.x && posMouseX<this.botaoLeft.x+this.botaoLeft.width && posMouseY>this.botaoLeft.y && posMouseY<this.botaoLeft.y+this.botaoLeft.height){
+
+		}else if(this.follow==-1){
+			this.selected=-1;
+		}
 	}
 }
 
 Match.prototype.MouseUp = function(mouseEvent) {
-	if(this.selected==-1){
-		if(this.fase==1)for(this.i=0;this.i<this.figs.length;this.i++)this.figs[this.i].img.src="img/Match/Match1.png";
-		else if(this.fase==2)for(this.i=0;this.i<this.figs.length;this.i++)this.figs[this.i].img.src="img/Match/Match2.png";
-		else if(this.fase==3)for(this.i=0;this.i<this.figs.length;this.i++)this.figs[this.i].img.src="img/Match/Match3.png";
-		else if(this.fase==4)for(this.i=0;this.i<this.figs.length;this.i++)this.figs[this.i].img.src="img/Match/Match4.png";
-		else if(this.fase==5)for(this.i=0;this.i<this.figs.length;this.i++)this.figs[this.i].img.src="img/Match/Match5.png";
-		else if(this.fase==6)for(this.i=0;this.i<this.figs.length;this.i++)this.figs[this.i].img.src="img/Match/Match6.png";
-		//Pular a fase
-		if(this.tempo>=60){
-			if(posMouseX>this.botaoPular.x && posMouseX<(this.botaoPular.x + this.botaoPular.width) && posMouseY>this.botaoPular.y && posMouseY<(this.botaoPular.y + this.botaoPular.height)){
-				this.pulou=true;
+	if(!this.pulou){
+		if(this.selected==-1){
+			if(this.fase==1)for(this.i=0;this.i<this.figs.length;this.i++)this.figs[this.i].img.src="img/Match/Match1.png";
+			else if(this.fase==2)for(this.i=0;this.i<this.figs.length;this.i++)this.figs[this.i].img.src="img/Match/Match2.png";
+			else if(this.fase==3)for(this.i=0;this.i<this.figs.length;this.i++)this.figs[this.i].img.src="img/Match/Match3.png";
+			else if(this.fase==4)for(this.i=0;this.i<this.figs.length;this.i++)this.figs[this.i].img.src="img/Match/Match4.png";
+			else if(this.fase==5)for(this.i=0;this.i<this.figs.length;this.i++)this.figs[this.i].img.src="img/Match/Match5.png";
+			else if(this.fase==6)for(this.i=0;this.i<this.figs.length;this.i++)this.figs[this.i].img.src="img/Match/Match6.png";
+			//Pular a fase
+			if(this.tempo>=60){
+				if(posMouseX>this.botaoPular.x && posMouseX<(this.botaoPular.x + this.botaoPular.width) && posMouseY>this.botaoPular.y && posMouseY<(this.botaoPular.y + this.botaoPular.height)){
+					this.pulou=true;
+				}
 			}
-		}
-		for(this.i=0;this.i<this.dicas;this.i++){
-			if(posMouseX>710-(this.i*60) && posMouseX<710-(this.i*60)+56 && posMouseY>20  && posMouseY<20+34){
-				this.dicas--;
-				this.haDicas=false;
+			for(this.i=0;this.i<this.dicas;this.i++){
+				if(posMouseX>710-(this.i*60) && posMouseX<710-(this.i*60)+56 && posMouseY>20  && posMouseY<20+34){
+					this.dicas--;
+					this.haDicas=false;
+					this.contDicas++;
 				for(this.j=0;this.j<this.dicaMostrada.length;this.j++){
-					if(!this.dicaMostrada[this.j]){
-						this.haDicas=true;
-						break;
+						if(!this.dicaMostrada[this.j]){
+							this.haDicas=true;
+							break;
+						}
+					}
+					if(this.haDicas){
+						this.MostraDica(this.j);	
+					}else{
+						this.dicas=0;
+						this.msg="Acabaram as dicas";
+					}
+					break;
+				}
+			}
+		}else{
+			if(!this.locked[this.selected]){
+				if(posMouseX>this.botaoRight.x && posMouseX<this.botaoRight.x+this.botaoRight.width && posMouseY>this.botaoRight.y && posMouseY<this.botaoRight.y+this.botaoRight.height){
+					this.giros++;
+					if(this.fase==3){
+						this.rotacoes[this.selected]++;
+						if(this.rotacoes[this.selected]>7)this.rotacoes[this.selected]=0;
+					}else if(this.fase==6){
+						this.rotacoes[this.selected]++;
+						if(this.rotacoes[this.selected]>16)this.rotacoes[this.selected]=8;
+					}else{
+						this.rotacoes[this.selected]+=2;
+						if(this.rotacoes[this.selected]>6)this.rotacoes[this.selected]=0;
+					}
+				}else if(posMouseX>this.botaoLeft.x && posMouseX<this.botaoLeft.x+this.botaoLeft.width && posMouseY>this.botaoLeft.y && posMouseY<this.botaoLeft.y+this.botaoLeft.height){
+					this.giros++;
+					if(this.fase==3){
+						this.rotacoes[this.selected]--;
+						if(this.rotacoes[this.selected]<0)this.rotacoes[this.selected]=7;
+					}else if(this.fase==6){
+						this.rotacoes[this.selected]--;
+						if(this.rotacoes[this.selected]<8)this.rotacoes[this.selected]=16;
+					}else{
+						this.rotacoes[this.selected]-=2;
+						if(this.rotacoes[this.selected]<0)this.rotacoes[this.selected]=6;
 					}
 				}
-				if(this.haDicas){
-					this.MostraDica(this.j);	
-				}else{
-					this.dicas=0;
-					this.msg="Acabaram as dicas";
+			}
+			for(this.i=0; this.i<this.figs.length;this.i++){
+				if(this.figs[this.selected].x>this.dicaImagem[this.i].x-20 && this.figs[this.selected].x<this.dicaImagem[this.i].x+20 && this.figs[this.selected].y>this.dicaImagem[this.i].y-20 && this.figs[this.selected].y<this.dicaImagem[this.i].y+20 && this.rotacoes[this.selected]==this.dicaRotacao[this.i] && !this.acertou[this.i]){
+					this.TrancaFig(this.i);
+					break;
 				}
-				break;
 			}
 		}
+		this.follow=-1;
+
+		//aqui tenho que fazer a verificação se tá na posicão certa
+		this.ganhou=true;
+		for(this.i=0;this.i<this.acertou.length;this.i++)if(!this.acertou[this.i])this.ganhou=false;
 	}else{
-		if(!this.locked[this.selected]){
-			if(posMouseX>this.botaoRight.x && posMouseX<this.botaoRight.x+this.botaoRight.width && posMouseY>this.botaoRight.y && posMouseY<this.botaoRight.y+this.botaoRight.height){
-				if(this.fase==3){
-					this.rotacoes[this.selected]++;
-					if(this.rotacoes[this.selected]>7)this.rotacoes[this.selected]=0;
-				}else if(this.fase==6){
-					this.rotacoes[this.selected]++;
-					if(this.rotacoes[this.selected]>16)this.rotacoes[this.selected]=8;
-				}else{
-					this.rotacoes[this.selected]+=2;
-					if(this.rotacoes[this.selected]>6)this.rotacoes[this.selected]=0;
-				}
-			}else if(posMouseX>this.botaoLeft.x && posMouseX<this.botaoLeft.x+this.botaoLeft.width && posMouseY>this.botaoLeft.y && posMouseY<this.botaoLeft.y+this.botaoLeft.height){
-				if(this.fase==3){
-					this.rotacoes[this.selected]--;
-					if(this.rotacoes[this.selected]<0)this.rotacoes[this.selected]=7;
-				}else if(this.fase==6){
-					this.rotacoes[this.selected]--;
-					if(this.rotacoes[this.selected]<8)this.rotacoes[this.selected]=16;
-				}else{
-					this.rotacoes[this.selected]-=2;
-					if(this.rotacoes[this.selected]<0)this.rotacoes[this.selected]=6;
-				}
-			}
-		}
-		for(this.i=0; this.i<this.figs.length;this.i++){
-			if(this.figs[this.selected].x>this.dicaImagem[this.i].x-20 && this.figs[this.selected].x<this.dicaImagem[this.i].x+20 && this.figs[this.selected].y>this.dicaImagem[this.i].y-20 && this.figs[this.selected].y<this.dicaImagem[this.i].y+20 && this.rotacoes[this.selected]==this.dicaRotacao[this.i] && !this.acertou[this.i]){
-				this.TrancaFig(this.i);
-				break;
-			}
+		if(posMouseX>455 && posMouseX<590 && posMouseY>365 && posMouseY<445){
+			this.pulou=false;
+		}else if(posMouseX>210 && posMouseX<340 && posMouseY>365 && posMouseY<445){
+			this.ativo=false;
 		}
 	}
-	this.follow=-1;
-	
-	//aqui tenho que fazer a verificação se tá na posicão certa
-	this.ganhou=true;
-	for(this.i=0;this.i<this.acertou.length;this.i++)if(!this.acertou[this.i])this.ganhou=false;
 }
 
 Match.prototype.KeyDown = function (keyCode){}

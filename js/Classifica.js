@@ -3,6 +3,7 @@ var Classifica = function () {
 	this.fundo.src = "img/Classifica/FundoClassifica.png";
 	this.ativo=true;
 	this.pulou=false;
+	this.imgPular= new Imagem(1000,560,0,0,"img/TelaConfirma.png");
 	this.errou = 0;
 	this.perdeu = false;
 	this.ganhou=false;
@@ -25,6 +26,8 @@ var Classifica = function () {
 	this.titulo2="em comum. As linhas devem representar uma característica e as colunas outra.";
 	this.dicaAtual=-1;
 	this.idTabela=new Array();
+	this.contDicas=0;
+	this.limpou=0;
 	//for(this.i=0;this.i<4;this.i++)this.iRespostas.push(this.i);
 	//this.iRespostas = this.shuffle(this.iRespostas);
 	for(this.i=0;this.i<9;this.i++){
@@ -59,7 +62,7 @@ Classifica.prototype.Draw = function(){
 
 	if(this.ganhou){
 		//Essa parte é responsável por mostrar que está certo e ir pra próxima fase
-		context.fillText("Correto",10,590);
+		context.fillText("Correto",100,590);
 		this.msg="";
 		if(this.contTempo>this.tempo+1){
 			this.ativo=false;
@@ -68,7 +71,7 @@ Classifica.prototype.Draw = function(){
 		}
 	}else if(this.perdeu){
 		//Essa parte é responsável por contar os erros
-		context.fillText("Errado",10,590);
+		context.fillText("Errado",100,590);
 		this.msg="";
 		this.follow=-1;
 		if(this.contTempo>this.tempo+1){
@@ -81,39 +84,41 @@ Classifica.prototype.Draw = function(){
 			}
 		}	
 	}else{
-		//Aqui faz as peças clicadas seguirem o mouse
-		if(this.follow!=-1){
-			this.respostas[this.follow].x=posMouseX-(this.respostas[this.follow].width/2);
-			this.respostas[this.follow].y=posMouseY-(this.respostas[this.follow].height/2);
-		//	this.trace=this.respostas[this.follow].x+"/"+this.respostas[this.follow].y;
-			if(this.respostas[this.follow].x>150 && this.respostas[this.follow].x<560 && this.respostas[this.follow].y>140 && this.respostas[this.follow].y<560){
-				for(this.i=0;this.i<this.respostas.length; this.i++){
-					if(this.i<3){
-						this.line=this.i;	
-						this.col=0;	
-					}else if(this.i<6){
-						this.line=this.i-3;
-						this.col=1;	
-					}else{
-						this.line=this.i-6;
-						this.col=2;	
+		if(!this.pulou){
+			//Aqui faz as peças clicadas seguirem o mouse
+			if(this.follow!=-1){
+				this.respostas[this.follow].x=posMouseX-(this.respostas[this.follow].width/2);
+				this.respostas[this.follow].y=posMouseY-(this.respostas[this.follow].height/2);
+			//	this.trace=this.respostas[this.follow].x+"/"+this.respostas[this.follow].y;
+				if(this.respostas[this.follow].x>150 && this.respostas[this.follow].x<560 && this.respostas[this.follow].y>140 && this.respostas[this.follow].y<560){
+					for(this.i=0;this.i<this.respostas.length; this.i++){
+						if(this.i<3){
+							this.line=this.i;	
+							this.col=0;	
+						}else if(this.i<6){
+							this.line=this.i-3;
+							this.col=1;	
+						}else{
+							this.line=this.i-6;
+							this.col=2;	
+						}
+						if(this.respostas[this.follow].x>((this.line*121)+150) && this.respostas[this.follow].x<((this.line*121)+300) && this.respostas[this.follow].y>((this.col*121)+140) && this.respostas[this.follow].y<((this.col*121)+270)){
+							this.selecao.x=(this.line*121)+212;
+							this.selecao.y=(this.col*121)+202;
+						}
 					}
-					if(this.respostas[this.follow].x>((this.line*121)+150) && this.respostas[this.follow].x<((this.line*121)+300) && this.respostas[this.follow].y>((this.col*121)+140) && this.respostas[this.follow].y<((this.col*121)+270)){
-						this.selecao.x=(this.line*121)+212;
-						this.selecao.y=(this.col*121)+202;
+				}else this.selecao.x=-1000;
+			}else{
+				this.selecao.x=-1000;
+				for(this.i=0;this.i<this.respostas.length;this.i++){
+					if(!this.respostas[this.i].posicionado){
+						this.respostas[this.i].x = this.posRespostas[this.i].x;
+						this.respostas[this.i].y = this.posRespostas[this.i].y;
 					}
-				}
-			}else this.selecao.x=-1000;
-		}else{
-			this.selecao.x=-1000;
-			for(this.i=0;this.i<this.respostas.length;this.i++){
-				if(!this.respostas[this.i].posicionado){
-					this.respostas[this.i].x = this.posRespostas[this.i].x;
-					this.respostas[this.i].y = this.posRespostas[this.i].y;
 				}
 			}
 		}
-	}	
+	}
 	
 	//Desenhando onde a resposta irá ser posicionada
 	context.drawImage(this.selecao.img, this.selecao.x, this.selecao.y);
@@ -137,15 +142,26 @@ Classifica.prototype.Draw = function(){
 	context.fillText("" + this.titulo1,30,65);
 	context.fillText("" + this.titulo2,15,90);
 	context.fillText("" + this.msg,150,585);
+	context.font="28px Georgia";
+	context.fillText("Tempo: " + Math.round(this.tempo),10,40);
+	context.fillStyle="#FF003C";
+	context.fillText("Tentativas: "+this.errou,160,40);
+	context.fillStyle="#FF8A00";
+	context.fillText("Limpou: "+this.limpou ,320,40);
+	context.fillStyle="#FABE28";
+	context.fillText("Dicas: " +this.contDicas ,470,40);
+	context.fillStyle="black";
 	context.font="40px Georgia";
-	context.fillText("Tempo: " + Math.round(this.tempo),10,30);
 	//context.fillText("|"+this.idTabela[0].id+"|"+this.idTabela[1].id+"|"+this.idTabela[2].id+"|",20,520);
 	//context.fillText("|"+this.idTabela[3].id+"|"+this.idTabela[4].id+"|"+this.idTabela[5].id+"|",20,550);
 	//context.fillText("|"+this.idTabela[6].id+"|"+this.idTabela[7].id+"|"+this.idTabela[8].id+"|",20,570);
+	if(this.pulou){
+		context.drawImage(this.imgPular.img, 0, 0, 800, 600);
+	}
 }
 
 Classifica.prototype.MouseDown = function(mouseEvent) {
-	if(!this.perdeu && !this.ganhou){
+	if(!this.perdeu && !this.ganhou && !this.pulou){
 		for(this.i=(this.respostas.length-1);this.i>=0;this.i--){
 			if(posMouseX>this.respostas[this.i].x && posMouseX<this.respostas[this.i].x+this.respostas[this.i].width && posMouseY>this.respostas[this.i].y && posMouseY<this.respostas[this.i].y+this.respostas[this.i].height){
 				//o que estiver selecionado vai pra frente da tela:
@@ -167,77 +183,91 @@ Classifica.prototype.MouseDown = function(mouseEvent) {
 }
 
 Classifica.prototype.MouseUp = function(mouseEvent) {
-	if(!this.perdeu && !this.ganhou){
-		if(this.follow!=-1){
-			//Verificar se a resposta foi inserida dentro da tabela
-			this.dentroTabela=false;
+	if(!this.pulou){
+		if(!this.perdeu && !this.ganhou){
 			//Pular a fase
 			if(this.tempo>=60){
 				if(posMouseX>this.botaoPular.x && posMouseX<(this.botaoPular.x + this.botaoPular.width) && posMouseY>this.botaoPular.y && posMouseY<(this.botaoPular.y + this.botaoPular.height)){
 					this.pulou=true;
 				}
 			}
-			//this.msg="x:"+this.respostas[this.follow].x+"-y:"+this.respostas[this.follow].y;
-			for(this.i=0;this.i<this.respostas.length; this.i++){
-				if(this.i<3){
-					this.line=this.i;	
-					this.col=0;	
-				}else if(this.i<6){
-					this.line=this.i-3;
-					this.col=1;	
-				}else{
-					this.line=this.i-6;
-					this.col=2;	
+			if(this.follow!=-1){
+				//Verificar se a resposta foi inserida dentro da tabela
+				this.dentroTabela=false;
+				
+				//this.msg="x:"+this.respostas[this.follow].x+"-y:"+this.respostas[this.follow].y;
+				for(this.i=0;this.i<this.respostas.length; this.i++){
+					if(this.i<3){
+						this.line=this.i;	
+						this.col=0;	
+					}else if(this.i<6){
+						this.line=this.i-3;
+						this.col=1;	
+					}else{
+						this.line=this.i-6;
+						this.col=2;	
+					}
+					if(this.respostas[this.follow].x>((this.line*121)+150) && this.respostas[this.follow].x<((this.line*121)+300) && this.respostas[this.follow].y>((this.col*121)+140) && this.respostas[this.follow].y<((this.col*121)+270)){
+						this.dentroTabela=true;
+						this.respostas[this.follow].x=(this.line*121)+210;
+						this.respostas[this.follow].y=(this.col*121)+200;
+						this.respostas[this.follow].posicionado=true;
+
+						//verifica se este objeto estava em outro lugar antes, e limpa o lugar
+						for(this.j=0;this.j<this.respostas.length;this.j++){
+							if(this.idTabela[this.j].id==this.respostas[this.follow].id)this.idTabela[this.j]=new ObjClassifica(0,0,0,0,"","","",false,-1);
+						}
+
+						//Se já tiver alguém neste lugar, joga ele de volta pra posição inicial
+						if(this.idTabela[this.i].id!=-1){
+							for(this.j=0;this.j<this.respostas.length;this.j++){
+								if(this.idTabela[this.i].id==this.respostas[this.j].id)this.respostas[this.j].posicionado=false;
+							}
+						}
+						this.idTabela[this.i]=this.respostas[this.follow];
+						//Verificando se ganhou:
+						if(this.idTabela[0].id!=-1 && this.idTabela[1].id!=-1 && this.idTabela[2].id!=-1 && this.idTabela[3].id!=-1 && this.idTabela[4].id!=-1 && this.idTabela[5].id!=-1 && this.idTabela[6].id!=-1 && this.idTabela[7].id!=-1 && this.idTabela[8].id!=-1){
+							if((this.idTabela[0].cor==this.idTabela[1].cor && this.idTabela[0].cor==this.idTabela[2].cor && this.idTabela[3].cor==this.idTabela[4].cor && this.idTabela[3].cor==this.idTabela[5].cor && this.idTabela[6].cor==this.idTabela[7].cor && this.idTabela[6].cor==this.idTabela[8].cor && this.idTabela[0].tipo==this.idTabela[3].tipo && this.idTabela[0].tipo==this.idTabela[6].tipo && this.idTabela[1].tipo==this.idTabela[4].tipo && this.idTabela[1].tipo==this.idTabela[7].tipo && this.idTabela[2].tipo==this.idTabela[5].tipo && this.idTabela[2].tipo==this.idTabela[8].tipo) || (this.idTabela[0].tipo==this.idTabela[1].tipo && this.idTabela[0].tipo==this.idTabela[2].tipo && this.idTabela[3].tipo==this.idTabela[4].tipo && this.idTabela[3].tipo==this.idTabela[5].tipo && this.idTabela[6].tipo==this.idTabela[7].tipo && this.idTabela[6].tipo==this.idTabela[8].tipo && this.idTabela[0].cor==this.idTabela[3].cor && this.idTabela[0].cor==this.idTabela[6].cor && this.idTabela[1].cor==this.idTabela[4].cor && this.idTabela[1].cor==this.idTabela[7].cor && this.idTabela[2].cor==this.idTabela[5].cor && this.idTabela[2].cor==this.idTabela[8].cor)){
+								this.ganhou=true;
+							}else{
+								this.perdeu=true;
+								this.errou++;
+							}
+						}
+					}
 				}
-				if(this.respostas[this.follow].x>((this.line*121)+150) && this.respostas[this.follow].x<((this.line*121)+300) && this.respostas[this.follow].y>((this.col*121)+140) && this.respostas[this.follow].y<((this.col*121)+270)){
-					this.dentroTabela=true;
-					this.respostas[this.follow].x=(this.line*121)+210;
-					this.respostas[this.follow].y=(this.col*121)+200;
-					this.respostas[this.follow].posicionado=true;
-					
-					//verifica se este objeto estava em outro lugar antes, e limpa o lugar
+				if(!this.dentroTabela){
+					this.respostas[this.follow].posicionado=false;
 					for(this.j=0;this.j<this.respostas.length;this.j++){
 						if(this.idTabela[this.j].id==this.respostas[this.follow].id)this.idTabela[this.j]=new ObjClassifica(0,0,0,0,"","","",false,-1);
 					}
-					
-					//Se já tiver alguém neste lugar, joga ele de volta pra posição inicial
-					if(this.idTabela[this.i].id!=-1){
-						for(this.j=0;this.j<this.respostas.length;this.j++){
-							if(this.idTabela[this.i].id==this.respostas[this.j].id)this.respostas[this.j].posicionado=false;
-						}
-					}
-					this.idTabela[this.i]=this.respostas[this.follow];
-					//Verificando se ganhou:
-					if(this.idTabela[0].id!=-1 && this.idTabela[1].id!=-1 && this.idTabela[2].id!=-1 && this.idTabela[3].id!=-1 && this.idTabela[4].id!=-1 && this.idTabela[5].id!=-1 && this.idTabela[6].id!=-1 && this.idTabela[7].id!=-1 && this.idTabela[8].id!=-1){
-						if((this.idTabela[0].cor==this.idTabela[1].cor && this.idTabela[0].cor==this.idTabela[2].cor && this.idTabela[3].cor==this.idTabela[4].cor && this.idTabela[3].cor==this.idTabela[5].cor && this.idTabela[6].cor==this.idTabela[7].cor && this.idTabela[6].cor==this.idTabela[8].cor && this.idTabela[0].tipo==this.idTabela[3].tipo && this.idTabela[0].tipo==this.idTabela[6].tipo && this.idTabela[1].tipo==this.idTabela[4].tipo && this.idTabela[1].tipo==this.idTabela[7].tipo && this.idTabela[2].tipo==this.idTabela[5].tipo && this.idTabela[2].tipo==this.idTabela[8].tipo) || (this.idTabela[0].tipo==this.idTabela[1].tipo && this.idTabela[0].tipo==this.idTabela[2].tipo && this.idTabela[3].tipo==this.idTabela[4].tipo && this.idTabela[3].tipo==this.idTabela[5].tipo && this.idTabela[6].tipo==this.idTabela[7].tipo && this.idTabela[6].tipo==this.idTabela[8].tipo && this.idTabela[0].cor==this.idTabela[3].cor && this.idTabela[0].cor==this.idTabela[6].cor && this.idTabela[1].cor==this.idTabela[4].cor && this.idTabela[1].cor==this.idTabela[7].cor && this.idTabela[2].cor==this.idTabela[5].cor && this.idTabela[2].cor==this.idTabela[8].cor)){
-							this.ganhou=true;
-						}else this.perdeu=true;
-					}
+				}
+			}else if(posMouseX>this.botaoLimpar.x && posMouseX<(this.botaoLimpar.x + this.botaoLimpar.width) && posMouseY>this.botaoLimpar.y && posMouseY<(this.botaoLimpar.y + this.botaoLimpar.height)){
+				this.limpou++;
+				this.idTabela = new Array();
+				for(this.i=0;this.i<9;this.i++){
+					this.respostas[this.i].posicionado=false;
+					this.idTabela.push(new ObjClassifica(0,0,0,0,"","","",false,-1));
 				}
 			}
-			if(!this.dentroTabela){
-				this.respostas[this.follow].posicionado=false;
-				for(this.j=0;this.j<this.respostas.length;this.j++){
-					if(this.idTabela[this.j].id==this.respostas[this.follow].id)this.idTabela[this.j]=new ObjClassifica(0,0,0,0,"","","",false,-1);
+			this.follow=-1;
+
+			for(this.i=0;this.i<this.dicas;this.i++){
+				if(posMouseX>710-(this.i*60) && posMouseX<710-(this.i*60)+56 && posMouseY>20  && posMouseY<20+34){
+					this.dicas--;
+					this.contDicas++;
+					if(this.dicas==2)this.msg="Verifique as cores das figuras.";
+					else if(this.dicas==1)this.msg="Verifique o tipo das figuras.";
+					else if(this.dicas==0)this.msg="Tente criar uma sequências utilizando as cores e tipo.";
+					break;
 				}
-			}
-		}else if(posMouseX>this.botaoLimpar.x && posMouseX<(this.botaoLimpar.x + this.botaoLimpar.width) && posMouseY>this.botaoLimpar.y && posMouseY<(this.botaoLimpar.y + this.botaoLimpar.height)){
-			this.idTabela = new Array();
-			for(this.i=0;this.i<9;this.i++){
-				this.respostas[this.i].posicionado=false;
-				this.idTabela.push(new ObjClassifica(0,0,0,0,"","","",false,-1));
 			}
 		}
-		this.follow=-1;
-
-		for(this.i=0;this.i<this.dicas;this.i++){
-			if(posMouseX>710-(this.i*60) && posMouseX<710-(this.i*60)+56 && posMouseY>20  && posMouseY<20+34){
-				this.dicas--;
-				if(this.dicas==2)this.msg="Verifique as cores das figuras.";
-				else if(this.dicas==1)this.msg="Verifique o tipo das figuras.";
-				else if(this.dicas==0)this.msg="Tente criar uma sequências utilizando as cores e tipo.";
-				break;
-			}
+	}else{
+		if(posMouseX>455 && posMouseX<590 && posMouseY>365 && posMouseY<445){
+			this.pulou=false;
+		}else if(posMouseX>210 && posMouseX<340 && posMouseY>365 && posMouseY<445){
+			this.ativo=false;
 		}
 	}
 }

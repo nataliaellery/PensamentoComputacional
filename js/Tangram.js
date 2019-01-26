@@ -5,6 +5,7 @@ var Tangram = function (fase) {
 	else if(this.fase==2)this.fundo.src = "img/Match2/FundoMatch22.png";
 	this.ativo=true;
 	this.pulou=false;
+	this.imgPular= new Imagem(1000,560,0,0,"img/TelaConfirma.png");
 	this.ganhou=false;
 	this.tempo=0;
 	this.contTempo=0;
@@ -29,6 +30,8 @@ var Tangram = function (fase) {
 	this.acertou=new Array();
 	this.dicaMostrada=new Array();
 	this.dicaImagem=new Array();
+	//GAMBIARRA PQ ME ESTRESSEI E TIVE QUE ARRUMAR AS DICAS
+	this.dicaPos=new Array();
 	this.dicaRotacao=new Array();
 	this.dicas = 3;
 	this.follow=-1;
@@ -36,6 +39,11 @@ var Tangram = function (fase) {
 	this.trace="";
 	this.msg="";
 	this.dicaAtual=-1;
+	//Dados para coletar//
+	this.cliques=0;
+	this.contDicas=0;
+	this.giros=0;
+	//-------------------//
 	if(this.fase==1){
 		//easy
 		this.dicaRotacao=new Array(2,2,1);
@@ -43,6 +51,7 @@ var Tangram = function (fase) {
 			this.tipoFigs.push(this.i);
 			this.figs.push(new Imagem(20,70+(150*this.i), 179, 179,"img/Match2/Obj"+(this.i+1)+"Match2Fase1.png"));
 			this.dicaImagem.push(new Imagem(20,70, 179, 179,"img/Match2/Obj"+(this.i+1)+"MatchHigh2Fase1.png"));
+			this.dicaPos.push(new Imagem(20,70, 179, 179,"img/Match2/Obj"+(this.i+1)+"MatchHigh2Fase1.png"));
 			this.newPosRot0.push(new Imagem(20,70+(150*this.i), 179, 179,"img/Match2/Obj"+(this.i+1)+"Match2Fase1.png"));
 			this.newPosRot1.push(new Imagem(20,70+(150*this.i), 179, 179,"img/Match2/Obj"+(this.i+1)+"Match2Fase1.png"));
 			this.newPosRot2.push(new Imagem(20,70+(150*this.i), 179, 179,"img/Match2/Obj"+(this.i+1)+"Match2Fase1.png"));
@@ -84,10 +93,14 @@ var Tangram = function (fase) {
 		this.newPosRot5[2].x=150;this.newPosRot5[2].y=170;this.newPosRot5[2].width=150;this.newPosRot5[2].height=150;
 		this.newPosRot6[2].x=0;this.newPosRot6[2].y=240;this.newPosRot6[2].width=118;this.newPosRot6[2].height=236;
 		this.newPosRot7[2].x=0;this.newPosRot7[2].y=150;this.newPosRot7[2].width=170;this.newPosRot7[2].height=150;
-		//Rever isso aqui----------------------------------------------
+		//ESSAS AQUI NA VERDADE SÃO A POS DAS RESPOSTAS----------------------------------------------
 		this.dicaImagem[0].x=405;this.dicaImagem[0].y=115;
 		this.dicaImagem[1].x=492;this.dicaImagem[1].y=282;
 		this.dicaImagem[2].x=580;this.dicaImagem[2].y=280;
+		//ESSAS AQUI QUE SÃO AS POS DAS DICAS VERDADEIRAS PQ RESOLVI NÃO GIRAR ELAS NAQUELA MALUQUICE
+		this.dicaPos[0].x=413;this.dicaPos[0].y=115;
+		this.dicaPos[1].x=497;this.dicaPos[1].y=282;
+		this.dicaPos[2].x=499;this.dicaPos[2].y=280;
 		for(this.i=0;this.i<3;this.i++){
 			this.dicaImagem[this.i].width=this.figs[this.i].width;
 			this.dicaImagem[this.i].height=this.figs[this.i].height;
@@ -150,11 +163,16 @@ var Tangram = function (fase) {
 		this.newPosRot5[3].x=100;this.newPosRot5[3].y=360;this.newPosRot5[3].width=340;this.newPosRot5[3].height=240;
 		this.newPosRot6[3].x=0;this.newPosRot6[3].y=166;this.newPosRot6[3].width=340;this.newPosRot6[3].height=170;
 		this.newPosRot7[3].x=-120;this.newPosRot7[3].y=105;this.newPosRot7[3].width=210;this.newPosRot7[3].height=350;
-		//Rever isso aqui----------------------------------------------
+		
 		this.dicaImagem[0].x=413;this.dicaImagem[0].y=208;
 		this.dicaImagem[1].x=413;this.dicaImagem[1].y=140;
 		this.dicaImagem[2].x=477;this.dicaImagem[2].y=207;
 		this.dicaImagem[3].x=413;this.dicaImagem[3].y=306;
+		//ESSAS AQUI QUE SÃO AS POS DAS DICAS VERDADEIRAS PQ RESOLVI NÃO GIRAR ELAS NAQUELA MALUQUICE
+		this.dicaPos[0].x=413;this.dicaPos[0].y=208;
+		this.dicaPos[1].x=413;this.dicaPos[1].y=140;
+		this.dicaPos[2].x=477;this.dicaPos[2].y=207;
+		this.dicaPos[3].x=413;this.dicaPos[3].y=306;
 		for(this.i=0;this.i<4;this.i++){
 			this.dicaImagem[this.i].width=this.figs[this.i].width;
 			this.dicaImagem[this.i].height=this.figs[this.i].height;
@@ -182,38 +200,7 @@ Tangram.prototype.Draw = function(){
 	}
 	//Aqui mostra as dicas
 	if(this.dicaAtual!=-1){
-		context.save();
-		if(this.dicaRotacao[this.dicaAtual]==1){
-			context.translate(this.dicaImagem[this.dicaAtual].x+this.newPosRot1[this.tipoFigs[this.dicaAtual]].x,this.dicaImagem[this.dicaAtual].y+this.newPosRot1[this.tipoFigs[this.dicaAtual]].y);
-			context.rotate((Math.PI/2.0)*4.5);
-			context.translate(-(this.dicaImagem[this.dicaAtual].x), -(this.dicaImagem[this.dicaAtual].y)); 
-		}else if(this.dicaRotacao[this.dicaAtual]==2){
-			context.translate(this.dicaImagem[this.dicaAtual].x+this.newPosRot2[this.tipoFigs[this.dicaAtual]].x,this.dicaImagem[this.dicaAtual].y+this.newPosRot2[this.tipoFigs[this.dicaAtual]].y);
-			context.rotate((Math.PI/2.0)*1);
-			context.translate(-(this.dicaImagem[this.dicaAtual].x), -(this.dicaImagem[this.dicaAtual].y)); 
-		}else if(this.dicaRotacao[this.dicaAtual]==3){
-			context.translate(this.dicaImagem[this.dicaAtual].x+this.newPosRot3[this.tipoFigs[this.dicaAtual]].x,this.dicaImagem[this.dicaAtual].y+this.newPosRot3[this.tipoFigs[this.dicaAtual]].y);
-			context.rotate((Math.PI/2.0)*1.5);
-			context.translate(-(this.dicaImagem[this.dicaAtual].x), -(this.dicaImagem[this.dicaAtual].y)); 
-		}else if(this.dicaRotacao[this.dicaAtual]==4){
-			context.translate(this.dicaImagem[this.dicaAtual].x+this.newPosRot4[this.tipoFigs[this.dicaAtual]].x,this.dicaImagem[this.dicaAtual].y+this.newPosRot4[this.tipoFigs[this.dicaAtual]].y);
-			context.rotate((Math.PI/2.0)*2);
-			context.translate(-(this.dicaImagem[this.dicaAtual].x), -(this.dicaImagem[this.dicaAtual].y)); 
-		}else if(this.dicaRotacao[this.dicaAtual]==5){
-			context.translate(this.dicaImagem[this.dicaAtual].x+this.newPosRot5[this.tipoFigs[this.dicaAtual]].x,this.dicaImagem[this.dicaAtual].y+this.newPosRot5[this.tipoFigs[this.dicaAtual]].y);
-			context.rotate((Math.PI/2.0)*2.5);
-			context.translate(-(this.dicaImagem[this.dicaAtual].x), -(this.dicaImagem[this.dicaAtual].y)); 
-		}else if(this.dicaRotacao[this.dicaAtual]==6){
-			context.translate(this.dicaImagem[this.dicaAtual].x+this.newPosRot6[this.tipoFigs[this.dicaAtual]].x,this.dicaImagem[this.dicaAtual].y+this.newPosRot6[this.tipoFigs[this.dicaAtual]].y);
-			context.rotate((Math.PI/2.0)*3);
-			context.translate(-(this.dicaImagem[this.dicaAtual].x), -(this.dicaImagem[this.dicaAtual].y)); 
-		}else if(this.dicaRotacao[this.dicaAtual]==7){
-			context.translate(this.dicaImagem[this.dicaAtual].x+this.newPosRot7[this.tipoFigs[this.dicaAtual]].x,this.dicaImagem[this.dicaAtual].y+this.newPosRot7[this.tipoFigs[this.dicaAtual]].y);
-			context.rotate((Math.PI/2.0)*3.5);
-			context.translate(-(this.dicaImagem[this.dicaAtual].x), -(this.dicaImagem[this.dicaAtual].y)); 
-		}
-		context.drawImage(this.dicaImagem[this.dicaAtual].img,this.dicaImagem[this.dicaAtual].x,this.dicaImagem[this.dicaAtual].y);
-		context.restore();
+		context.drawImage(this.dicaImagem[this.dicaAtual].img,this.dicaPos[this.dicaAtual].x,this.dicaPos[this.dicaAtual].y);
 	}
 	
 	//Aqui mostra as peças que são encaixadas
@@ -252,12 +239,13 @@ Tangram.prototype.Draw = function(){
 		context.drawImage(this.figs[this.i].img,this.figs[this.i].x,this.figs[this.i].y);		
 		context.restore();
 	}
-	
-	//Aqui faz as peças clicadas seguirem o mouse
-	if(this.follow!=-1){
-		this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/2);
-		this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/2);
-		//this.trace="x:"+this.figs[this.follow].x+"   y:"+this.figs[this.follow].y+"   rot:"+this.rotacoes[this.follow];
+	if(!this.pulou){
+		//Aqui faz as peças clicadas seguirem o mouse
+		if(this.follow!=-1){
+			this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/2);
+			this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/2);
+			//this.trace="x:"+this.figs[this.follow].x+"   y:"+this.figs[this.follow].y+"   rot:"+this.rotacoes[this.follow];
+		}
 	}
 	
 	//aqui mostra os botões das dicas
@@ -272,8 +260,16 @@ Tangram.prototype.Draw = function(){
 	context.fillText("" + this.trace,150,70);
 	context.font="24px Georgia";
 	context.fillText("" + this.msg,420,40);
-	context.font="40px Georgia";
+	context.font="28px Georgia";
 	context.fillText("Tempo: " + Math.round(this.tempo),10,40);
+	context.fillStyle="#FF003C";
+	context.fillText("Cliques: " + this.cliques,160,40);
+	context.fillStyle="#FF8A00";
+	context.fillText("Giros: " + this.giros,320,40);
+	context.fillStyle="#FABE28";
+	context.fillText("Dicas: " + this.contDicas,470,40);
+	context.fillStyle="black";
+	context.font="40px Georgia";
 	
 	//Desenha pontinhos delimitando a parte ativa das peças
 	/*
@@ -283,121 +279,138 @@ Tangram.prototype.Draw = function(){
 		context.fillText("....",this.figs[this.selected].x,this.figs[this.selected].y+this.figs[this.selected].height);
 		context.fillText(".",this.figs[this.selected].x+this.figs[this.selected].width,this.figs[this.selected].y+this.figs[this.selected].height);
 	}*/
+	if(this.pulou){
+		context.drawImage(this.imgPular.img, 0, 0, 800, 600);
+	}
 	
 }
 
-Tangram.prototype.MouseDown = function(mouseEvent) {	
-	this.trace="";
-	this.dicaAtual=-1;
-	for(this.i=(this.figs.length-1);this.i>=0;this.i--){
-		if(!this.locked[this.i]){
-			if(posMouseX>this.figs[this.i].x && posMouseX<this.figs[this.i].x+this.figs[this.i].width && posMouseY>this.figs[this.i].y && posMouseY<this.figs[this.i].y+this.figs[this.i].height){
-				//o que estiver selecionado vai pra frente da tela:
-				//gravei no aux//
-				this.aux=this.figs[this.figs.length-1];
-				this.auxR=this.rotacoes[this.rotacoes.length-1];
-				//Essa gambiarra aqui é pq tem umas figuras maiores que as outras, e atrapalha na hr
-				//de selecionar -.-
-				this.auxTipo=this.tipoFigs[this.tipoFigs.length-1];
-				//o i recebe o ultimo//
-				this.figs[this.figs.length-1]=this.figs[this.i];
-				this.rotacoes[this.rotacoes.length-1]=this.rotacoes[this.i];
-				this.tipoFigs[this.tipoFigs.length-1]=this.tipoFigs[this.i];
-				//o ultimo recebe o aux//
-				this.figs[this.i]=this.aux;
-				this.rotacoes[this.i]=this.auxR;
-				this.tipoFigs[this.i]=this.auxTipo;
-				//o follow recebe o ultimo//
-				this.follow=this.figs.length-1;
-				this.selected=this.figs.length-1;
-				break;
+Tangram.prototype.MouseDown = function(mouseEvent) {
+	if(!this.pulou){
+		this.trace="";
+		this.dicaAtual=-1;
+		for(this.i=(this.figs.length-1);this.i>=0;this.i--){
+			if(!this.locked[this.i]){
+				if(posMouseX>this.figs[this.i].x && posMouseX<this.figs[this.i].x+this.figs[this.i].width && posMouseY>this.figs[this.i].y && posMouseY<this.figs[this.i].y+this.figs[this.i].height){
+					this.cliques++;
+					//o que estiver selecionado vai pra frente da tela:
+					//gravei no aux//
+					this.aux=this.figs[this.figs.length-1];
+					this.auxR=this.rotacoes[this.rotacoes.length-1];
+					//Essa gambiarra aqui é pq tem umas figuras maiores que as outras, e atrapalha na hr
+					//de selecionar -.-
+					this.auxTipo=this.tipoFigs[this.tipoFigs.length-1];
+					//o i recebe o ultimo//
+					this.figs[this.figs.length-1]=this.figs[this.i];
+					this.rotacoes[this.rotacoes.length-1]=this.rotacoes[this.i];
+					this.tipoFigs[this.tipoFigs.length-1]=this.tipoFigs[this.i];
+					//o ultimo recebe o aux//
+					this.figs[this.i]=this.aux;
+					this.rotacoes[this.i]=this.auxR;
+					this.tipoFigs[this.i]=this.auxTipo;
+					//o follow recebe o ultimo//
+					this.follow=this.figs.length-1;
+					this.selected=this.figs.length-1;
+					break;
+				}
 			}
 		}
-	}
-	if(posMouseX>this.botaoRight.x && posMouseX<(this.botaoRight.x+this.botaoRight.width) && posMouseY>this.botaoRight.y && posMouseY<(this.botaoRight.y+this.botaoRight.height)){
-		
-	}else if(posMouseX>this.botaoLeft.x && posMouseX<this.botaoLeft.x+this.botaoLeft.width && posMouseY>this.botaoLeft.y && posMouseY<this.botaoLeft.y+this.botaoLeft.height){
-		
-	}else if(this.follow==-1){
-		this.selected=-1;
+		if(posMouseX>this.botaoRight.x && posMouseX<(this.botaoRight.x+this.botaoRight.width) && posMouseY>this.botaoRight.y && posMouseY<(this.botaoRight.y+this.botaoRight.height)){
+
+		}else if(posMouseX>this.botaoLeft.x && posMouseX<this.botaoLeft.x+this.botaoLeft.width && posMouseY>this.botaoLeft.y && posMouseY<this.botaoLeft.y+this.botaoLeft.height){
+
+		}else if(this.follow==-1){
+			this.selected=-1;
+		}
 	}
 }
 
 Tangram.prototype.MouseUp = function(mouseEvent) {
-	if(this.selected==-1){
-		//Pular a fase
-		if(this.tempo>=60){
-			if(posMouseX>this.botaoPular.x && posMouseX<(this.botaoPular.x + this.botaoPular.width) && posMouseY>this.botaoPular.y && posMouseY<(this.botaoPular.y + this.botaoPular.height)){
-				this.pulou=true;
+	if(!this.pulou){
+		if(this.selected==-1){
+			//Pular a fase
+			if(this.tempo>=60){
+				if(posMouseX>this.botaoPular.x && posMouseX<(this.botaoPular.x + this.botaoPular.width) && posMouseY>this.botaoPular.y && posMouseY<(this.botaoPular.y + this.botaoPular.height)){
+					this.pulou=true;
+				}
 			}
-		}
-		for(this.i=0;this.i<this.dicas;this.i++){
-			if(posMouseX>710-(this.i*60) && posMouseX<710-(this.i*60)+56 && posMouseY>20  && posMouseY<20+34){
-				this.dicas--;
-				this.haDicas=false;
-				for(this.j=0;this.j<this.dicaMostrada.length;this.j++){
-					if(!this.dicaMostrada[this.j]){
-						this.haDicas=true;
-						break;
+			for(this.i=0;this.i<this.dicas;this.i++){
+				if(posMouseX>710-(this.i*60) && posMouseX<710-(this.i*60)+56 && posMouseY>20  && posMouseY<20+34){
+					this.dicas--;
+					this.haDicas=false;
+					this.contDicas++;
+					for(this.j=0;this.j<this.dicaMostrada.length;this.j++){
+						if(!this.dicaMostrada[this.j]){
+							this.haDicas=true;
+							break;
+						}
 					}
+					if(this.haDicas){
+						this.MostraDica(this.j);	
+					}else{
+						this.dicas=0;
+						this.msg="Acabaram as dicas";
+					}
+					break;
 				}
-				if(this.haDicas){
-					this.MostraDica(this.j);	
-				}else{
-					this.dicas=0;
-					this.msg="Acabaram as dicas";
+			}
+		}else{
+			if(!this.locked[this.selected]){
+				if(posMouseX>this.botaoRight.x && posMouseX<this.botaoRight.x+this.botaoRight.width && posMouseY>this.botaoRight.y && posMouseY<this.botaoRight.y+this.botaoRight.height){
+					this.giros++;
+					this.rotacoes[this.selected]++;				
+					if(this.rotacoes[this.selected]>7)this.rotacoes[this.selected]=0;
+				}else if(posMouseX>this.botaoLeft.x && posMouseX<this.botaoLeft.x+this.botaoLeft.width && posMouseY>this.botaoLeft.y && posMouseY<this.botaoLeft.y+this.botaoLeft.height){
+					this.giros++;
+					this.rotacoes[this.selected]--;
+					if(this.rotacoes[this.selected]<0)this.rotacoes[this.selected]=7;
 				}
-				break;
+				if(this.rotacoes[this.selected]==0){
+					this.figs[this.selected].width=this.newPosRot0[this.tipoFigs[this.selected]].width;
+					this.figs[this.selected].height=this.newPosRot0[this.tipoFigs[this.selected]].height;
+				}else if(this.rotacoes[this.selected]==1){
+					this.figs[this.selected].width=this.newPosRot1[this.tipoFigs[this.selected]].width;
+					this.figs[this.selected].height=this.newPosRot1[this.tipoFigs[this.selected]].height;
+				}else if(this.rotacoes[this.selected]==2){
+					this.figs[this.selected].width=this.newPosRot2[this.tipoFigs[this.selected]].width;
+					this.figs[this.selected].height=this.newPosRot2[this.tipoFigs[this.selected]].height;
+				}else if(this.rotacoes[this.selected]==3){
+					this.figs[this.selected].width=this.newPosRot3[this.tipoFigs[this.selected]].width;
+					this.figs[this.selected].height=this.newPosRot3[this.tipoFigs[this.selected]].height;
+				}else if(this.rotacoes[this.selected]==4){
+					this.figs[this.selected].width=this.newPosRot4[this.tipoFigs[this.selected]].width;
+					this.figs[this.selected].height=this.newPosRot4[this.tipoFigs[this.selected]].height;
+				}else if(this.rotacoes[this.selected]==5){
+					this.figs[this.selected].width=this.newPosRot5[this.tipoFigs[this.selected]].width;
+					this.figs[this.selected].height=this.newPosRot5[this.tipoFigs[this.selected]].height;
+				}else if(this.rotacoes[this.selected]==6){
+					this.figs[this.selected].width=this.newPosRot6[this.tipoFigs[this.selected]].width;
+					this.figs[this.selected].height=this.newPosRot6[this.tipoFigs[this.selected]].height;
+				}else if(this.rotacoes[this.selected]==7){
+					this.figs[this.selected].width=this.newPosRot7[this.tipoFigs[this.selected]].width;
+					this.figs[this.selected].height=this.newPosRot7[this.tipoFigs[this.selected]].height;
+				}
+			}
+			for(this.i=0; this.i<this.figs.length;this.i++){
+				//Na fase 1 a figura tipo 1 tbm acerta se estiver na rotação 6
+				if(this.figs[this.selected].x>this.dicaImagem[this.i].x-20 && this.figs[this.selected].x<this.dicaImagem[this.i].x+20 && this.figs[this.selected].y>this.dicaImagem[this.i].y-20 && this.figs[this.selected].y<this.dicaImagem[this.i].y+20 && (this.rotacoes[this.selected]==this.dicaRotacao[this.i] || (this.fase==1 && this.i==1 && this.rotacoes[this.selected]==6) || (this.fase==2 && this.i==2 && this.rotacoes[this.selected]==4)) && !this.acertou[this.i] && this.tipoFigs[this.selected]==this.i){
+					this.TrancaFig(this.i);
+					break;
+				}
 			}
 		}
+		this.follow=-1;
+
+		//aqui tenho que fazer a verificação se tá na posicão certa
+		this.ganhou=true;
+		for(this.i=0;this.i<this.acertou.length;this.i++)if(!this.acertou[this.i])this.ganhou=false;
 	}else{
-		if(!this.locked[this.selected]){
-			if(posMouseX>this.botaoRight.x && posMouseX<this.botaoRight.x+this.botaoRight.width && posMouseY>this.botaoRight.y && posMouseY<this.botaoRight.y+this.botaoRight.height){
-				this.rotacoes[this.selected]++;				
-				if(this.rotacoes[this.selected]>7)this.rotacoes[this.selected]=0;
-			}else if(posMouseX>this.botaoLeft.x && posMouseX<this.botaoLeft.x+this.botaoLeft.width && posMouseY>this.botaoLeft.y && posMouseY<this.botaoLeft.y+this.botaoLeft.height){
-				this.rotacoes[this.selected]--;
-				if(this.rotacoes[this.selected]<0)this.rotacoes[this.selected]=7;
-			}
-			if(this.rotacoes[this.selected]==0){
-				this.figs[this.selected].width=this.newPosRot0[this.tipoFigs[this.selected]].width;
-				this.figs[this.selected].height=this.newPosRot0[this.tipoFigs[this.selected]].height;
-			}else if(this.rotacoes[this.selected]==1){
-				this.figs[this.selected].width=this.newPosRot1[this.tipoFigs[this.selected]].width;
-				this.figs[this.selected].height=this.newPosRot1[this.tipoFigs[this.selected]].height;
-			}else if(this.rotacoes[this.selected]==2){
-				this.figs[this.selected].width=this.newPosRot2[this.tipoFigs[this.selected]].width;
-				this.figs[this.selected].height=this.newPosRot2[this.tipoFigs[this.selected]].height;
-			}else if(this.rotacoes[this.selected]==3){
-				this.figs[this.selected].width=this.newPosRot3[this.tipoFigs[this.selected]].width;
-				this.figs[this.selected].height=this.newPosRot3[this.tipoFigs[this.selected]].height;
-			}else if(this.rotacoes[this.selected]==4){
-				this.figs[this.selected].width=this.newPosRot4[this.tipoFigs[this.selected]].width;
-				this.figs[this.selected].height=this.newPosRot4[this.tipoFigs[this.selected]].height;
-			}else if(this.rotacoes[this.selected]==5){
-				this.figs[this.selected].width=this.newPosRot5[this.tipoFigs[this.selected]].width;
-				this.figs[this.selected].height=this.newPosRot5[this.tipoFigs[this.selected]].height;
-			}else if(this.rotacoes[this.selected]==6){
-				this.figs[this.selected].width=this.newPosRot6[this.tipoFigs[this.selected]].width;
-				this.figs[this.selected].height=this.newPosRot6[this.tipoFigs[this.selected]].height;
-			}else if(this.rotacoes[this.selected]==7){
-				this.figs[this.selected].width=this.newPosRot7[this.tipoFigs[this.selected]].width;
-				this.figs[this.selected].height=this.newPosRot7[this.tipoFigs[this.selected]].height;
-			}
-		}
-		for(this.i=0; this.i<this.figs.length;this.i++){
-			//Na fase 1 a figura tipo 1 tbm acerta se estiver na rotação 6
-			if(this.figs[this.selected].x>this.dicaImagem[this.i].x-20 && this.figs[this.selected].x<this.dicaImagem[this.i].x+20 && this.figs[this.selected].y>this.dicaImagem[this.i].y-20 && this.figs[this.selected].y<this.dicaImagem[this.i].y+20 && (this.rotacoes[this.selected]==this.dicaRotacao[this.i] || (this.fase==1 && this.i==1 && this.rotacoes[this.selected]==6) || (this.fase==2 && this.i==2 && this.rotacoes[this.selected]==4)) && !this.acertou[this.i] && this.tipoFigs[this.selected]==this.i){
-				this.TrancaFig(this.i);
-				break;
-			}
+		if(posMouseX>455 && posMouseX<590 && posMouseY>365 && posMouseY<445){
+			this.pulou=false;
+		}else if(posMouseX>210 && posMouseX<340 && posMouseY>365 && posMouseY<445){
+			this.ativo=false;
 		}
 	}
-	this.follow=-1;
-	
-	//aqui tenho que fazer a verificação se tá na posicão certa
-	this.ganhou=true;
-	for(this.i=0;this.i<this.acertou.length;this.i++)if(!this.acertou[this.i])this.ganhou=false;
 }
 
 Tangram.prototype.KeyDown = function (keyCode){}

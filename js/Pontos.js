@@ -4,6 +4,7 @@ var Pontos = function (fase) {
 	///this.fundo.src = "img/Pontos/FundoBase.png";
 	this.ativo=true;
 	this.pulou=false;
+	this.imgPular= new Imagem(1000,560,0,0,"img/TelaConfirma.png");
 	this.errou = 0;
 	this.perdeu = false;
 	this.ganhou=false;
@@ -28,6 +29,11 @@ var Pontos = function (fase) {
 	this.desenhosCorretos=new Array();
 	this.retas=new Array(false,false,false,false,false,false,false,false,false,false);
 	this.acertou=new Array(false,false,false);
+	//Dados para coletar//
+	this.cliques=0;
+	this.limpou=0;
+	this.contDicas=0;
+	//-------------------//
 	if(this.fase==1 || this.fase==2){
 		//criando os pontos:
 		for(this.i=0;this.i<7;this.i++){
@@ -213,7 +219,7 @@ Pontos.prototype.Draw = function(){
 	
 	//aqui mostra os botões das dicas
 	for(this.i=0;this.i<this.dicas;this.i++){
-		context.drawImage(this.botaoDica.img, 710-(this.i*60), 20);
+		context.drawImage(this.botaoDica.img, 710-(this.i*60), 15);
 	}
 	
 	//Desenhando o botão pular
@@ -224,187 +230,210 @@ Pontos.prototype.Draw = function(){
 	context.font="24px Georgia";
 	//MENSAGEM AVISANDO SE PERDEU OU GANHOU
 	context.fillText("" + this.msg,150,540);
-	context.font="40px Georgia";
+	context.font="28px Georgia";
 	context.fillText("Tempo: " + Math.round(this.tempo),10,40);
+	context.fillStyle="#FF003C";
+	context.fillText("Cliques: " + this.cliques,160,40);
+	context.fillStyle="#FF8A00";
+	context.fillText("Limpou: " + this.limpou,320,40);
+	context.fillStyle="#FABE28";
+	context.fillText("Dicas: " + this.contDicas,470,40);
+	context.fillStyle="black";
+	context.font="40px Georgia";
+	if(this.pulou){
+		context.drawImage(this.imgPular.img, 0, 0, 800, 600);
+	}
 }
 
 Pontos.prototype.MouseDown = function(mouseEvent) {}
 
 Pontos.prototype.MouseUp = function(mouseEvent) {
-	if(!this.perdeu && !this.ganhou){
-		//Pular a fase
-		if(this.tempo>=60){
-			if(posMouseX>this.botaoPular.x && posMouseX<(this.botaoPular.x + this.botaoPular.width) && posMouseY>this.botaoPular.y && posMouseY<(this.botaoPular.y + this.botaoPular.height)){
-				this.pulou=true;
-			}
-		}
-		if(posMouseX>this.botaoLimpar.x && posMouseX<(this.botaoLimpar.x + this.botaoLimpar.width) && posMouseY>this.botaoLimpar.y && posMouseY<(this.botaoLimpar.y + this.botaoLimpar.height)){
-			this.pontosX=new Array();	
-			this.pontosY=new Array();
-			this.dicaX=new Array();	
-			this.dicaY=new Array();
-			this.pontoAtivo.x=1000;
-			this.indPonto=-1;
-			if(!this.acertou[0]){
-				this.retas[0]=false;	
-				this.retas[1]=false;	
-				this.retas[2]=false;	
-				this.retas[3]=false;	
-			}if(!this.acertou[1]){
-				this.retas[4]=false;
-				this.retas[5]=false;
-				this.retas[6]=false;
-			}
-			if((this.fase==3 || this.fase==4) && !this.acertou[2]){
-				this.retas[7]=false;
-				this.retas[8]=false;
-				this.retas[9]=false;
-			}
-		}else{
-			for(this.i=0;this.i<this.pontos.length;this.i++){
-				if(posMouseX>this.pontos[this.i].x && posMouseX<this.pontos[this.i].x+this.pontos[this.i].width && posMouseY>this.pontos[this.i].y && posMouseY<this.pontos[this.i].y+this.pontos[this.i].height){
-					this.pontoAtivo.x=this.pontos[this.i].x-3;
-					this.pontoAtivo.y=this.pontos[this.i].y-3;
-					this.pontoAtivo.width=this.pontos[this.i].width+6;
-					this.pontoAtivo.height=this.pontos[this.i].height+6;
-					this.pontosX.push(this.pontoAtivo.x+(this.pontos[this.i].width/2));
-					this.pontosY.push(this.pontoAtivo.y+(this.pontos[this.i].height/2));
-					
-					//AQUI FAZ A VERIFICAÇÃO SE FORMOU UMA RETA CORRETA OU NÃO.
-					if(this.indPonto!=-1){
-						this.dicaX=new Array();	
-						this.dicaY=new Array();
-
-						if((this.i==0 && this.indPonto==1) || (this.i==1 && this.indPonto==0))this.retas[0]=true;
-						if((this.i==2 && this.indPonto==1) || (this.i==1 && this.indPonto==2))this.retas[1]=true;
-						if((this.i==2 && this.indPonto==3) || (this.i==3 && this.indPonto==2))this.retas[2]=true;
-						if((this.i==0 && this.indPonto==3) || (this.i==3 && this.indPonto==0))this.retas[3]=true;
-						if((this.i==4 && this.indPonto==5) || (this.i==5 && this.indPonto==4))this.retas[4]=true;
-						if((this.i==6 && this.indPonto==5) || (this.i==5 && this.indPonto==6))this.retas[5]=true;
-						if((this.i==6 && this.indPonto==4) || (this.i==4 && this.indPonto==6))this.retas[6]=true;
-						if((this.i==7 && this.indPonto==8) || (this.i==8 && this.indPonto==7))this.retas[7]=true;
-						if(this.fase==3){
-							if((this.i==9 && this.indPonto==8) || (this.i==8 && this.indPonto==9))this.retas[8]=true;
-							if((this.i==9 && this.indPonto==7) || (this.i==7 && this.indPonto==9))this.retas[9]=true;
-						}else if(this.fase==4){
-							if((this.i==5 && this.indPonto==8) || (this.i==8 && this.indPonto==5))this.retas[8]=true;
-							if((this.i==5 && this.indPonto==7) || (this.i==7 && this.indPonto==5))this.retas[9]=true;
-						}
-						this.indPonto=this.i;
-						if(this.retas[0] && this.retas[1] && this.retas[2] && this.retas[3] && !this.acertou[0]){
-							this.pontosX=new Array();	
-							this.pontosY=new Array();
-							this.dicaX=new Array();	
-							this.dicaY=new Array();	
-							this.acertou[0]=true;
-							this.pontoAtivo.x=1000;
-							this.indPonto=-1;
-						}else if(this.retas[4] && this.retas[5] && this.retas[6] && !this.acertou[1]){
-							this.pontosX=new Array();	
-							this.pontosY=new Array();
-							this.dicaX=new Array();	
-							this.dicaY=new Array();
-							this.acertou[1]=true;
-							this.pontoAtivo.x=1000;
-							this.indPonto=-1;
-						}else if(this.retas[7] && this.retas[8] && this.retas[9] && !this.acertou[2]){
-							this.pontosX=new Array();	
-							this.pontosY=new Array();
-							this.dicaX=new Array();	
-							this.dicaY=new Array();
-							this.acertou[2]=true;
-							this.pontoAtivo.x=1000;
-							this.indPonto=-1;
-						}
-						if(this.fase==3 || this.fase==4){
-							if(this.acertou[0] && this.acertou[1] && this.acertou[2])this.ganhou=true;
-						}else{
-							if(this.acertou[0] && this.acertou[1])this.ganhou=true;
-						}
-					}else this.indPonto=this.i;
-					//APÓS VERIFICAR SE FORMOU UMA RETA CORRETA OU NÃO, SALVA O ULTIMO PONTO CLICADO
-					break;
+	if(!this.pulou){
+		if(!this.perdeu && !this.ganhou){
+			//Pular a fase
+			if(this.tempo>=60){
+				if(posMouseX>this.botaoPular.x && posMouseX<(this.botaoPular.x + this.botaoPular.width) && posMouseY>this.botaoPular.y && posMouseY<(this.botaoPular.y + this.botaoPular.height)){
+					this.pulou=true;
 				}
 			}
-		}
-	}
-	//MUDAR A PARTE DAS DICAS DEPOIS:
-	for(this.i=0;this.i<this.dicas;this.i++){
-		if(posMouseX>710-(this.i*60) && posMouseX<710-(this.i*60)+56 && posMouseY>20  && posMouseY<20+34){
-			this.dicas--;
-			if(!this.retas[0]){
-				this.dicaX.push(this.pontos[0].x+(this.pontos[0].width/2));
-				this.dicaY.push(this.pontos[0].y+(this.pontos[0].height/2));
-				this.dicaX.push(this.pontos[1].x+(this.pontos[1].width/2));
-				this.dicaY.push(this.pontos[1].y+(this.pontos[1].height/2));
-			}else if(!this.retas[1]){
-				this.dicaX.push(this.pontos[1].x+(this.pontos[1].width/2));
-				this.dicaY.push(this.pontos[1].y+(this.pontos[1].height/2));
-				this.dicaX.push(this.pontos[2].x+(this.pontos[2].width/2));
-				this.dicaY.push(this.pontos[2].y+(this.pontos[2].height/2));
-			}else if(!this.retas[2]){
-				this.dicaX.push(this.pontos[2].x+(this.pontos[2].width/2));
-				this.dicaY.push(this.pontos[2].y+(this.pontos[2].height/2));
-				this.dicaX.push(this.pontos[3].x+(this.pontos[3].width/2));
-				this.dicaY.push(this.pontos[3].y+(this.pontos[3].height/2));
-			}else if(!this.retas[3]){
-				this.dicaX.push(this.pontos[0].x+(this.pontos[0].width/2));
-				this.dicaY.push(this.pontos[0].y+(this.pontos[0].height/2));
-				this.dicaX.push(this.pontos[3].x+(this.pontos[3].width/2));
-				this.dicaY.push(this.pontos[3].y+(this.pontos[3].height/2));
-			}else if(!this.retas[4]){
-				this.dicaX.push(this.pontos[4].x+(this.pontos[4].width/2));
-				this.dicaY.push(this.pontos[4].y+(this.pontos[4].height/2));
-				this.dicaX.push(this.pontos[5].x+(this.pontos[5].width/2));
-				this.dicaY.push(this.pontos[5].y+(this.pontos[5].height/2));
-			}else if(!this.retas[5]){
-				this.dicaX.push(this.pontos[5].x+(this.pontos[5].width/2));
-				this.dicaY.push(this.pontos[5].y+(this.pontos[5].height/2));
-				this.dicaX.push(this.pontos[6].x+(this.pontos[6].width/2));
-				this.dicaY.push(this.pontos[6].y+(this.pontos[6].height/2));
-			}else if(!this.retas[6]){
-				this.dicaX.push(this.pontos[6].x+(this.pontos[6].width/2));
-				this.dicaY.push(this.pontos[6].y+(this.pontos[6].height/2));
-				this.dicaX.push(this.pontos[4].x+(this.pontos[4].width/2));
-				this.dicaY.push(this.pontos[4].y+(this.pontos[4].height/2));
+			if(posMouseX>this.botaoLimpar.x && posMouseX<(this.botaoLimpar.x + this.botaoLimpar.width) && posMouseY>this.botaoLimpar.y && posMouseY<(this.botaoLimpar.y + this.botaoLimpar.height)){
+				this.limpou++;
+				this.pontosX=new Array();	
+				this.pontosY=new Array();
+				this.dicaX=new Array();	
+				this.dicaY=new Array();
+				this.pontoAtivo.x=1000;
+				this.indPonto=-1;
+				if(!this.acertou[0]){
+					this.retas[0]=false;	
+					this.retas[1]=false;	
+					this.retas[2]=false;	
+					this.retas[3]=false;	
+				}if(!this.acertou[1]){
+					this.retas[4]=false;
+					this.retas[5]=false;
+					this.retas[6]=false;
+				}
+				if((this.fase==3 || this.fase==4) && !this.acertou[2]){
+					this.retas[7]=false;
+					this.retas[8]=false;
+					this.retas[9]=false;
+				}
 			}else{
-				if(this.fase==3){
-					if(!this.retas[7]){
-						this.dicaX.push(this.pontos[7].x+(this.pontos[7].width/2));
-						this.dicaY.push(this.pontos[7].y+(this.pontos[7].height/2));
-						this.dicaX.push(this.pontos[8].x+(this.pontos[8].width/2));
-						this.dicaY.push(this.pontos[8].y+(this.pontos[8].height/2));
-					}else if(!this.retas[8]){
-						this.dicaX.push(this.pontos[8].x+(this.pontos[8].width/2));
-						this.dicaY.push(this.pontos[8].y+(this.pontos[8].height/2));
-						this.dicaX.push(this.pontos[9].x+(this.pontos[9].width/2));
-						this.dicaY.push(this.pontos[9].y+(this.pontos[9].height/2));
-					}else if(!this.retas[9]){
-						this.dicaX.push(this.pontos[9].x+(this.pontos[9].width/2));
-						this.dicaY.push(this.pontos[9].y+(this.pontos[9].height/2));
-						this.dicaX.push(this.pontos[7].x+(this.pontos[7].width/2));
-						this.dicaY.push(this.pontos[7].y+(this.pontos[7].height/2));
-					}
-				}else if(this.fase==4){
-					if(!this.retas[7]){
-						this.dicaX.push(this.pontos[7].x+(this.pontos[7].width/2));
-						this.dicaY.push(this.pontos[7].y+(this.pontos[7].height/2));
-						this.dicaX.push(this.pontos[8].x+(this.pontos[8].width/2));
-						this.dicaY.push(this.pontos[8].y+(this.pontos[8].height/2));
-					}else if(!this.retas[8]){
-						this.dicaX.push(this.pontos[8].x+(this.pontos[8].width/2));
-						this.dicaY.push(this.pontos[8].y+(this.pontos[8].height/2));
-						this.dicaX.push(this.pontos[5].x+(this.pontos[5].width/2));
-						this.dicaY.push(this.pontos[5].y+(this.pontos[5].height/2));
-					}else if(!this.retas[9]){
-						this.dicaX.push(this.pontos[5].x+(this.pontos[5].width/2));
-						this.dicaY.push(this.pontos[5].y+(this.pontos[5].height/2));
-						this.dicaX.push(this.pontos[7].x+(this.pontos[7].width/2));
-						this.dicaY.push(this.pontos[7].y+(this.pontos[7].height/2));
+				for(this.i=0;this.i<this.pontos.length;this.i++){
+					if(posMouseX>this.pontos[this.i].x && posMouseX<this.pontos[this.i].x+this.pontos[this.i].width && posMouseY>this.pontos[this.i].y && posMouseY<this.pontos[this.i].y+this.pontos[this.i].height){
+						if(this.indPonto!=this.i){
+							this.cliques++;
+							this.pontoAtivo.x=this.pontos[this.i].x-3;
+							this.pontoAtivo.y=this.pontos[this.i].y-3;
+							this.pontoAtivo.width=this.pontos[this.i].width+6;
+							this.pontoAtivo.height=this.pontos[this.i].height+6;
+							this.pontosX.push(this.pontoAtivo.x+(this.pontos[this.i].width/2));
+							this.pontosY.push(this.pontoAtivo.y+(this.pontos[this.i].height/2));
+
+							//AQUI FAZ A VERIFICAÇÃO SE FORMOU UMA RETA CORRETA OU NÃO.
+							if(this.indPonto!=-1){
+								this.dicaX=new Array();	
+								this.dicaY=new Array();
+
+								if((this.i==0 && this.indPonto==1) || (this.i==1 && this.indPonto==0))this.retas[0]=true;
+								if((this.i==2 && this.indPonto==1) || (this.i==1 && this.indPonto==2))this.retas[1]=true;
+								if((this.i==2 && this.indPonto==3) || (this.i==3 && this.indPonto==2))this.retas[2]=true;
+								if((this.i==0 && this.indPonto==3) || (this.i==3 && this.indPonto==0))this.retas[3]=true;
+								if((this.i==4 && this.indPonto==5) || (this.i==5 && this.indPonto==4))this.retas[4]=true;
+								if((this.i==6 && this.indPonto==5) || (this.i==5 && this.indPonto==6))this.retas[5]=true;
+								if((this.i==6 && this.indPonto==4) || (this.i==4 && this.indPonto==6))this.retas[6]=true;
+								if((this.i==7 && this.indPonto==8) || (this.i==8 && this.indPonto==7))this.retas[7]=true;
+								if(this.fase==3){
+									if((this.i==9 && this.indPonto==8) || (this.i==8 && this.indPonto==9))this.retas[8]=true;
+									if((this.i==9 && this.indPonto==7) || (this.i==7 && this.indPonto==9))this.retas[9]=true;
+								}else if(this.fase==4){
+									if((this.i==5 && this.indPonto==8) || (this.i==8 && this.indPonto==5))this.retas[8]=true;
+									if((this.i==5 && this.indPonto==7) || (this.i==7 && this.indPonto==5))this.retas[9]=true;
+								}
+								this.indPonto=this.i;
+								if(this.retas[0] && this.retas[1] && this.retas[2] && this.retas[3] && !this.acertou[0]){
+									this.pontosX=new Array();	
+									this.pontosY=new Array();
+									this.dicaX=new Array();	
+									this.dicaY=new Array();	
+									this.acertou[0]=true;
+									this.pontoAtivo.x=1000;
+									this.indPonto=-1;
+								}else if(this.retas[4] && this.retas[5] && this.retas[6] && !this.acertou[1]){
+									this.pontosX=new Array();	
+									this.pontosY=new Array();
+									this.dicaX=new Array();	
+									this.dicaY=new Array();
+									this.acertou[1]=true;
+									this.pontoAtivo.x=1000;
+									this.indPonto=-1;
+								}else if(this.retas[7] && this.retas[8] && this.retas[9] && !this.acertou[2]){
+									this.pontosX=new Array();	
+									this.pontosY=new Array();
+									this.dicaX=new Array();	
+									this.dicaY=new Array();
+									this.acertou[2]=true;
+									this.pontoAtivo.x=1000;
+									this.indPonto=-1;
+								}
+								if(this.fase==3 || this.fase==4){
+									if(this.acertou[0] && this.acertou[1] && this.acertou[2])this.ganhou=true;
+								}else{
+									if(this.acertou[0] && this.acertou[1])this.ganhou=true;
+								}
+							}else this.indPonto=this.i;
+							//APÓS VERIFICAR SE FORMOU UMA RETA CORRETA OU NÃO, SALVA O ULTIMO PONTO CLICADO
+						}
+						break;
 					}
 				}
 			}
-			break;
+		}
+		for(this.i=0;this.i<this.dicas;this.i++){
+			if(posMouseX>710-(this.i*60) && posMouseX<710-(this.i*60)+56 && posMouseY>20  && posMouseY<20+34){
+				this.dicas--;
+				this.contDicas++;
+				if(!this.retas[0]){
+					this.dicaX.push(this.pontos[0].x+(this.pontos[0].width/2));
+					this.dicaY.push(this.pontos[0].y+(this.pontos[0].height/2));
+					this.dicaX.push(this.pontos[1].x+(this.pontos[1].width/2));
+					this.dicaY.push(this.pontos[1].y+(this.pontos[1].height/2));
+				}else if(!this.retas[1]){
+					this.dicaX.push(this.pontos[1].x+(this.pontos[1].width/2));
+					this.dicaY.push(this.pontos[1].y+(this.pontos[1].height/2));
+					this.dicaX.push(this.pontos[2].x+(this.pontos[2].width/2));
+					this.dicaY.push(this.pontos[2].y+(this.pontos[2].height/2));
+				}else if(!this.retas[2]){
+					this.dicaX.push(this.pontos[2].x+(this.pontos[2].width/2));
+					this.dicaY.push(this.pontos[2].y+(this.pontos[2].height/2));
+					this.dicaX.push(this.pontos[3].x+(this.pontos[3].width/2));
+					this.dicaY.push(this.pontos[3].y+(this.pontos[3].height/2));
+				}else if(!this.retas[3]){
+					this.dicaX.push(this.pontos[0].x+(this.pontos[0].width/2));
+					this.dicaY.push(this.pontos[0].y+(this.pontos[0].height/2));
+					this.dicaX.push(this.pontos[3].x+(this.pontos[3].width/2));
+					this.dicaY.push(this.pontos[3].y+(this.pontos[3].height/2));
+				}else if(!this.retas[4]){
+					this.dicaX.push(this.pontos[4].x+(this.pontos[4].width/2));
+					this.dicaY.push(this.pontos[4].y+(this.pontos[4].height/2));
+					this.dicaX.push(this.pontos[5].x+(this.pontos[5].width/2));
+					this.dicaY.push(this.pontos[5].y+(this.pontos[5].height/2));
+				}else if(!this.retas[5]){
+					this.dicaX.push(this.pontos[5].x+(this.pontos[5].width/2));
+					this.dicaY.push(this.pontos[5].y+(this.pontos[5].height/2));
+					this.dicaX.push(this.pontos[6].x+(this.pontos[6].width/2));
+					this.dicaY.push(this.pontos[6].y+(this.pontos[6].height/2));
+				}else if(!this.retas[6]){
+					this.dicaX.push(this.pontos[6].x+(this.pontos[6].width/2));
+					this.dicaY.push(this.pontos[6].y+(this.pontos[6].height/2));
+					this.dicaX.push(this.pontos[4].x+(this.pontos[4].width/2));
+					this.dicaY.push(this.pontos[4].y+(this.pontos[4].height/2));
+				}else{
+					if(this.fase==3){
+						if(!this.retas[7]){
+							this.dicaX.push(this.pontos[7].x+(this.pontos[7].width/2));
+							this.dicaY.push(this.pontos[7].y+(this.pontos[7].height/2));
+							this.dicaX.push(this.pontos[8].x+(this.pontos[8].width/2));
+							this.dicaY.push(this.pontos[8].y+(this.pontos[8].height/2));
+						}else if(!this.retas[8]){
+							this.dicaX.push(this.pontos[8].x+(this.pontos[8].width/2));
+							this.dicaY.push(this.pontos[8].y+(this.pontos[8].height/2));
+							this.dicaX.push(this.pontos[9].x+(this.pontos[9].width/2));
+							this.dicaY.push(this.pontos[9].y+(this.pontos[9].height/2));
+						}else if(!this.retas[9]){
+							this.dicaX.push(this.pontos[9].x+(this.pontos[9].width/2));
+							this.dicaY.push(this.pontos[9].y+(this.pontos[9].height/2));
+							this.dicaX.push(this.pontos[7].x+(this.pontos[7].width/2));
+							this.dicaY.push(this.pontos[7].y+(this.pontos[7].height/2));
+						}
+					}else if(this.fase==4){
+						if(!this.retas[7]){
+							this.dicaX.push(this.pontos[7].x+(this.pontos[7].width/2));
+							this.dicaY.push(this.pontos[7].y+(this.pontos[7].height/2));
+							this.dicaX.push(this.pontos[8].x+(this.pontos[8].width/2));
+							this.dicaY.push(this.pontos[8].y+(this.pontos[8].height/2));
+						}else if(!this.retas[8]){
+							this.dicaX.push(this.pontos[8].x+(this.pontos[8].width/2));
+							this.dicaY.push(this.pontos[8].y+(this.pontos[8].height/2));
+							this.dicaX.push(this.pontos[5].x+(this.pontos[5].width/2));
+							this.dicaY.push(this.pontos[5].y+(this.pontos[5].height/2));
+						}else if(!this.retas[9]){
+							this.dicaX.push(this.pontos[5].x+(this.pontos[5].width/2));
+							this.dicaY.push(this.pontos[5].y+(this.pontos[5].height/2));
+							this.dicaX.push(this.pontos[7].x+(this.pontos[7].width/2));
+							this.dicaY.push(this.pontos[7].y+(this.pontos[7].height/2));
+						}
+					}
+				}
+				break;
+			}
+		}
+	}else{
+		if(posMouseX>455 && posMouseX<590 && posMouseY>365 && posMouseY<445){
+			this.pulou=false;
+		}else if(posMouseX>210 && posMouseX<340 && posMouseY>365 && posMouseY<445){
+			this.ativo=false;
 		}
 	}
 }

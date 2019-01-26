@@ -8,6 +8,7 @@
         <script src="js/Match.js"></script>
         <script src="js/Pontos.js"></script>
         <script src="js/Tangram.js"></script>
+        <script src="js/Escore.js"></script>
         <script src="js/Sequencia.js"></script>
         <script src="js/Classifica.js"></script>
         <script src="js/ObjClassifica.js"></script>

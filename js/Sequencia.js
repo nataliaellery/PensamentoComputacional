@@ -5,6 +5,7 @@ var Sequencia = function (fase) {
 	if(this.fase==2)this.fundo.src = "img/Sequencia/FundoSequencia2.png";
 	this.ativo=true;
 	this.pulou=false;
+	this.imgPular= new Imagem(1000,560,0,0,"img/TelaConfirma.png");
 	this.errou = 0;
 	this.perdeu = false;
 	this.ganhou=false;
@@ -24,7 +25,9 @@ var Sequencia = function (fase) {
 	this.trace="";
 	this.msg="";
 	this.msg2="";
+	this.msg3="";
 	this.dicaAtual=-1;
+	this.contDicas=0;
 	if(this.fase==1){
 		for(this.i=0;this.i<4;this.i++)this.iRespostas.push(this.i);
 		this.iRespostas = shuffle(this.iRespostas);
@@ -58,7 +61,8 @@ Sequencia.prototype.Draw = function(){
 
 	if(this.ganhou){
 		//Essa parte é responsável por mostrar que está certo e ir pra próxima fase
-		context.fillText("Correto",220,590);
+		if(this.fase==1)context.fillText("Correto",220,590);
+		else context.fillText("Correto",220,510);
 		this.msg="";
 		if(this.contTempo>this.tempo+1){
 			this.ativo=false;
@@ -67,17 +71,18 @@ Sequencia.prototype.Draw = function(){
 		}
 	}else if(this.perdeu){
 		//Essa parte é responsável por contar os erros
-		context.fillText("Errado",220,590);
+		if(this.fase==1)context.fillText("Errado",220,590);
+		else context.fillText("Errado",220,510);
 		this.msg="";
 		this.follow=-1;
 		if(this.contTempo>this.tempo+1){
 			this.perdeu=false;
-			this.iRespostas = shuffle(this.iRespostas);
 			this.tempo=this.contTempo;
+			this.iRespostas = shuffle(this.iRespostas);
 			this.respostas=new Array();
 			for(this.i=0;this.i<8;this.i++){
-				if(this.fase==1 && this.i<4){
-					this.respostas.push(new Imagem(100+(this.i*160),400,111,114,"img/Sequencia/Sequencia1Answer"+(this.iRespostas[this.i]+2)+".png"));
+				if(this.fase==1){
+					if(this.i<4)this.respostas.push(new Imagem(100+(this.i*160),400,111,114,"img/Sequencia/Sequencia1Answer"+(this.iRespostas[this.i]+2)+".png"));
 				}else{
 					if(this.i<4)this.respostas.push(new Imagem(20,60+(this.i*133),111,114,"img/Sequencia/Sequencia2Answer"+(this.iRespostas[this.i]+1)+".png"));
 					else this.respostas.push(new Imagem(670,60+((this.i-4)*133),111,114,"img/Sequencia/Sequencia2Answer"+(this.iRespostas[this.i]+1)+".png"));
@@ -85,19 +90,21 @@ Sequencia.prototype.Draw = function(){
 			}
 		}	
 	}else{
-		//Aqui faz as peças clicadas seguirem o mouse
-		if(this.follow!=-1){
-			this.respostas[this.follow].x=posMouseX-(this.respostas[this.follow].width/2);
-			this.respostas[this.follow].y=posMouseY-(this.respostas[this.follow].height/2);
-		//	this.trace=this.respostas[this.follow].x+"/"+this.respostas[this.follow].y;
-		}else{
-			for(this.i=0;this.i<this.respostas.length;this.i++){
-				if(this.fase==1){
-					this.respostas[this.i].x = 100+(this.i*160);
-					this.respostas[this.i].y = 400;
-				}
+		if(!this.pulou){
+			//Aqui faz as peças clicadas seguirem o mouse
+			if(this.follow!=-1){
+				this.respostas[this.follow].x=posMouseX-(this.respostas[this.follow].width/2);
+				this.respostas[this.follow].y=posMouseY-(this.respostas[this.follow].height/2);
+			//	this.trace=this.respostas[this.follow].x+"/"+this.respostas[this.follow].y;
+			}else{
+				for(this.i=0;this.i<this.respostas.length;this.i++){
+					if(this.fase==1){
+						this.respostas[this.i].x = 100+(this.i*160);
+						this.respostas[this.i].y = 400;
+					}
+				}	
 			}	
-		}	
+		}
 	}	
 	
 	//aqui mostra as opções de respostas
@@ -116,14 +123,23 @@ Sequencia.prototype.Draw = function(){
 	context.fillText("" + this.trace,150,70);
 	context.font="24px Georgia";
 	context.fillText("" + this.msg2,150,570);
-	if(this.fase==1)context.fillText("" + this.msg,20,570);
-	else context.fillText("" + this.msg,150,540);
-	context.font="40px Georgia";
+	context.fillText("" + this.msg,20,540);
+	context.fillText("" + this.msg3,150,540);
+	context.font="28px Georgia";
 	context.fillText("Tempo: " + Math.round(this.tempo),10,40);
+	context.fillStyle="#FF003C";
+	context.fillText("Tentativas: " + this.errou ,160,40);
+	context.fillStyle="#FF8A00";
+	context.fillText("Dicas: " + this.contDicas,320,40);
+	context.fillStyle="black";
+	context.font="40px Georgia";
+	if(this.pulou){
+		context.drawImage(this.imgPular.img, 0, 0, 800, 600);
+	}
 }
 
 Sequencia.prototype.MouseDown = function(mouseEvent) {
-	if(!this.perdeu && !this.ganhou){
+	if(!this.perdeu && !this.ganhou && !this.pulou){
 		for(this.i=(this.respostas.length-1);this.i>=0;this.i--){
 			if(posMouseX>this.respostas[this.i].x && posMouseX<this.respostas[this.i].x+this.respostas[this.i].width && posMouseY>this.respostas[this.i].y && posMouseY<this.respostas[this.i].y+this.respostas[this.i].height){
 				//o que estiver selecionado vai pra frente da tela:
@@ -145,49 +161,58 @@ Sequencia.prototype.MouseDown = function(mouseEvent) {
 }
 
 Sequencia.prototype.MouseUp = function(mouseEvent) {
-	if(!this.perdeu && !this.ganhou){
-		if(this.follow!=-1){
-			//Pular a fase
+	if(!this.pulou){
+		if(!this.perdeu && !this.ganhou){
+		//Pular a fase
 			if(this.tempo>=60){
 				if(posMouseX>this.botaoPular.x && posMouseX<(this.botaoPular.x + this.botaoPular.width) && posMouseY>this.botaoPular.y && posMouseY<(this.botaoPular.y + this.botaoPular.height)){
 					this.pulou=true;
 				}
 			}
-			if(this.respostas[this.follow].x>this.posRespCorreta.x-40 && this.respostas[this.follow].x<this.posRespCorreta.x+40 && this.respostas[this.follow].y>this.posRespCorreta.y-40 && this.respostas[this.follow].y<this.posRespCorreta.y+40){
-				//VERIFICA SE EH O LOCAL E A FIGURA CORRETA;
-				if(this.iRespostas[this.follow]==this.respCorreta){
-					this.ganhou=true;
-				}else{
-					this.perdeu=true;
-					this.errou++;
-				}
-				this.respostas[this.follow].x=this.posRespCorreta.x;
-				this.respostas[this.follow].y=this.posRespCorreta.y;
-			}	
-		}
-		this.follow=-1;
-
-		for(this.i=0;this.i<this.dicas;this.i++){
-			if(posMouseX>710-(this.i*60) && posMouseX<710-(this.i*60)+56 && posMouseY>20  && posMouseY<20+34){
-				this.dicas--;
-				if(this.fase==1){
-					if(this.dicas==2)this.msg="O último quadro representa o próximo passo da direção do quadrado e círculo.";
-					else if(this.dicas==1)this.msg="Verifique a direção que o círculo laranja avança em cada quadro.";
-					else if(this.dicas==0)this.msg="Verifique a direção que o quadrado azul avança em cada quadro.";
-				}else{
-					if(this.dicas==2){
-						this.msg="Perceba que na sequência da esquerda para a direita";
-						this.msg2="uma coluna desaparece a cada passo.";
-					}else if(this.dicas==1){
-						this.msg="Perceba que na sequência de cima para baixo";
-						this.msg2="uma linha é inserida ao final em cada passo.";
-					}else if(this.dicas==0){
-						this.msg="A resposta tem uma coluna a menos que seu vizinho";
-						this.msg2="da esquerda e uma linha a mais que o vizinho de cima";
+			if(this.follow!=-1){
+				if(this.respostas[this.follow].x>this.posRespCorreta.x-40 && this.respostas[this.follow].x<this.posRespCorreta.x+40 && this.respostas[this.follow].y>this.posRespCorreta.y-40 && this.respostas[this.follow].y<this.posRespCorreta.y+40){
+					//VERIFICA SE EH O LOCAL E A FIGURA CORRETA;
+					if(this.iRespostas[this.follow]==this.respCorreta){
+						this.ganhou=true;
+					}else{
+						this.perdeu=true;
+						this.errou++;
 					}
-				}
-				break;
+					this.respostas[this.follow].x=this.posRespCorreta.x;
+					this.respostas[this.follow].y=this.posRespCorreta.y;
+				}	
 			}
+			this.follow=-1;
+
+			for(this.i=0;this.i<this.dicas;this.i++){
+				if(posMouseX>710-(this.i*60) && posMouseX<710-(this.i*60)+56 && posMouseY>20  && posMouseY<20+34){
+					this.dicas--;
+					this.contDicas++;
+					if(this.fase==1){
+						if(this.dicas==2)this.msg="O último quadro representa o próximo passo da direção do quadrado e círculo.";
+						else if(this.dicas==1)this.msg="Verifique a direção que o círculo laranja avança em cada quadro.";
+						else if(this.dicas==0)this.msg="Verifique a direção que o quadrado azul avança em cada quadro.";
+					}else{
+						if(this.dicas==2){
+							this.msg3="Perceba que na sequência da esquerda para a direita";
+							this.msg2="uma coluna desaparece a cada passo.";
+						}else if(this.dicas==1){
+							this.msg3="Perceba que na sequência de cima para baixo";
+							this.msg2="uma linha é inserida ao final em cada passo.";
+						}else if(this.dicas==0){
+							this.msg3="A resposta tem uma coluna a menos que seu vizinho";
+							this.msg2="da esquerda e uma linha a mais que o vizinho de cima";
+						}
+					}
+					break;
+				}
+			}
+		}
+	}else{
+		if(posMouseX>455 && posMouseX<590 && posMouseY>365 && posMouseY<445){
+			this.pulou=false;
+		}else if(posMouseX>210 && posMouseX<340 && posMouseY>365 && posMouseY<445){
+			this.ativo=false;
 		}
 	}
 }
