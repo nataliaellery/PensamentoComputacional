@@ -1,10 +1,10 @@
 var TelaEscolha = function () {
 	this.menino = new Image();
-	this.menino.src = "img/SelecaoPersonagem/personagem_boy_selecao.png";
+	this.menino = tdsImagens[8];
 	this.menina = new Image();
-	this.menina.src = "img/SelecaoPersonagem/personagem_girl_selecao.png";
+	this.menina = tdsImagens[9];
   	this.fundo = new Image();
-	this.fundo.src = "img/SelecaoPersonagem/tela.png";
+	this.fundo = tdsImagens[10];
 	this.showMenino = false;
 	this.showMenina = false;
 	this.ativo=true;

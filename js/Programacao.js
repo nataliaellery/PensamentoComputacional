@@ -2,20 +2,26 @@ var Programacao = function (fase) {
 	this.random=(Math.random()*101);
 	this.random2=(Math.random()*101);
 	this.fundo = new Image();
-	this.fundo.src = "img/Programacao/Fundo.png";
+	this.fundo = tdsImagens[75];
 	this.obst = new Image();
-	this.obst.src = "img/Programacao/ObstaculoProg.png";
+	this.obst = tdsImagens[76];
 	this.cenario = new Image();
-	this.cenario.src = "img/Programacao/Cenario.png";	
+	this.cenario = tdsImagens[77];
 	this.square = new Image();
-	this.square.src = "img/Programacao/OrangeSquare.png";
-	this.botaoPlay = new Imagem(480,558,21,29,"img/Programacao/botaoPlayProgNew.png");
-	this.novaInter = new Imagem(15,350,770,249,"img/Programacao/newInterfaceNoLoop.png");
-	this.botaoExclui = new Imagem(1000,400,17,17,"img/Programacao/excluiProg.png");
-	this.botaoExcluiTudo = new Imagem(420,556,28,34,"img/Programacao/excluiProgNew.png");
+	this.square = tdsImagens[78];
+	this.botaoPlay = new Imagem(480,558,21,29,"");
+	this.botaoPlay.img = tdsImagens[79];
+	this.novaInter = new Imagem(15,350,770,249,"");
+	this.novaInter.img = tdsImagens[80];
+	this.botaoExclui = new Imagem(1000,400,17,17,"");
+	this.botaoExclui.img = tdsImagens[81];
+	this.botaoExcluiTudo = new Imagem(420,556,28,34,"");
+	this.botaoExcluiTudo.img = tdsImagens[82];
 	this.comandos = new Imagem(0,0,0,0,"nenhum");
-	this.highlightCom= new Imagem(1000,388,69,40,"img/Programacao/HighLightComandoProg.png");
-	this.botaoPular= new Imagem(1000,560,86,36,"img/Pontos/BotaoPular.png");
+	this.highlightCom= new Imagem(1000,388,69,40,"");
+	this.highlightCom.img = tdsImagens[83];
+	this.botaoPular= new Imagem(1000,560,86,36,"");
+	this.botaoPular.img = tdsImagens[84];
 	this.comandoPosicao = new Array();
 	this.loopPosicao = new Array();
 	this.comando = new Array();
@@ -65,8 +71,10 @@ var Programacao = function (fase) {
 	this.comTotalLoop = new Array();
 	this.updateLoop=-1;
 	this.updateLoopId=-1;
-	this.botaoMais=new Imagem(1000,560,86,36,"img/Programacao/Mais.png");//COLOCAR IMG CERTA
-	this.botaoMenos=new Imagem(1000,560,86,36,"img/Programacao/Menos.png");//COLOCAR IMG CERTA
+	this.botaoMais=new Imagem(1000,560,86,36,"");
+	this.botaoMais.img = tdsImagens[85];
+	this.botaoMenos=new Imagem(1000,560,86,36,"");
+	this.botaoMenos.img = tdsImagens[86];
 	this.multipleLoop=false;
 	this.insideLoop=false;
 	this.comAtualLoop=new Array();
@@ -77,7 +85,8 @@ var Programacao = function (fase) {
 	this.contApagouAll=0;
 	this.contPlay=0;
 	this.pulou=false;
-	this.imgPular= new Imagem(1000,560,0,0,"img/TelaConfirma.png");
+	this.imgPular= new Imagem(1000,560,0,0,"");
+	this.imgPular.img = tdsImagens[87];
 	this.contLoop=0;
 	this.contInstrLoop=0;
 //Dados para passar por parâmetro
@@ -306,9 +315,11 @@ var Programacao = function (fase) {
 			}
 		}
 	}else if(this.fase>7){
-		this.comLoop= new Imagem(625,550,69,39,"img/Programacao/ProgLoop1New.png");	
+		this.comLoop= new Imagem(625,550,69,39,"");	
+		this.comLoop.img = tdsImagens[88];
 		this.rectComLoop=new Imagem(625,550,69,39,"");
-		this.highlightLoop= new Imagem(1000,388,83,49,"img/Programacao/HighLightLoop.png");
+		this.highlightLoop= new Imagem(1000,388,83,49,"");
+		this.highlightLoop.img = tdsImagens[89];
 		this.insideLoop=false;
 		this.multipleLoop=false;
 		if(fase==8){
@@ -355,10 +366,14 @@ var Programacao = function (fase) {
 	}
 	//---------------------
 	this.ativo=true;
-	this.comLeft=new Imagem(575,486,83,48,"img/Programacao/BotaoLeftProg.png");
-	this.comRight=new Imagem(660,437,83,48,"img/Programacao/BotaoRightProg.png");
-	this.comUp=new Imagem(575,437,83,48,"img/Programacao/botaoUpProg.png");
-	this.comDown=new Imagem(660,486,83,48,"img/Programacao/botaoDownProg.png");
+	this.comLeft=new Imagem(575,486,83,48,"");
+	this.comLeft.img = tdsImagens[90];
+	this.comRight=new Imagem(660,437,83,48,"");
+	this.comRight.img = tdsImagens[91];
+	this.comUp=new Imagem(575,437,83,48,"");
+	this.comUp.img = tdsImagens[92];
+	this.comDown=new Imagem(660,486,83,48,"");
+	this.comDown.img = tdsImagens[93];
 	this.rectComLeft=new Imagem(575,486,83,48,"");
 	this.rectComRight=new Imagem(660,437,83,48,"");
 	this.rectComUp=new Imagem(575,437,83,48,"");
@@ -369,7 +384,7 @@ var Programacao = function (fase) {
 	for(this.i=0; this.i<8; this.i++){
 		this.pontos[this.i]= new Matriz(8);
 		for(this.j=0; this.j<8; this.j++){
-			this.pontos[this.i].j[this.j].img.src="img/Programacao/bolota.png";
+			this.pontos[this.i].j[this.j].img = tdsImagens[94];
 			this.pontos[this.i].j[this.j].x=(this.j*31)+this.distX;
 			this.pontos[this.i].j[this.j].y=(this.j*18)+this.distY;
 			this.pontos[this.i].j[this.j].status=this.status[this.i].j[this.j].status;
@@ -630,13 +645,13 @@ Programacao.prototype.Draw = function(){
 									if(this.pontoX==this.pontoFinalX && this.pontoY==this.pontoFinalY){
 										if((this.indice+this.comTotalLoop[this.indice])==this.comando.length-1 && this.quantidade[this.indice]<=1){
 											//Muda o quadrado pra verde se ganhou
-											this.square.src="img/Programacao/GreenSquare.png";
+											this.square = tdsImagens[95];
 											this.ganhou=true;
 										//Muda o quadrado pra verde se passou por cima
 										//mas não parou no lugar certo
-										}else this.square.src="img/Programacao/YellowSquare.png";
+										}else this.square = tdsImagens[96];
 									//Muda pra azul que é o normal se não conseguiu
-									}else this.square.src="img/Programacao/OrangeSquare.png";
+									}else this.square = tdsImagens[97];
 									//Zera tudo pra próxuma vez----
 									this.contAnda=0;
 									this.andaParado=false;
@@ -851,28 +866,59 @@ Programacao.prototype.MouseUp = function(mouseEvent) {
 Programacao.prototype.KeyDown = function (keyCode){}
 
 Programacao.prototype.VerificaRemoveuComando = function (){
+	//TENHO QUE TESTAR MAIS ESSA PARTE POIS TAVA DANDO ERROS, RESOLVI A MAIORIA
+	//MAS PODE TER OUTROS
 	if(this.indice>0)this.highlightCom.x=this.comandoPosicao[this.indice-1].x;
+	//10000 é o meio do loop//20000 é o fim do loop//0 é loop de um comando só
+	//entre 1 e 1000 é a qtd certinha de comandos que tem em cada loop			
 	if(this.removeUltimo){
 		//Reorganizando os comandos para ficarem na ordem certa sem o que foi removido
-		for(this.i=this.excluiComando;this.i<this.comando.length-1;this.i++){
-			this.comando[this.i]=this.comando[this.i+1];
-			this.quantidade[this.i]=this.quantidade[this.i+1];
-			this.quantidadeTotal[this.i]=this.quantidade[this.i];
-			if(this.comando[this.i]=="Up"){
-				this.comandoPosicao[this.i].img.src=("img/Programacao/botaoUpProgMenor.png");
-			}else if(this.comando[this.i]=="Down"){
-				this.comandoPosicao[this.i].img.src=("img/Programacao/botaoDownProgMenor.png");
-			}else if(this.comando[this.i]=="Left"){
-				this.comandoPosicao[this.i].img.src=("img/Programacao/BotaoLeftProgMenor.png");
-			}else if(this.comando[this.i]=="Right"){
-				this.comandoPosicao[this.i].img.src=("img/Programacao/BotaoRightProgMenor.png");
+		//this.trace=this.excluiComando+"-"+this.comando.length;
+		if(this.comTotalLoop[this.excluiComando]==20000 && this.excluiComando==(this.comando.length-1)){
+			//this.trace="entrou aqui?";
+			if(this.comTotalLoop[this.excluiComando-1]<10000)this.comTotalLoop[this.excluiComando-1]--;
+			else{				
+				this.contLoop=1;
+				while(this.comTotalLoop[this.excluiComando-this.contLoop]>=10000)this.contLoop++;
+				this.comTotalLoop[this.excluiComando-this.contLoop]--;
+				this.comTotalLoop[this.excluiComando-1]=20000;
+			}
+		}else{
+			for(this.i=this.excluiComando;this.i<this.comando.length-1;this.i++){
+				this.comando[this.i]=this.comando[this.i+1];
+				this.quantidade[this.i]=this.quantidade[this.i+1];
+				this.quantidadeTotal[this.i]=this.quantidade[this.i];
+				//this.trace=this.comTotalLoop[this.i];
+				if(this.i==this.excluiComando && this.comTotalLoop[this.i]>0 && this.comTotalLoop[this.i]<10000){
+					this.comTotalLoop[this.i]=this.comTotalLoop[this.i]-1;
+				}else if(this.i==this.excluiComando && this.comTotalLoop[this.i]==20000){
+					if(this.comTotalLoop[this.excluiComando-1]<10000)this.comTotalLoop[this.excluiComando-1]--;
+					else{				
+						this.contLoop=1;
+						while(this.comTotalLoop[this.excluiComando-this.contLoop]>=10000)this.contLoop++;
+						this.comTotalLoop[this.excluiComando-this.contLoop]--;
+						this.comTotalLoop[this.excluiComando-1]=20000;
+					}
+					this.comTotalLoop[this.i]=this.comTotalLoop[this.i+1];	
+				}else if(this.comTotalLoop[this.i+1]>0){
+					this.contLoop=1;
+					if(this.i==this.excluiComando){
+						while(this.comTotalLoop[this.i-this.contLoop]>=10000)this.contLoop++;
+						this.comTotalLoop[this.i-this.contLoop]--;
+					}
+					this.comTotalLoop[this.i]=this.comTotalLoop[this.i+1];	
+				}else{
+					this.comTotalLoop[this.i]=0;
+				}
 			}
 		}
 		this.comando.pop();
 		this.quantidade.pop();
 		this.quantidadeTotal.pop();
 		this.comandoPosicao.pop();
+		this.comTotalLoop.pop();
 		this.removeUltimo=false;
+		this.RepovoaComandos();
 	}
 }
 Programacao.prototype.MoveBonecoDemo = function (){
@@ -1011,16 +1057,20 @@ Programacao.prototype.AddComando = function (stringComando){
 			this.comAtualLoop[this.excluiComando]=0;
 			if(stringComando=="Up"){
 				this.comando[this.excluiComando]="LoopUp";
-				this.comandoPosicao[this.excluiComando] = new Imagem(this.comandoPosicao[this.excluiComando].x,this.comandoPosicao[this.excluiComando].y,69,40,"img/Programacao/botaoUpProgMenorNew.png");
+				this.comandoPosicao[this.excluiComando] = new Imagem(this.comandoPosicao[this.excluiComando].x,this.comandoPosicao[this.excluiComando].y,69,40,"");
+				this.comandoPosicao[this.excluiComando].img=tdsImagens[102];
 			}else if(stringComando=="Down"){
 				this.comando[this.excluiComando]="LoopDown";
-				this.comandoPosicao[this.excluiComando] = new Imagem(this.comandoPosicao[this.excluiComando].x,this.comandoPosicao[this.excluiComando].y,69,40,"img/Programacao/botaoDownProgMenorNew.png");
+				this.comandoPosicao[this.excluiComando] = new Imagem(this.comandoPosicao[this.excluiComando].x,this.comandoPosicao[this.excluiComando].y,69,40,"");
+				this.comandoPosicao[this.excluiComando].img=tdsImagens[103];
 			}else if(stringComando=="Left"){
 				this.comando[this.excluiComando]="LoopLeft";
-				this.comandoPosicao[this.excluiComando] = new Imagem(this.comandoPosicao[this.excluiComando].x,this.comandoPosicao[this.excluiComando].y,69,40,"img/Programacao/BotaoLeftProgMenorNew.png");
+				this.comandoPosicao[this.excluiComando] = new Imagem(this.comandoPosicao[this.excluiComando].x,this.comandoPosicao[this.excluiComando].y,69,40,"");
+				this.comandoPosicao[this.excluiComando].img=tdsImagens[104];
 			}else if(stringComando=="Right"){
 				this.comando[this.excluiComando]="LoopRight";
-				this.comandoPosicao[this.excluiComando] = new Imagem(this.comandoPosicao[this.excluiComando].x,this.comandoPosicao[this.excluiComando].y,69,40,"img/Programacao/BotaoRightProgMenorNew.png");
+				this.comandoPosicao[this.excluiComando] = new Imagem(this.comandoPosicao[this.excluiComando].x,this.comandoPosicao[this.excluiComando].y,69,40,"");
+				this.comandoPosicao[this.excluiComando].img=tdsImagens[105];
 			}
 		}else{
 			this.comando.push(stringComando);
@@ -1028,17 +1078,23 @@ Programacao.prototype.AddComando = function (stringComando){
 			this.comAtualLoop.push(0);
 			this.quantidade.push(1);
 			this.quantidadeTotal.push(1);
-			this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoop1New.png"));
+			this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+			this.loopPosicao[this.loopPosicao.length-1].img=tdsImagens[88];
 			if(stringComando=="Up"){
-				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/botaoUpProgMenor.png"));
+				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+				this.comandoPosicao[this.comandoPosicao.length-1].img=tdsImagens[98];
 			}else if(stringComando=="Down"){
-				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/botaoDownProgMenor.png"));
+				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+				this.comandoPosicao[this.comandoPosicao.length-1].img=tdsImagens[99];
 			}else if(stringComando=="Left"){
-				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/BotaoLeftProgMenor.png"));
+				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+				this.comandoPosicao[this.comandoPosicao.length-1].img=tdsImagens[100];
 			}else if(stringComando=="Right"){
-				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/BotaoRightProgMenor.png"));
+				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+				this.comandoPosicao[this.comandoPosicao.length-1].img=tdsImagens[101];
 			}else if(stringComando=="Loop"){
-				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoop1New.png"));
+				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+				this.comandoPosicao[this.comandoPosicao.length-1].img=tdsImagens[88];
 				this.contLoop++;
 			}
 			this.qtd=7;
@@ -1072,40 +1128,61 @@ Programacao.prototype.RepovoaComandos = function (){
 		if(this.i<this.comando.length){
 			if(this.comando[this.i]=="Up"){
 				this.loopPosicao.push(new Imagem(10,10,"lalala"));
-				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/botaoUpProgMenor.png"));
+				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+				this.comandoPosicao[this.comandoPosicao.length-1].img=tdsImagens[98];
 			}else if(this.comando[this.i]=="Down"){
 				this.loopPosicao.push(new Imagem(10,10,"lalala"));
-				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/botaoDownProgMenor.png"));
+				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+				this.comandoPosicao[this.comandoPosicao.length-1].img=tdsImagens[99];
 			}else if(this.comando[this.i]=="Left"){
 				this.loopPosicao.push(new Imagem(10,10,"lalala"));
-				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/BotaoLeftProgMenor.png"));
+				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+				this.comandoPosicao[this.comandoPosicao.length-1].img=tdsImagens[100];
 			}else if(this.comando[this.i]=="Right"){
 				this.loopPosicao.push(new Imagem(10,10,"lalala"));
-				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/BotaoRightProgMenor.png"));
+				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+				this.comandoPosicao[this.comandoPosicao.length-1].img=tdsImagens[101];
 			}else if(this.comando[this.i]=="LoopUp"){								
-				if(this.comTotalLoop[this.i]==0)this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoop1New.png"));
-				else if(this.comTotalLoop[this.i]==10000)this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopMeioNew.png"));
-				else if(this.comTotalLoop[this.i]==20000)this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopFimNew.png"));
-				else this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopIniNew.png"));
+				if(this.comTotalLoop[this.i]==0){
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoop1New.png"));
+				}else if(this.comTotalLoop[this.i]==10000){
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopMeioNew.png"));
+				}else if(this.comTotalLoop[this.i]==20000){
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopFimNew.png"));
+				}else{
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopIniNew.png"));
+				}
 				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/botaoUpProgMenorNew.png"));
 			}else if(this.comando[this.i]=="LoopDown"){
-				if(this.comTotalLoop[this.i]==0)this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoop1New.png"));
-				else if(this.comTotalLoop[this.i]==10000)this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopMeioNew.png"));
-				else if(this.comTotalLoop[this.i]==20000)this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopFimNew.png"));
-				else this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopIniNew.png"));
-				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/botaoDownProgMenorNew.png"));
+				if(this.comTotalLoop[this.i]==0){
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoop1New.png"));
+				}else if(this.comTotalLoop[this.i]==10000){
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopMeioNew.png"));
+				}else if(this.comTotalLoop[this.i]==20000){
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopFimNew.png"));
+				}else{
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopIniNew.png"));
+				}this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/botaoDownProgMenorNew.png"));
 			}else if(this.comando[this.i]=="LoopLeft"){
-				if(this.comTotalLoop[this.i]==0)this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoop1New.png"));
-				else if(this.comTotalLoop[this.i]==10000)this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopMeioNew.png"));
-				else if(this.comTotalLoop[this.i]==20000)this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopFimNew.png"));
-				else this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopIniNew.png"));
-				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/BotaoLeftProgMenorNew.png"));
+				if(this.comTotalLoop[this.i]==0){
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoop1New.png"));
+				}else if(this.comTotalLoop[this.i]==10000){
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopMeioNew.png"));
+				}else if(this.comTotalLoop[this.i]==20000){
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopFimNew.png"));
+				}else{
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopIniNew.png"));
+				}this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/BotaoLeftProgMenorNew.png"));
 			}else if(this.comando[this.i]=="LoopRight"){
-				if(this.comTotalLoop[this.i]==0)this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoop1New.png"));
-				else if(this.comTotalLoop[this.i]==10000)this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopMeioNew.png"));
-				else if(this.comTotalLoop[this.i]==20000)this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopFimNew.png"));
-				else this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopIniNew.png"));
-				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/BotaoRightProgMenorNew.png"));
+				if(this.comTotalLoop[this.i]==0){
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoop1New.png"));
+				}else if(this.comTotalLoop[this.i]==10000){
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopMeioNew.png"));
+				}else if(this.comTotalLoop[this.i]==20000){
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopFimNew.png"));
+				}else{
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopIniNew.png"));
+				}this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/BotaoRightProgMenorNew.png"));
 			}else if(this.comando[this.i]=="Loop"){
 				this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoop1New.png"));
 				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoop1New.png"));

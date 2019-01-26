@@ -3,170 +3,170 @@ var Instrucoes = function (indice) {
 	if(genero==0){
 		if(this.indice==1){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes1a.png";
+			this.fundo1 = tdsImagens[11];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes1b.png";
+			this.fundo2 = tdsImagens[12];
 		}else if(this.indice==2){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes2a.png";
+			this.fundo1 = tdsImagens[13];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes2b.png";
+			this.fundo2 = tdsImagens[14];
 		}else if(this.indice==3){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes4a.png";
+			this.fundo1 = tdsImagens[15];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes4b.png";
+			this.fundo2 = tdsImagens[16];
 		}else if(this.indice==4){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes6a.png";
+			this.fundo1 = tdsImagens[17];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes6b.png";
+			this.fundo2 = tdsImagens[18];
 		}else if(this.indice==5){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes7a.png";
+			this.fundo1 = tdsImagens[19];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes7b.png";
+			this.fundo2 = tdsImagens[20];
 		}else if(this.indice==6){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes9a.png";
+			this.fundo1 = tdsImagens[21];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes9b.png";
+			this.fundo2 = tdsImagens[22];
 		}else if(this.indice==7){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes10a.png";
+			this.fundo1 = tdsImagens[23];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes10b.png";
+			this.fundo2 = tdsImagens[24];
 		}else if(this.indice==8){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes11a.png";
+			this.fundo1 = tdsImagens[25];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes11b.png";
+			this.fundo2 = tdsImagens[26];
 		}else if(this.indice==9){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes12a.png";
+			this.fundo1 = tdsImagens[27];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes12b.png";
+			this.fundo2 = tdsImagens[28];
 		}else if(this.indice==10){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes13a.png";
+			this.fundo1 = tdsImagens[29];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes13b.png";
+			this.fundo2 = tdsImagens[30];
 		}else if(this.indice==11){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes15a.png";
+			this.fundo1 = tdsImagens[31];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes15b.png";
+			this.fundo2 = tdsImagens[32];
 		}else if(this.indice==12){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes16a.png";
+			this.fundo1 = tdsImagens[33];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes16b.png";
+			this.fundo2 = tdsImagens[34];
 		}else if(this.indice==13){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes17a.png";
+			this.fundo1 = tdsImagens[35];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes17b.png";
+			this.fundo2 = tdsImagens[36];
 		}else if(this.indice==14){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes19a.png";
+			this.fundo1 = tdsImagens[37];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes19b.png";
+			this.fundo2 = tdsImagens[38];
 		}else if(this.indice==15){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes21a.png";
+			this.fundo1 = tdsImagens[39];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes21b.png";
+			this.fundo2 = tdsImagens[40];
 		}else if(this.indice==16){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes22a.png";
+			this.fundo1 = tdsImagens[41];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes22b.png";
+			this.fundo2 = tdsImagens[42];
 		}
 	}else{
 		if(this.indice==1){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes1c.png";
+			this.fundo1 = tdsImagens[43];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes1d.png";
+			this.fundo2 = tdsImagens[44];
 		}else if(this.indice==2){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes2c.png";
+			this.fundo1 = tdsImagens[45];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes2d.png";
+			this.fundo2 = tdsImagens[46];
 		}else if(this.indice==3){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes4c.png";
+			this.fundo1 = tdsImagens[47];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes4d.png";
+			this.fundo2 = tdsImagens[48];
 		}else if(this.indice==4){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes6c.png";
+			this.fundo1 = tdsImagens[49];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes6d.png";
+			this.fundo2 = tdsImagens[50];
 		}else if(this.indice==5){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes7c.png";
+			this.fundo1 = tdsImagens[51];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes7d.png";
+			this.fundo2 = tdsImagens[52];
 		}else if(this.indice==6){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes9c.png";
+			this.fundo1 = tdsImagens[53];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes9d.png";
+			this.fundo2 = tdsImagens[54];
 		}else if(this.indice==7){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes10c.png";
+			this.fundo1 = tdsImagens[55];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes10d.png";
+			this.fundo2 = tdsImagens[56];
 		}else if(this.indice==8){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes11c.png";
+			this.fundo1 = tdsImagens[57];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes11d.png";
+			this.fundo2 = tdsImagens[58];
 		}else if(this.indice==9){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes12c.png";
+			this.fundo1 = tdsImagens[59];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes12d.png";
+			this.fundo2 = tdsImagens[60];
 		}else if(this.indice==10){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes13c.png";
+			this.fundo1 = tdsImagens[61];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes13d.png";
+			this.fundo2 = tdsImagens[62];
 		}else if(this.indice==11){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes15c.png";
+			this.fundo1 = tdsImagens[63];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes15d.png";
+			this.fundo2 = tdsImagens[64];
 		}else if(this.indice==12){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes16c.png";
+			this.fundo1 = tdsImagens[65];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes16d.png";
+			this.fundo2 = tdsImagens[66];
 		}else if(this.indice==13){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes17c.png";
+			this.fundo1 = tdsImagens[67];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes17d.png";
+			this.fundo2 = tdsImagens[68];
 		}else if(this.indice==14){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes19c.png";
+			this.fundo1 = tdsImagens[69];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes19d.png";
+			this.fundo2 = tdsImagens[70];
 		}else if(this.indice==15){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes21c.png";
+			this.fundo1 = tdsImagens[71];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes21d.png";
+			this.fundo2 = tdsImagens[72];
 		}else if(this.indice==16){
 			this.fundo1 = new Image();
-			this.fundo1.src = "img/Instrucoes/Instrucoes22c.png";
+			this.fundo1 = tdsImagens[73];
 			this.fundo2 = new Image();
-			this.fundo2.src = "img/Instrucoes/Instrucoes22d.png";
+			this.fundo2 = tdsImagens[74];
 		}
 	}
 	this.cursor = new Image();
-	this.cursor.src = "img/Nome/Cursor.png";	
+	this.cursor=tdsImagens[1];
 	this.ativo=true;
 	this.cont=0;
 	this.cont2=0;
