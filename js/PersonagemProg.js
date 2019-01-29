@@ -1,11 +1,11 @@
 var PersonagemProg = function () {
-	this.imagem = new Image(0,0,28,70,"img/Programacao/GirLeft0.png");
+	this.imagem =tdsImagens[110];
 	this.x=0;
 	this.y=0;
 	this.width=28;
 	this.height=70;
-	if(genero==0)this.imagem.src = "img/Programacao/GirLeft0.png";
-	else this.imagem.src = "img/Programacao/BoyLeft0.png";
+	if(genero==0)this.imagem=tdsImagens[110];
+	else this.imagem =tdsImagens[130];
 	this.isWalking = false;
 	this.indice = 0;
 	this.velocidade=0.4;
@@ -15,15 +15,15 @@ var PersonagemProg = function () {
 
 PersonagemProg.prototype.animaParado = function(direcao){
 	if(genero==0){
-		if(direcao=="Left" || direcao=="LoopLeft")this.imagem.src = "img/Programacao/GirLeft0.png";
-		else if(direcao=="Right" || direcao=="LoopRight")this.imagem.src = "img/Programacao/GirlRight0.png";
-		else if(direcao=="Up" || direcao=="LoopUp")this.imagem.src = "img/Programacao/GirlUp0.png";
-		else this.imagem.src = "img/Programacao/GirlDown0.png";
+		if(direcao=="Left" || direcao=="LoopLeft")this.imagem =tdsImagens[110];
+		else if(direcao=="Right" || direcao=="LoopRight")this.imagem =tdsImagens[115];
+		else if(direcao=="Up" || direcao=="LoopUp")this.imagem =tdsImagens[120];
+		else this.imagem =tdsImagens[125];
 	}else{
-		if(direcao=="Left" || direcao=="LoopLeft")this.imagem.src = "img/Programacao/BoyLeft0.png";
-		else if(direcao=="Right" || direcao=="LoopRight")this.imagem.src = "img/Programacao/BoyRight0.png";
-		else if(direcao=="Up" || direcao=="LoopUp")this.imagem.src = "img/Programacao/BoyUp0.png";
-		else this.imagem.src = "img/Programacao/BoyDown0.png";
+		if(direcao=="Left" || direcao=="LoopLeft")this.imagem =tdsImagens[130];
+		else if(direcao=="Right" || direcao=="LoopRight")this.imagem =tdsImagens[135];
+		else if(direcao=="Up" || direcao=="LoopUp")this.imagem =tdsImagens[140];
+		else this.imagem =tdsImagens[145];
 	}
 }
 
@@ -36,55 +36,55 @@ PersonagemProg.prototype.animaWalk = function(direcao) {
 	}
 	if(genero==0){
 		if(direcao=="Left" || direcao=="LoopLeft"){
-			if(this.indice==0)this.imagem.src = "img/Programacao/GirLeft1.png";
-			else if(this.indice==1)this.imagem.src = "img/Programacao/GirLeft2.png";
-			else if(this.indice==2)this.imagem.src = "img/Programacao/GirLeft3.png";
-			else if(this.indice==3)this.imagem.src = "img/Programacao/GirLeft4.png";
-			else if(this.indice==4)this.imagem.src = "img/Programacao/GirLeft3.png";
+			if(this.indice==0)this.imagem =tdsImagens[111];
+			else if(this.indice==1)this.imagem =tdsImagens[112];
+			else if(this.indice==2)this.imagem =tdsImagens[113];
+			else if(this.indice==3)this.imagem =tdsImagens[114];
+			else if(this.indice==4)this.imagem =tdsImagens[113];
 		}else if(direcao=="Right" || direcao=="LoopRight"){
-			if(this.indice==0)this.imagem.src = "img/Programacao/GirlRight1.png";
-			else if(this.indice==1)this.imagem.src = "img/Programacao/GirlRight2.png";
-			else if(this.indice==2)this.imagem.src = "img/Programacao/GirlRight3.png";
-			else if(this.indice==3)this.imagem.src = "img/Programacao/GirlRight4.png";
-			else if(this.indice==4)this.imagem.src = "img/Programacao/GirlRight3.png";
+			if(this.indice==0)this.imagem =tdsImagens[116];
+			else if(this.indice==1)this.imagem =tdsImagens[117];
+			else if(this.indice==2)this.imagem =tdsImagens[118];
+			else if(this.indice==3)this.imagem =tdsImagens[119];
+			else if(this.indice==4)this.imagem =tdsImagens[118];
 		}else if(direcao=="Up" || direcao=="LoopUp"){
-			if(this.indice==0)this.imagem.src = "img/Programacao/GirlUp1.png";
-			else if(this.indice==1)this.imagem.src = "img/Programacao/GirlUp2.png";
-			else if(this.indice==2)this.imagem.src = "img/Programacao/GirlUp3.png";
-			else if(this.indice==3)this.imagem.src = "img/Programacao/GirlUp4.png";
-			else if(this.indice==4)this.imagem.src = "img/Programacao/GirlUp3.png";
+			if(this.indice==0)this.imagem =tdsImagens[121];
+			else if(this.indice==1)this.imagem =tdsImagens[122];
+			else if(this.indice==2)this.imagem =tdsImagens[123];
+			else if(this.indice==3)this.imagem =tdsImagens[124];
+			else if(this.indice==4)this.imagem =tdsImagens[123];
 		}else{
-			if(this.indice==0)this.imagem.src = "img/Programacao/GirlDown1.png";
-			else if(this.indice==1)this.imagem.src = "img/Programacao/GirlDown2.png";
-			else if(this.indice==2)this.imagem.src = "img/Programacao/GirlDown3.png";
-			else if(this.indice==3)this.imagem.src = "img/Programacao/GirlDown4.png";
-			else if(this.indice==4)this.imagem.src = "img/Programacao/GirlDown3.png";
+			if(this.indice==0)this.imagem =tdsImagens[126];
+			else if(this.indice==1)this.imagem =tdsImagens[127];
+			else if(this.indice==2)this.imagem =tdsImagens[128];
+			else if(this.indice==3)this.imagem =tdsImagens[129];
+			else if(this.indice==4)this.imagem =tdsImagens[128];
 		}
 	}else{
 		if(direcao=="Left" || direcao=="LoopLeft"){
-			if(this.indice==0)this.imagem.src = "img/Programacao/BoyLeft1.png";
-			else if(this.indice==1)this.imagem.src = "img/Programacao/BoyLeft2.png";
-			else if(this.indice==2)this.imagem.src = "img/Programacao/BoyLeft3.png";
-			else if(this.indice==3)this.imagem.src = "img/Programacao/BoyLeft4.png";
-			else if(this.indice==4)this.imagem.src = "img/Programacao/BoyLeft3.png";
+			if(this.indice==0)this.imagem =tdsImagens[131];
+			else if(this.indice==1)this.imagem =tdsImagens[132];
+			else if(this.indice==2)this.imagem =tdsImagens[133];
+			else if(this.indice==3)this.imagem =tdsImagens[134];
+			else if(this.indice==4)this.imagem =tdsImagens[133];
 		}else if(direcao=="Right" || direcao=="LoopRight"){
-			if(this.indice==0)this.imagem.src = "img/Programacao/BoyRight1.png";
-			else if(this.indice==1)this.imagem.src = "img/Programacao/BoyRight2.png";
-			else if(this.indice==2)this.imagem.src = "img/Programacao/BoyRight3.png";
-			else if(this.indice==3)this.imagem.src = "img/Programacao/BoyRight4.png";
-			else if(this.indice==4)this.imagem.src = "img/Programacao/BoyRight3.png";
+			if(this.indice==0)this.imagem =tdsImagens[136];
+			else if(this.indice==1)this.imagem =tdsImagens[137];
+			else if(this.indice==2)this.imagem =tdsImagens[138];
+			else if(this.indice==3)this.imagem =tdsImagens[139];
+			else if(this.indice==4)this.imagem =tdsImagens[138];
 		}else if(direcao=="Up" || direcao=="LoopUp"){
-			if(this.indice==0)this.imagem.src = "img/Programacao/BoyUp1.png";
-			else if(this.indice==1)this.imagem.src = "img/Programacao/BoyUp2.png";
-			else if(this.indice==2)this.imagem.src = "img/Programacao/BoyUp3.png";
-			else if(this.indice==3)this.imagem.src = "img/Programacao/BoyUp4.png";
-			else if(this.indice==4)this.imagem.src = "img/Programacao/BoyUp3.png";
+			if(this.indice==0)this.imagem =tdsImagens[141];
+			else if(this.indice==1)this.imagem =tdsImagens[142];
+			else if(this.indice==2)this.imagem =tdsImagens[143];
+			else if(this.indice==3)this.imagem =tdsImagens[144];
+			else if(this.indice==4)this.imagem =tdsImagens[143];
 		}else{
-			if(this.indice==0)this.imagem.src = "img/Programacao/BoyDown1.png";
-			else if(this.indice==1)this.imagem.src = "img/Programacao/BoyDown2.png";
-			else if(this.indice==2)this.imagem.src = "img/Programacao/BoyDown3.png";
-			else if(this.indice==3)this.imagem.src = "img/Programacao/BoyDown4.png";
-			else if(this.indice==4)this.imagem.src = "img/Programacao/BoyDown3.png";
+			if(this.indice==0)this.imagem =tdsImagens[146];
+			else if(this.indice==1)this.imagem =tdsImagens[147];
+			else if(this.indice==2)this.imagem =tdsImagens[148];
+			else if(this.indice==3)this.imagem =tdsImagens[149];
+			else if(this.indice==4)this.imagem =tdsImagens[148];
 		}
 	}
 }

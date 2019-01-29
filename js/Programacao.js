@@ -1144,48 +1144,73 @@ Programacao.prototype.RepovoaComandos = function (){
 				this.comandoPosicao[this.comandoPosicao.length-1].img=tdsImagens[101];
 			}else if(this.comando[this.i]=="LoopUp"){								
 				if(this.comTotalLoop[this.i]==0){
-					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoop1New.png"));
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+					this.loopPosicao[this.loopPosicao.length-1].img=tdsImagens[106];
 				}else if(this.comTotalLoop[this.i]==10000){
-					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopMeioNew.png"));
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+					this.loopPosicao[this.loopPosicao.length-1].img=tdsImagens[107];
 				}else if(this.comTotalLoop[this.i]==20000){
-					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopFimNew.png"));
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+					this.loopPosicao[this.loopPosicao.length-1].img=tdsImagens[108];
 				}else{
-					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopIniNew.png"));
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+					this.loopPosicao[this.loopPosicao.length-1].img=tdsImagens[109];
 				}
-				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/botaoUpProgMenorNew.png"));
+				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+				this.comandoPosicao[this.comandoPosicao.length-1].img=tdsImagens[102];
 			}else if(this.comando[this.i]=="LoopDown"){
 				if(this.comTotalLoop[this.i]==0){
-					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoop1New.png"));
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+					this.loopPosicao[this.loopPosicao.length-1].img=tdsImagens[106];
 				}else if(this.comTotalLoop[this.i]==10000){
-					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopMeioNew.png"));
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+					this.loopPosicao[this.loopPosicao.length-1].img=tdsImagens[107];
 				}else if(this.comTotalLoop[this.i]==20000){
-					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopFimNew.png"));
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+					this.loopPosicao[this.loopPosicao.length-1].img=tdsImagens[108];
 				}else{
-					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopIniNew.png"));
-				}this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/botaoDownProgMenorNew.png"));
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+					this.loopPosicao[this.loopPosicao.length-1].img=tdsImagens[109];
+				}
+				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+				this.comandoPosicao[this.comandoPosicao.length-1].img=tdsImagens[103];
 			}else if(this.comando[this.i]=="LoopLeft"){
 				if(this.comTotalLoop[this.i]==0){
-					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoop1New.png"));
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+					this.loopPosicao[this.loopPosicao.length-1].img=tdsImagens[106];
 				}else if(this.comTotalLoop[this.i]==10000){
-					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopMeioNew.png"));
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+					this.loopPosicao[this.loopPosicao.length-1].img=tdsImagens[107];
 				}else if(this.comTotalLoop[this.i]==20000){
-					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopFimNew.png"));
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+					this.loopPosicao[this.loopPosicao.length-1].img=tdsImagens[108];
 				}else{
-					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopIniNew.png"));
-				}this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/BotaoLeftProgMenorNew.png"));
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+					this.loopPosicao[this.loopPosicao.length-1].img=tdsImagens[109];
+				}
+				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+				this.comandoPosicao[this.comandoPosicao.length-1].img=tdsImagens[104];
 			}else if(this.comando[this.i]=="LoopRight"){
 				if(this.comTotalLoop[this.i]==0){
-					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoop1New.png"));
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+					this.loopPosicao[this.loopPosicao.length-1].img=tdsImagens[106];
 				}else if(this.comTotalLoop[this.i]==10000){
-					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopMeioNew.png"));
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+					this.loopPosicao[this.loopPosicao.length-1].img=tdsImagens[107];
 				}else if(this.comTotalLoop[this.i]==20000){
-					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopFimNew.png"));
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+					this.loopPosicao[this.loopPosicao.length-1].img=tdsImagens[108];
 				}else{
-					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoopIniNew.png"));
-				}this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/BotaoRightProgMenorNew.png"));
+					this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+					this.loopPosicao[this.loopPosicao.length-1].img=tdsImagens[109];
+				}
+				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+				this.comandoPosicao[this.comandoPosicao.length-1].img=tdsImagens[105];
 			}else if(this.comando[this.i]=="Loop"){
-				this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoop1New.png"));
-				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,"img/Programacao/ProgLoop1New.png"));
+				this.loopPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+				this.loopPosicao[this.loopPosicao.length-1].img=tdsImagens[106];
+				this.comandoPosicao.push(new Imagem(this.comIniX,this.comIniY,69,40,""));
+				this.comandoPosicao[this.comandoPosicao.length-1].img=tdsImagens[106];
 			}
 		}
 		this.qtd=6;

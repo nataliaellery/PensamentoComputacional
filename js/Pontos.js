@@ -4,19 +4,24 @@ var Pontos = function (fase) {
 	///this.fundo.src = "img/Pontos/FundoBase.png";
 	this.ativo=true;
 	this.pulou=false;
-	this.imgPular= new Imagem(1000,560,0,0,"img/TelaConfirma.png");
+	this.imgPular= new Imagem(1000,560,0,0,"");
+	this.imgPular.img = tdsImagens[87];
 	this.errou = 0;
 	this.perdeu = false;
 	this.ganhou=false;
 	this.tempo=0;
 	this.contTempo=0;
-	this.botaoPular= new Imagem(1000,560,86,36,"img/Pontos/BotaoPular.png");
-	this.botaoLimpar= new Imagem(700,560,86,36,"img/Pontos/LimparPontos.png");
-	this.botaoDica= new Imagem(0,0,0,0,"img/Pontos/DicaPontos.png");
+	this.botaoPular= new Imagem(1000,560,86,36,"");
+	this.botaoPular.img = tdsImagens[84];
+	this.botaoLimpar= new Imagem(700,560,86,36,"");
+	this.botaoLimpar.img = tdsImagens[150];
+	this.botaoDica= new Imagem(0,0,0,0,"");
+	this.botaoDica.img = tdsImagens[151];
 	this.dicaMostrada=new Array();
 	this.dicaImagem=new Array();
 	this.pontos=new Array();
-	this.pontoAtivo=new Imagem(1000,560,28,28,"img/Pontos/PontoAtivo.png");
+	this.pontoAtivo=new Imagem(1000,560,28,28,"");
+	this.pontoAtivo.img=tdsImagens[152];
 	this.pontosX=new Array();
 	this.pontosY=new Array();
 	this.dicaX=new Array();
@@ -37,8 +42,13 @@ var Pontos = function (fase) {
 	if(this.fase==1 || this.fase==2){
 		//criando os pontos:
 		for(this.i=0;this.i<7;this.i++){
-			if(this.i<4)this.pontos.push(new Imagem(0,0,26,26,"img/Pontos/PontoGrande.png"));
-			else this.pontos.push(new Imagem(0,0,13,13,"img/Pontos/PontoPequeno.png"));
+			if(this.i<4){
+				this.pontos.push(new Imagem(0,0,26,26,""));
+				this.pontos[this.pontos.length-1].img=tdsImagens[153];
+			}else{
+				this.pontos.push(new Imagem(0,0,13,13,""));	
+				this.pontos[this.pontos.length-1].img=tdsImagens[154];
+			}
 		}
 		if(this.fase==1){
 			this.pontos[0].x=180; this.pontos[0].y=163;
@@ -48,8 +58,10 @@ var Pontos = function (fase) {
 			this.pontos[4].x=454; this.pontos[4].y=340;
 			this.pontos[5].x=619; this.pontos[5].y=376;
 			this.pontos[6].x=405; this.pontos[6].y=498;
-			this.desenhosCorretos.push(new Imagem(193,73,0,0,"img/Pontos/Square1.png"));
-			this.desenhosCorretos.push(new Imagem(412,348,0,0,"img/Pontos/Tri1.png"));
+			this.desenhosCorretos.push(new Imagem(193,73,0,0,""));
+			this.desenhosCorretos[0].img=tdsImagens[155];
+			this.desenhosCorretos.push(new Imagem(412,348,0,0,""));
+			this.desenhosCorretos[1].img=tdsImagens[156];
 		}else{
 			this.pontos[0].x=225; this.pontos[0].y=228;
 			this.pontos[1].x=405; this.pontos[1].y=124;
@@ -58,13 +70,18 @@ var Pontos = function (fase) {
 			this.pontos[4].x=388; this.pontos[4].y=293;
 			this.pontos[5].x=550; this.pontos[5].y=330;
 			this.pontos[6].x=338; this.pontos[6].y=452;
-			this.desenhosCorretos.push(new Imagem(237,137,0,0,"img/Pontos/Square1.png"));
-			this.desenhosCorretos.push(new Imagem(345,300,0,0,"img/Pontos/Tri1.png"));
+			this.desenhosCorretos.push(new Imagem(237,137,0,0,""));
+			this.desenhosCorretos[0].img=tdsImagens[155];
+			this.desenhosCorretos.push(new Imagem(345,300,0,0,""));
+			this.desenhosCorretos[1].img=tdsImagens[156];
 		}
 	}else if(this.fase==3 || this.fase==4){
 		//criando os pontos:
 		for(this.i=0;this.i<10;this.i++){
-			if((this.fase==4 && this.i<9) || this.fase==3)this.pontos.push(new Imagem(0,0,26,26,"img/Pontos/PontoGrande.png"));
+			if((this.fase==4 && this.i<9) || this.fase==3){
+				this.pontos.push(new Imagem(0,0,26,26,""));
+				this.pontos[this.pontos.length-1].img=tdsImagens[153];
+			}
 		}
 		if(this.fase==3){
 			this.pontos[0].x=376; this.pontos[0].y=143;
@@ -77,9 +94,12 @@ var Pontos = function (fase) {
 			this.pontos[7].x=454; this.pontos[7].y=285;
 			this.pontos[8].x=454; this.pontos[8].y=491;
 			this.pontos[9].x=639; this.pontos[9].y=491;
-			this.desenhosCorretos.push(new Imagem(252,158,0,0,"img/Pontos/Square5.png"));
-			this.desenhosCorretos.push(new Imagem(132,87,0,0,"img/Pontos/Tri51.png"));
-			this.desenhosCorretos.push(new Imagem(464,298,0,0,"img/Pontos/Tri52.png"));
+			this.desenhosCorretos.push(new Imagem(252,158,0,0,""));
+			this.desenhosCorretos[0].img=tdsImagens[157];
+			this.desenhosCorretos.push(new Imagem(132,87,0,0,""));
+			this.desenhosCorretos[1].img=tdsImagens[158];
+			this.desenhosCorretos.push(new Imagem(464,298,0,0,""));
+			this.desenhosCorretos[2].img=tdsImagens[159];
 		}else{
 			this.pontos[0].x=277; this.pontos[0].y=187;
 			this.pontos[1].x=481; this.pontos[1].y=188;
@@ -90,9 +110,12 @@ var Pontos = function (fase) {
 			this.pontos[6].x=253; this.pontos[6].y=425;
 			this.pontos[7].x=516; this.pontos[7].y=144;
 			this.pontos[8].x=533; this.pontos[8].y=425;
-			this.desenhosCorretos.push(new Imagem(290,200,0,0,"img/Pontos/Square6.png"));
-			this.desenhosCorretos.push(new Imagem(240,148,0,0,"img/Pontos/Tri61.png"));
-			this.desenhosCorretos.push(new Imagem(398,157,0,0,"img/Pontos/Tri62.png"));
+			this.desenhosCorretos.push(new Imagem(290,200,0,0,""));
+			this.desenhosCorretos[0].img=tdsImagens[160];
+			this.desenhosCorretos.push(new Imagem(240,148,0,0,""));
+			this.desenhosCorretos[1].img=tdsImagens[161];
+			this.desenhosCorretos.push(new Imagem(398,157,0,0,""));
+			this.desenhosCorretos[2].img=tdsImagens[162];
 		}
 	}
 };
