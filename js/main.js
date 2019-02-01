@@ -12,7 +12,7 @@ var touchUp=false;
 var delayTouch=50000;
 
 var telaAtual = "EscolhaPersonagem";
-//var telaAtual = "Pontos1";
+//var telaAtual = "Classifica";
 var tela;
 var genero=1;//0=menina//1=menino
 var nomeJogador="";
@@ -35,7 +35,7 @@ function begin() {
 	//GRATUITO É MUITO LENTO, E NÃO CARREGA  DIREITINHO
 	carregarImagens();
 	tela = new TelaEscolha();
-	//tela = new Pontos(1);
+	//tela = new Classifica();
 	testeEnvio();
 	draw();	
 }
@@ -55,6 +55,8 @@ function draw(){
 			tela = new TelaNome();
 			telaAtual="EscolhaNome";
 		}else if(telaAtual=="EscolhaNome"){
+			var newNome = <?php echo teste(nomeJogador); ?>; //call the php add function
+  			alert(newNome);
 			tela = new Instrucoes(1);
 			telaAtual="Instrucoes1";
 		}else if(telaAtual=="Instrucoes1"){
@@ -254,7 +256,7 @@ window.onerror = function(msg, url, linenumber) {
 }*/
 
 function carregarImagens() {
-	for(var i=0;i<200;i++)tdsImagens[i]= new Image();
+	for(var i=0;i<300;i++)tdsImagens[i]= new Image();
 	tdsImagens[0].src = "img/Nome/Campo.png";
 	tdsImagens[1].src = "img/Nome/Cursor.png";
 	tdsImagens[2].src = "img/Nome/Instrucoes0a.png";
@@ -418,6 +420,114 @@ function carregarImagens() {
 	tdsImagens[160].src="img/Pontos/Square6.png";
 	tdsImagens[161].src="img/Pontos/Tri61.png";
 	tdsImagens[162].src="img/Pontos/Tri62.png";
+	tdsImagens[163].src="img/Match/FundoMatch1.png";
+	tdsImagens[164].src="img/Match/FundoMatch2.png";
+	tdsImagens[165].src="img/Match/FundoMatch3.png";
+	tdsImagens[166].src="img/Match/FundoMatch4.png";
+	tdsImagens[167].src="img/Match/FundoMatch5.png";
+	tdsImagens[168].src="img/Match/FundoMatch6.png";
+	tdsImagens[169].src="img/Match/TurnH.png";
+	tdsImagens[170].src="img/Match/TurnAntiH.png";
+	tdsImagens[171].src="img/Match/Match1.png";
+	tdsImagens[172].src="img/Match/MatchHigh1.png";
+	tdsImagens[173].src="img/Match/Match2.png";
+	tdsImagens[174].src="img/Match/MatchHigh2.png";
+	tdsImagens[175].src="img/Match/Match3.png";
+	tdsImagens[176].src="img/Match/MatchHigh3.png";
+	tdsImagens[177].src="img/Match/Match4.png";
+	tdsImagens[178].src="img/Match/MatchHigh4.png";
+	tdsImagens[179].src="img/Match/Match5.png";
+	tdsImagens[180].src="img/Match/MatchHigh5.png";
+	tdsImagens[181].src="img/Match/Match6.png";
+	tdsImagens[182].src="img/Match/MatchHigh6.png";
+	tdsImagens[183].src="img/Match/MatchSel1.png";
+	tdsImagens[184].src="img/Match/MatchSel2.png";
+	tdsImagens[185].src="img/Match/MatchSel3.png";
+	tdsImagens[186].src="img/Match/MatchSel4.png";
+	tdsImagens[187].src="img/Match/MatchSel5.png";
+	tdsImagens[188].src="img/Match/MatchSel6.png";
+	tdsImagens[189].src="img/Match2/FundoMatch21.png";
+	tdsImagens[190].src="img/Match2/FundoMatch22.png";
+	tdsImagens[191].src="img/Match2/Obj1Match2Fase1.png";
+	tdsImagens[192].src="img/Match2/Obj2Match2Fase1.png";
+	tdsImagens[193].src="img/Match2/Obj3Match2Fase1.png";
+	tdsImagens[194].src="img/Match2/Obj1MatchHigh2Fase1.png";
+	tdsImagens[195].src="img/Match2/Obj2MatchHigh2Fase1.png";
+	tdsImagens[196].src="img/Match2/Obj3MatchHigh2Fase1.png";
+	tdsImagens[197].src="img/Match2/Obj1Match2Fase2.png";
+	tdsImagens[198].src="img/Match2/Obj2Match2Fase2.png";
+	tdsImagens[199].src="img/Match2/Obj3Match2Fase2.png";
+	tdsImagens[200].src="img/Match2/Obj4Match2Fase2.png";
+	tdsImagens[201].src="img/Match2/Obj1MatchHigh2Fase2.png";
+	tdsImagens[202].src="img/Match2/Obj2MatchHigh2Fase2.png";
+	tdsImagens[203].src="img/Match2/Obj3MatchHigh2Fase2.png";
+	tdsImagens[204].src="img/Match2/Obj4MatchHigh2Fase2.png";
+	tdsImagens[205].src="img/Sequencia/FundoSequencia1.png";
+	tdsImagens[206].src="img/Sequencia/FundoSequencia2.png";
+	tdsImagens[207].src="img/Sequencia/Sequencia1Answer1.png";
+	tdsImagens[208].src="img/Sequencia/Sequencia1Answer2.png";
+	tdsImagens[209].src="img/Sequencia/Sequencia1Answer3.png";
+	tdsImagens[210].src="img/Sequencia/Sequencia1Answer4.png";
+	tdsImagens[211].src="img/Sequencia/Sequencia1Answer5.png";
+	tdsImagens[212].src="img/Sequencia/Sequencia2Answer1.png";
+	tdsImagens[213].src="img/Sequencia/Sequencia2Answer2.png";
+	tdsImagens[214].src="img/Sequencia/Sequencia2Answer3.png";
+	tdsImagens[215].src="img/Sequencia/Sequencia2Answer4.png";
+	tdsImagens[216].src="img/Sequencia/Sequencia2Answer5.png";
+	tdsImagens[217].src="img/Sequencia/Sequencia2Answer6.png";
+	tdsImagens[218].src="img/Sequencia/Sequencia2Answer7.png";
+	tdsImagens[219].src="img/Sequencia/Sequencia2Answer8.png";
+	tdsImagens[220].src ="img/Classifica/FundoClassifica.png";
+	tdsImagens[221].src ="img/Classifica/Selecionado.png";
+	tdsImagens[222].src ="img/Classifica/Banana.png";
+	tdsImagens[223].src ="img/Classifica/Bone.png";
+	tdsImagens[224].src ="img/Classifica/Camisa.png";
+	tdsImagens[225].src ="img/Classifica/Chinelo.png";
+	tdsImagens[226].src ="img/Classifica/Leao.png";
+	tdsImagens[227].src ="img/Classifica/Maca.png";
+	tdsImagens[228].src ="img/Classifica/Passaro.png";
+	tdsImagens[229].src ="img/Classifica/Pera.png";
+	tdsImagens[230].src ="img/Classifica/Tartaruga.png";
+	tdsImagens[231].src ="img/Pontos/Tuto1.png";
+	tdsImagens[232].src ="img/Pontos/Tuto2.png";
+	tdsImagens[233].src ="img/Pontos/Tuto3.png";
+	tdsImagens[234].src ="img/Pontos/Tuto4.png";
+	tdsImagens[235].src ="img/Pontos/Tuto5.png";
+	tdsImagens[236].src ="img/Pontos/Tuto6.png";
+	tdsImagens[237].src ="img/Pontos/Tuto7.png";
+	tdsImagens[238].src ="img/Pontos/Tuto8.png";
+	tdsImagens[239].src ="img/Pontos/Tuto9.png";
+	tdsImagens[240].src ="img/Pontos/Tuto21.png";
+	tdsImagens[241].src ="img/Pontos/Tuto22.png";
+	tdsImagens[242].src ="img/Pontos/Tuto23.png";
+	tdsImagens[243].src ="img/Pontos/Tuto24.png";
+	tdsImagens[244].src ="img/Pontos/Tuto25.png";
+	tdsImagens[245].src ="img/Pontos/Tuto26.png";
+	tdsImagens[246].src ="img/Pontos/Tuto27.png";
+	tdsImagens[247].src ="img/Pontos/Tuto28.png";
+	tdsImagens[248].src ="img/Pontos/Tuto29.png";
+	tdsImagens[249].src ="img/Pontos/Tuto210.png";
+	tdsImagens[250].src ="img/Pontos/Tuto211.png";
+	tdsImagens[251].src ="img/Pontos/Tuto212.png";
+	tdsImagens[252].src ="img/Pontos/Tuto213.png";
+	tdsImagens[253].src ="img/Pontos/Tuto214.png";
+	tdsImagens[254].src="img/Match/Seta.png";
+	tdsImagens[255].src="img/Match/MatchRight.png";
+	tdsImagens[256].src="img/Match2/FundoMatch2Tutorial.png";
+	tdsImagens[257].src="img/Match2/Match2Tuto1.png";
+	tdsImagens[258].src="img/Match2/Match2Tuto2.png";
+	tdsImagens[259].src="img/Match2/Match2Tuto3.png";
+	tdsImagens[260].src="img/Match2/Match2Tuto4.png";
+	tdsImagens[261].src="img/Sequencia/FundoSequenciaTuto.png";
+	tdsImagens[267].src="img/Sequencia/SequenciaAnswerTuto.png";
+	tdsImagens[268].src="img/Instrucoes/Instrucoes3a.png";
+	tdsImagens[269].src="img/Instrucoes/Instrucoes3b.png";
+	tdsImagens[270].src="img/Instrucoes/Instrucoes3c.png";
+	tdsImagens[271].src="img/Instrucoes/Instrucoes3d.png";
+	tdsImagens[272].src="img/Match/MatchSelRight.png";
+	tdsImagens[273].src="img/Match/MatchDown.png";
+	tdsImagens[274].src="img/Match/MatchUp.png";
+	tdsImagens[275].src="img/Match/MatchLeft.png";
 	
 	
 	

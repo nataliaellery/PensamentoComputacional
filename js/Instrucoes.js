@@ -175,42 +175,52 @@ var Instrucoes = function (indice) {
 	if(this.indice==2){
 		this.imgExtra= new Array();
 		for(this.i=0;this.i<9;this.i++){
-			this.imgExtra.push(new Imagem(0,0,0,0,"img/Pontos/Tuto"+(this.i+1)+".png"));
+			this.imgExtra.push(new Imagem(0,0,0,0,""));
+			this.imgExtra[this.imgExtra.length-1].img=tdsImagens[231+this.i];
 		}
 	}else if(this.indice==3){
 		this.imgExtra= new Array();
 		for(this.i=0;this.i<14;this.i++){
-			this.imgExtra.push(new Imagem(0,0,0,0,"img/Pontos/Tuto2"+(this.i+1)+".png"));
+			this.imgExtra.push(new Imagem(0,0,0,0,""));
+			this.imgExtra[this.imgExtra.length-1].img=tdsImagens[240+this.i];
 		}
 	}else if(this.indice==5){
 		this.tras=new Image();
-		this.tras.src= "img/Match/FundoMatch1.png";
-		this.seta=new Imagem(350,250,0,0,"img/Match/Seta.png");
-		this.botaoLeft= new Imagem(720,500,43,89,"img/Match/TurnH.png");
-		this.botaoRight= new Imagem(660,500,43,89,"img/Match/TurnAntiH.png");
+		this.tras=tdsImagens[163];
+		this.seta=new Imagem(350,250,0,0,"");
+		this.seta.img=tdsImagens[254];
+		this.botaoLeft= new Imagem(720,500,43,89,"");
+		this.botaoLeft.img=tdsImagens[169];
+		this.botaoRight= new Imagem(660,500,43,89,"");
+		this.botaoRight.img=tdsImagens[170];
 		this.imgExtra= new Array();
 		for(this.i=0;this.i<4;this.i++){
-			this.imgExtra.push(new Imagem(0,0,0,0,"img/Match/MatchRight.png"));
+			this.imgExtra.push(new Imagem(0,0,0,0,""));
+			this.imgExtra[this.imgExtra.length-1].img=tdsImagens[255];
 		}
 	}else if(this.indice==7){
-		this.tras=new Image();
-		this.tras.src= "img/Match2/FundoMatch2Tutorial.png";
-		this.seta=new Imagem(350,250,0,0,"img/Match/Seta.png");
-		this.botaoLeft= new Imagem(720,500,43,89,"img/Match/TurnH.png");
-		this.botaoRight= new Imagem(660,500,43,89,"img/Match/TurnAntiH.png");
+		this.tras=tdsImagens[256];
+		this.seta=new Imagem(350,250,0,0,"");
+		this.seta.img=tdsImagens[254];
+		this.botaoLeft= new Imagem(720,500,43,89,"");
+		this.botaoLeft.img=tdsImagens[169];
+		this.botaoRight= new Imagem(660,500,43,89,"");
+		this.botaoRight.img=tdsImagens[170];
 		this.imgExtra= new Array();
 		for(this.i=0;this.i<4;this.i++){
-			this.imgExtra.push(new Imagem(0,0,0,0,"img/Match2/Match2Tuto"+(this.i+1)+".png"));
+			this.imgExtra.push(new Imagem(0,0,0,0,""));
+			this.imgExtra[this.imgExtra.length-1].img=tdsImagens[257+this.i];
 		}
 		this.imgExtra[0].x=0; this.imgExtra[0].y=10;
 		this.imgExtra[1].x=100; this.imgExtra[1].y=130;
 		this.imgExtra[2].x=100; this.imgExtra[2].y=300;
 		this.imgExtra[3].x=100; this.imgExtra[3].y=500;
 	}else if(this.indice==10){
-		this.tras=new Image();
-		this.tras.src= "img/Sequencia/FundoSequenciaTuto.png";
-		this.seta=new Imagem(350,250,0,0,"img/Match/Seta.png");
-		this.imgExtra = new Imagem(155,350,0,0,"img/Sequencia/SequenciaAnswerTuto.png");
+		this.tras=tdsImagens[261];
+		this.seta=new Imagem(350,250,0,0,"");
+		this.seta.img=tdsImagens[254];
+		this.imgExtra = new Imagem(155,350,0,0,"");
+		this.imgExtra.img=tdsImagens[267];
 	}
 };
 
@@ -254,11 +264,11 @@ Instrucoes.prototype.Draw = function(){
 				context.fillText("Clique para continuar",200,40);
 			}if(this.parteInst[8]){
 				if(genero==0){
-					this.fundo1.src = "img/Instrucoes/Instrucoes3a.png";
-					this.fundo2.src = "img/Instrucoes/Instrucoes3b.png";
+					this.fundo1=tdsImagens[268];
+					this.fundo2=tdsImagens[269];
 				}else{
-					this.fundo1.src = "img/Instrucoes/Instrucoes3c.png";
-					this.fundo2.src = "img/Instrucoes/Instrucoes3d.png";
+					this.fundo1=tdsImagens[270];
+					this.fundo2=tdsImagens[271];
 				}
 			}
 		}else if(this.indice==3){
@@ -364,7 +374,7 @@ Instrucoes.prototype.Draw = function(){
 				if(this.seta.y>85)this.seta.y-=2;
 				if(this.seta.x<=110 && this.seta.y<=85){
 					this.parteInst[0]=true;
-					this.imgExtra[3].img.src="img/Match/MatchSelRight.png";
+					this.imgExtra[3].img=tdsImagens[272];
 				}
 			}else if(!this.parteInst[1]){
 				if(this.seta.x<566){
@@ -376,7 +386,7 @@ Instrucoes.prototype.Draw = function(){
 				}
 				if(this.seta.x>=566 && this.seta.y>=288){
 					this.parteInst[1]=true;
-					this.imgExtra[3].img.src="img/Match/MatchRight.png";
+					this.imgExtra[3].img=tdsImagens[255];
 					this.imgExtra[3].x=458;
 					this.imgExtra[3].y=209;
 				}
@@ -385,7 +395,7 @@ Instrucoes.prototype.Draw = function(){
 				if(this.seta.y>85)this.seta.y-=3;
 				if(this.seta.x<=110 && this.seta.y<=85){
 					this.parteInst[2]=true;
-					this.imgExtra[2].img.src="img/Match/MatchSelRight.png";
+					this.imgExtra[2].img=tdsImagens[272];
 				}
 			}else if(!this.parteInst[3]){
 				if(this.seta.x<399){
@@ -406,7 +416,7 @@ Instrucoes.prototype.Draw = function(){
 				}
 				if(this.seta.x>=673 && this.seta.y>=538){
 					this.parteInst[4]=true;
-					this.imgExtra[2].img.src="img/Match/MatchDown.png";
+					this.imgExtra[2].img=tdsImagens[273];
 					this.imgExtra[2].x=311;//arrumando
 					this.imgExtra[2].y=358;
 				}
@@ -415,7 +425,7 @@ Instrucoes.prototype.Draw = function(){
 				if(this.seta.y>85)this.seta.y-=4;
 				if(this.seta.x<=110 && this.seta.y<=85){
 					this.parteInst[5]=true;
-					this.imgExtra[1].img.src="img/Match/MatchSelRight.png";
+					this.imgExtra[1].img=tdsImagens[272];
 				}
 			}else if(!this.parteInst[6]){
 				if(this.seta.x<396){
@@ -435,7 +445,7 @@ Instrucoes.prototype.Draw = function(){
 					this.seta.y+=4;
 				}
 				if(this.seta.x>=746 && this.seta.y>=539){
-					this.imgExtra[1].img.src="img/Match/MatchUp.png";
+					this.imgExtra[1].img=tdsImagens[274];
 					this.parteInst[7]=true;
 					this.imgExtra[1].x=311;
 					this.imgExtra[1].y=62;
@@ -445,7 +455,7 @@ Instrucoes.prototype.Draw = function(){
 				if(this.seta.y>85)this.seta.y-=6;
 				if(this.seta.x<=110 && this.seta.y<=85){
 					this.parteInst[8]=true;
-					this.imgExtra[0].img.src="img/Match/MatchSelRight.png";
+					this.imgExtra[0].img=tdsImagens[272];
 				}
 			}else if(!this.parteInst[9]){
 				if(this.seta.x<223){
@@ -464,7 +474,7 @@ Instrucoes.prototype.Draw = function(){
 
 				if(this.seta.x>=672 && this.seta.y>=541){
 					this.parteInst[10]=true;
-					this.imgExtra[0].img.src="img/Match/MatchSelDown.png";
+					this.imgExtra[0].img=tdsImagens[273];
 					this.imgExtra[0].x=168;
 					this.imgExtra[0].y=211;
 					this.cont3=0;
@@ -472,7 +482,7 @@ Instrucoes.prototype.Draw = function(){
 			}else if(!this.parteInst[11]){
 				this.cont3++;
 				if(this.cont3>=20){
-					this.imgExtra[0].img.src="img/Match/MatchLeft.png";
+					this.imgExtra[0].img=tdsImagens[275];
 					this.parteInst[11]=true;
 				}
 			}

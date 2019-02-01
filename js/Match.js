@@ -1,22 +1,27 @@
 var Match = function (fase) {
   	this.fundo = new Image();
 	this.fase=fase;
-	if(this.fase==1)this.fundo.src = "img/Match/FundoMatch1.png";
-	else if(this.fase==2)this.fundo.src = "img/Match/FundoMatch2.png";
-	else if(this.fase==3)this.fundo.src = "img/Match/FundoMatch3.png";
-	else if(this.fase==4)this.fundo.src = "img/Match/FundoMatch4.png";
-	else if(this.fase==5)this.fundo.src = "img/Match/FundoMatch5.png";
-	else if(this.fase==6)this.fundo.src = "img/Match/FundoMatch6.png";
+	if(this.fase==1)this.fundo = tdsImagens[163];
+	else if(this.fase==2)this.fundo = tdsImagens[164];
+	else if(this.fase==3)this.fundo = tdsImagens[165];
+	else if(this.fase==4)this.fundo = tdsImagens[166];
+	else if(this.fase==5)this.fundo = tdsImagens[167];
+	else if(this.fase==6)this.fundo = tdsImagens[168];
 	this.ativo=true;
 	this.pulou=false;
-	this.imgPular= new Imagem(1000,560,0,0,"img/TelaConfirma.png");
+	this.imgPular= new Imagem(1000,560,0,0,"");
+	this.imgPular.img = tdsImagens[87];
 	this.ganhou=false;
 	this.tempo=0;
 	this.contTempo=0;
-	this.botaoPular= new Imagem(1000,560,86,36,"img/Pontos/BotaoPular.png");
-	this.botaoLeft= new Imagem(700,500,43,89,"img/Match/TurnH.png");
-	this.botaoRight= new Imagem(640,500,43,89,"img/Match/TurnAntiH.png");
-	this.botaoDica= new Imagem(0,0,0,0,"img/Pontos/DicaPontos.png");
+	this.botaoPular= new Imagem(1000,560,86,36,"");
+	this.botaoPular.img = tdsImagens[84];
+	this.botaoLeft= new Imagem(700,500,43,89,"");
+	this.botaoLeft.img = tdsImagens[169];
+	this.botaoRight= new Imagem(640,500,43,89,"");
+	this.botaoRight.img = tdsImagens[170];
+	this.botaoDica= new Imagem(0,0,0,0,"");
+	this.botaoDica.img = tdsImagens[151];
 	this.figs= new Array();
 	this.rotacoes= new Array();
 	this.locked=new Array();
@@ -39,8 +44,10 @@ var Match = function (fase) {
 		//easy
 		this.dicaRotacao=new Array(0,2,4,6);
 		for(this.i=0;this.i<4;this.i++){
-			this.figs.push(new Imagem(20,70, 179, 179,"img/Match/Match1.png"));
-			this.dicaImagem.push(new Imagem(20,70, 179, 179,"img/Match/MatchHigh1.png"));
+			this.figs.push(new Imagem(20,70, 179, 179,""));
+			this.figs[this.figs.length-1].img=tdsImagens[171];
+			this.dicaImagem.push(new Imagem(20,70, 179, 179,""));
+			this.dicaImagem[this.dicaImagem.length-1].img=tdsImagens[172];
 			this.rotacoes.push(0);
 			this.locked.push(false);
 			this.acertou.push(false);
@@ -54,8 +61,10 @@ var Match = function (fase) {
 		//hard
 		this.dicaRotacao=new Array(6,2,0,4,0,4,6,2);
 		for(this.i=0;this.i<8;this.i++){
-			this.figs.push(new Imagem(20,70, 169, 169,"img/Match/Match2.png"));
-			this.dicaImagem.push(new Imagem(20,70, 169, 169,"img/Match/MatchHigh2.png"));
+			this.figs.push(new Imagem(20,70, 169, 169,""));
+			this.figs[this.figs.length-1].img=tdsImagens[173];
+			this.dicaImagem.push(new Imagem(20,70, 169, 169,""));
+			this.dicaImagem[this.dicaImagem.length-1].img=tdsImagens[174];
 			this.rotacoes.push(0);
 			this.locked.push(false);
 			this.acertou.push(false);
@@ -73,8 +82,10 @@ var Match = function (fase) {
 		//hard
 		this.dicaRotacao=new Array(0,1,2,3,4,5,6,7);
 		for(this.i=0;this.i<8;this.i++){
-			this.figs.push(new Imagem(20,70, 161, 161,"img/Match/Match3.png"));
-			this.dicaImagem.push(new Imagem(20,70, 161, 161,"img/Match/MatchHigh3.png"));
+			this.figs.push(new Imagem(20,70, 161, 161,""));
+			this.figs[this.figs.length-1].img=tdsImagens[175];
+			this.dicaImagem.push(new Imagem(20,70, 161, 161,""));
+			this.dicaImagem[this.dicaImagem.length-1].img=tdsImagens[176];
 			this.rotacoes.push(0);
 			this.locked.push(false);
 			this.acertou.push(false);
@@ -92,8 +103,10 @@ var Match = function (fase) {
 		//medio
 		this.dicaRotacao=new Array(0,0,0,4,4,4);
 		for(this.i=0;this.i<6;this.i++){
-			this.figs.push(new Imagem(20,300, 288, 288,"img/Match/Match4.png"));
-			this.dicaImagem.push(new Imagem(20,300, 288, 288,"img/Match/MatchHigh4.png"));
+			this.figs.push(new Imagem(20,300, 288, 288,""));
+			this.figs[this.figs.length-1].img=tdsImagens[177];
+			this.dicaImagem.push(new Imagem(20,300, 288, 288,""));
+			this.dicaImagem[this.dicaImagem.length-1].img=tdsImagens[178];
 			this.rotacoes.push(0);
 			this.locked.push(false);
 			this.acertou.push(false);
@@ -109,8 +122,10 @@ var Match = function (fase) {
 		//easy
 		this.dicaRotacao=new Array(6,6,2,2);
 		for(this.i=0;this.i<4;this.i++){
-			this.figs.push(new Imagem(20,40, 252, 252,"img/Match/Match5.png"));
-			this.dicaImagem.push(new Imagem(20,40, 252, 252,"img/Match/MatchHigh5.png"));
+			this.figs.push(new Imagem(20,40, 252, 252,""));
+			this.figs[this.figs.length-1].img=tdsImagens[179];
+			this.dicaImagem.push(new Imagem(20,40, 252, 252,""));
+			this.dicaImagem[this.dicaImagem.length-1].img=tdsImagens[180];
 			//ARRUMAR AQUI DEPOIS TBM
 			//this.rotacoes.push(this.dicaRotacao[this.i]);
 			this.rotacoes.push(8);
@@ -128,8 +143,11 @@ var Match = function (fase) {
 		//easy
 		this.dicaRotacao=new Array(8,9,10,11,12,13,14,15,16);
 		for(this.i=0;this.i<9;this.i++){
-			this.figs.push(new Imagem(20,40, 86, 86,"img/Match/Match6.png"));
-			this.dicaImagem.push(new Imagem(20,40, 86, 86,"img/Match/MatchHigh6.png"));
+			this.figs.push(new Imagem(20,40, 86, 86,""));
+			this.figs[this.figs.length-1].img=tdsImagens[181];
+			this.dicaImagem.push(new Imagem(20,40, 86, 86,""));
+			this.dicaImagem[this.dicaImagem.length-1].img=tdsImagens[182];
+			
 			//ARRUMAR AQUI DEPOIS TBM
 			//this.rotacoes.push(this.dicaRotacao[this.i]);
 			this.rotacoes.push(8);
@@ -414,23 +432,23 @@ Match.prototype.MouseDown = function(mouseEvent) {
 					this.selected=this.figs.length-1;
 					//arruma o negocio do selecionado//
 					if(this.fase==1){
-						for(this.j=0;this.j<this.figs.length;this.j++)this.figs[this.j].img.src="img/Match/Match1.png";
-						this.figs[this.follow].img.src="img/Match/MatchSel1.png";
+						for(this.j=0;this.j<this.figs.length;this.j++)this.figs[this.j].img=tdsImagens[171];
+						this.figs[this.follow].img=tdsImagens[183];
 					}else if(this.fase==2){
-						for(this.j=0;this.j<this.figs.length;this.j++)this.figs[this.j].img.src="img/Match/Match2.png";
-						this.figs[this.follow].img.src="img/Match/MatchSel2.png";
+						for(this.j=0;this.j<this.figs.length;this.j++)this.figs[this.j].img=tdsImagens[173];
+						this.figs[this.follow].img=tdsImagens[184];
 					}else if(this.fase==3){
-						for(this.j=0;this.j<this.figs.length;this.j++)this.figs[this.j].img.src="img/Match/Match3.png";
-						this.figs[this.follow].img.src="img/Match/MatchSel3.png";
+						for(this.j=0;this.j<this.figs.length;this.j++)this.figs[this.j].img=tdsImagens[175];
+						this.figs[this.follow].img=tdsImagens[185];
 					}else if(this.fase==4){
-						for(this.j=0;this.j<this.figs.length;this.j++)this.figs[this.j].img.src="img/Match/Match4.png";
-						this.figs[this.follow].img.src="img/Match/MatchSel4.png";
+						for(this.j=0;this.j<this.figs.length;this.j++)this.figs[this.j].img=tdsImagens[177];
+						this.figs[this.follow].img=tdsImagens[186];
 					}else if(this.fase==5){
-						for(this.j=0;this.j<this.figs.length;this.j++)this.figs[this.j].img.src="img/Match/Match5.png";
-						this.figs[this.follow].img.src="img/Match/MatchSel5.png";
+						for(this.j=0;this.j<this.figs.length;this.j++)this.figs[this.j].img=tdsImagens[179];
+						this.figs[this.follow].img=tdsImagens[187];
 					}else if(this.fase==6){
-						for(this.j=0;this.j<this.figs.length;this.j++)this.figs[this.j].img.src="img/Match/Match6.png";
-						this.figs[this.follow].img.src="img/Match/MatchSel6.png";
+						for(this.j=0;this.j<this.figs.length;this.j++)this.figs[this.j].img=tdsImagens[181];
+						this.figs[this.follow].img=tdsImagens[188];
 					}
 					break;
 				}
@@ -449,12 +467,12 @@ Match.prototype.MouseDown = function(mouseEvent) {
 Match.prototype.MouseUp = function(mouseEvent) {
 	if(!this.pulou){
 		if(this.selected==-1){
-			if(this.fase==1)for(this.i=0;this.i<this.figs.length;this.i++)this.figs[this.i].img.src="img/Match/Match1.png";
-			else if(this.fase==2)for(this.i=0;this.i<this.figs.length;this.i++)this.figs[this.i].img.src="img/Match/Match2.png";
-			else if(this.fase==3)for(this.i=0;this.i<this.figs.length;this.i++)this.figs[this.i].img.src="img/Match/Match3.png";
-			else if(this.fase==4)for(this.i=0;this.i<this.figs.length;this.i++)this.figs[this.i].img.src="img/Match/Match4.png";
-			else if(this.fase==5)for(this.i=0;this.i<this.figs.length;this.i++)this.figs[this.i].img.src="img/Match/Match5.png";
-			else if(this.fase==6)for(this.i=0;this.i<this.figs.length;this.i++)this.figs[this.i].img.src="img/Match/Match6.png";
+			if(this.fase==1)for(this.i=0;this.i<this.figs.length;this.i++)this.figs[this.i].img=tdsImagens[171];
+			else if(this.fase==2)for(this.i=0;this.i<this.figs.length;this.i++)this.figs[this.i].img=tdsImagens[173];
+			else if(this.fase==3)for(this.i=0;this.i<this.figs.length;this.i++)this.figs[this.i].img=tdsImagens[175];
+			else if(this.fase==4)for(this.i=0;this.i<this.figs.length;this.i++)this.figs[this.i].img=tdsImagens[177];
+			else if(this.fase==5)for(this.i=0;this.i<this.figs.length;this.i++)this.figs[this.i].img=tdsImagens[179];
+			else if(this.fase==6)for(this.i=0;this.i<this.figs.length;this.i++)this.figs[this.i].img=tdsImagens[181];
 			//Pular a fase
 			if(this.tempo>=60){
 				if(posMouseX>this.botaoPular.x && posMouseX<(this.botaoPular.x + this.botaoPular.width) && posMouseY>this.botaoPular.y && posMouseY<(this.botaoPular.y + this.botaoPular.height)){
@@ -554,12 +572,12 @@ Match.prototype.TrancaFig = function (indice){
 			this.figs[this.i].x=this.dicaImagem[indice].x;
 			this.figs[this.i].y=this.dicaImagem[indice].y;
 			this.rotacoes[this.i]=this.dicaRotacao[indice];
-			if(this.fase==1)this.figs[this.selected].img.src="img/Match/Match1.png";
-			else if(this.fase==2)this.figs[this.selected].img.src="img/Match/Match2.png";
-			else if(this.fase==3)this.figs[this.selected].img.src="img/Match/Match3.png";
-			else if(this.fase==4)this.figs[this.selected].img.src="img/Match/Match4.png";
-			else if(this.fase==5)this.figs[this.selected].img.src="img/Match/Match5.png";
-			else if(this.fase==6)this.figs[this.selected].img.src="img/Match/Match6.png";
+			if(this.fase==1)this.figs[this.selected].img=tdsImagens[171];
+			else if(this.fase==2)this.figs[this.selected].img=tdsImagens[173];
+			else if(this.fase==3)this.figs[this.selected].img=tdsImagens[175];
+			else if(this.fase==4)this.figs[this.selected].img=tdsImagens[177];
+			else if(this.fase==5)this.figs[this.selected].img=tdsImagens[179];
+			else if(this.fase==6)this.figs[this.selected].img=tdsImagens[181];
 			this.selected=-1;
 			break;	
 		}

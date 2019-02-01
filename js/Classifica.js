@@ -1,23 +1,28 @@
 var Classifica = function () {
   	this.fundo = new Image();
-	this.fundo.src = "img/Classifica/FundoClassifica.png";
+	this.fundo=tdsImagens[220];
 	this.ativo=true;
 	this.pulou=false;
-	this.imgPular= new Imagem(1000,560,0,0,"img/TelaConfirma.png");
+	this.imgPular= new Imagem(1000,560,0,0,"");
+	this.imgPular.img = tdsImagens[87];
 	this.errou = 0;
 	this.perdeu = false;
 	this.ganhou=false;
 	this.tempo=0;
 	this.contTempo=0;
-	this.botaoPular= new Imagem(1000,560,86,36,"img/Pontos/BotaoPular.png");
-	this.botaoDica= new Imagem(0,0,0,0,"img/Pontos/DicaPontos.png");
-	this.botaoLimpar= new Imagem(700,560,86,36,"img/Pontos/LimparPontos.png");
+	this.botaoPular= new Imagem(1000,560,86,36,"");
+	this.botaoPular.img = tdsImagens[84];
+	this.botaoDica= new Imagem(0,0,0,0,"");
+	this.botaoDica.img = tdsImagens[151];
+	this.botaoLimpar= new Imagem(700,560,86,36,"");
+	this.botaoLimpar.img = tdsImagens[150];
 	this.posRespCorreta = new Imagem(0,0,0,0,"");
 	this.dicaMostrada=new Array();
 	this.dicaImagem=new Array();
 	this.respostas=new Array();
 	this.posRespostas = new Array();
-	this.selecao= new Imagem(-1000,0,0,0,"img/Classifica/Selecionado.png");
+	this.selecao= new Imagem(-1000,0,0,0,"");
+	this.selecao.img=tdsImagens[221];
 	this.dicas = 3;
 	this.follow=-1;
 	this.trace="";
@@ -31,19 +36,19 @@ var Classifica = function () {
 	//for(this.i=0;this.i<4;this.i++)this.iRespostas.push(this.i);
 	//this.iRespostas = this.shuffle(this.iRespostas);
 	for(this.i=0;this.i<9;this.i++){
-		this.respostas.push(new ObjClassifica(100+(this.i*160),400,111,114,"img/Classifica/Bone.png","","",false,this.i));
+		this.respostas.push(new ObjClassifica(100+(this.i*160),400,111,114,"","","",false,this.i));
 		this.idTabela.push(new ObjClassifica(0,0,0,0,"","","",false,-1));
 	}
 	//121x121
-	this.respostas[0].img.src="img/Classifica/Banana.png"; this.respostas[0].x=190; this.respostas[0].y=87; this.respostas[0].cor="yellow"; this.respostas[0].tipo="fruta";
-	this.respostas[1].img.src="img/Classifica/Bone.png"; this.respostas[1].x=620; this.respostas[1].y=270; this.respostas[1].cor="red"; this.respostas[1].tipo="roupa";
-	this.respostas[2].img.src="img/Classifica/Camisa.png"; this.respostas[2].x=50; this.respostas[2].y=270; this.respostas[2].cor="green"; this.respostas[2].tipo="roupa";
-	this.respostas[3].img.src="img/Classifica/Chinelo.png"; this.respostas[3].x=330; this.respostas[3].y=87; this.respostas[3].cor="yellow"; this.respostas[3].tipo="roupa";
-	this.respostas[4].img.src="img/Classifica/Leao.png"; this.respostas[4].x=50; this.respostas[4].y=450; this.respostas[4].cor="yellow"; this.respostas[4].tipo="animal";
-	this.respostas[5].img.src="img/Classifica/Maca.png"; this.respostas[5].x=50; this.respostas[5].y=100; this.respostas[5].cor="red"; this.respostas[5].tipo="fruta";
-	this.respostas[6].img.src="img/Classifica/Passaro.png"; this.respostas[6].x=480; this.respostas[6].y=87; this.respostas[6].cor="red"; this.respostas[6].tipo="animal";
-	this.respostas[7].img.src="img/Classifica/Pera.png"; this.respostas[7].x=620; this.respostas[7].y=87; this.respostas[7].cor="green"; this.respostas[7].tipo="fruta";
-	this.respostas[8].img.src="img/Classifica/Tartaruga.png"; this.respostas[8].x=620; this.respostas[8].y=450; this.respostas[8].cor="green"; this.respostas[8].tipo="animal";
+	this.respostas[0].img=tdsImagens[222]; this.respostas[0].x=190; this.respostas[0].y=87; this.respostas[0].cor="yellow"; this.respostas[0].tipo="fruta";
+	this.respostas[1].img=tdsImagens[223]; this.respostas[1].x=620; this.respostas[1].y=270; this.respostas[1].cor="red"; this.respostas[1].tipo="roupa";
+	this.respostas[2].img=tdsImagens[224]; this.respostas[2].x=50; this.respostas[2].y=270; this.respostas[2].cor="green"; this.respostas[2].tipo="roupa";
+	this.respostas[3].img=tdsImagens[225]; this.respostas[3].x=330; this.respostas[3].y=87; this.respostas[3].cor="yellow"; this.respostas[3].tipo="roupa";
+	this.respostas[4].img=tdsImagens[226]; this.respostas[4].x=50; this.respostas[4].y=450; this.respostas[4].cor="yellow"; this.respostas[4].tipo="animal";
+	this.respostas[5].img=tdsImagens[227]; this.respostas[5].x=50; this.respostas[5].y=100; this.respostas[5].cor="red"; this.respostas[5].tipo="fruta";
+	this.respostas[6].img=tdsImagens[228]; this.respostas[6].x=480; this.respostas[6].y=87; this.respostas[6].cor="red"; this.respostas[6].tipo="animal";
+	this.respostas[7].img=tdsImagens[229]; this.respostas[7].x=620; this.respostas[7].y=87; this.respostas[7].cor="green"; this.respostas[7].tipo="fruta";
+	this.respostas[8].img=tdsImagens[230]; this.respostas[8].x=620; this.respostas[8].y=450; this.respostas[8].cor="green"; this.respostas[8].tipo="animal";
 	
 	//AQUI TO CRIANDO UM CLONE DAS RESPOSTAS PRA TER A REFERÊNCIA DO LUGAR DELAS QUANDO A PESSOA SOLTAR O  MOUSE
 	for(this.i=0;this.i<9;this.i++){

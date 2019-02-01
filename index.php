@@ -1,3 +1,8 @@
+<?php
+	function teste($nome){
+	  return $nome;
+	}
+?>
 <!DOCTYPE html>
 <html>
     <head>

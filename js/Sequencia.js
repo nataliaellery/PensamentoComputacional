@@ -1,18 +1,21 @@
 var Sequencia = function (fase) {
   	this.fundo = new Image();
 	this.fase=fase;
-	if(this.fase==1)this.fundo.src = "img/Sequencia/FundoSequencia1.png";
-	if(this.fase==2)this.fundo.src = "img/Sequencia/FundoSequencia2.png";
+	if(this.fase==1)this.fundo=tdsImagens[205];
+	if(this.fase==2)this.fundo=tdsImagens[206];
 	this.ativo=true;
 	this.pulou=false;
-	this.imgPular= new Imagem(1000,560,0,0,"img/TelaConfirma.png");
+	this.imgPular= new Imagem(1000,560,0,0,"");
+	this.imgPular.img = tdsImagens[87];
 	this.errou = 0;
 	this.perdeu = false;
 	this.ganhou=false;
 	this.tempo=0;
 	this.contTempo=0;
-	this.botaoPular= new Imagem(1000,560,86,36,"img/Pontos/BotaoPular.png");
-	this.botaoDica= new Imagem(0,0,0,0,"img/Pontos/DicaPontos.png");
+	this.botaoPular= new Imagem(1000,560,86,36,"");
+	this.botaoPular.img = tdsImagens[84];
+	this.botaoDica= new Imagem(0,0,0,0,"");
+	this.botaoDica.img = tdsImagens[151];
 	this.posRespCorreta = new Imagem(0,0,0,0,"");
 	this.respCorreta = 0;
 	this.dicaMostrada=new Array();
@@ -29,20 +32,22 @@ var Sequencia = function (fase) {
 	this.dicaAtual=-1;
 	this.contDicas=0;
 	if(this.fase==1){
-		for(this.i=0;this.i<4;this.i++)this.iRespostas.push(this.i);
+		for(this.i=0;this.i<5;this.i++)this.iRespostas.push(this.i);
 		this.iRespostas = shuffle(this.iRespostas);
-		for(this.i=0;this.i<4;this.i++){
-			this.respostas.push(new Imagem(100+(this.i*160),400,111,114,"img/Sequencia/Sequencia1Answer"+(this.iRespostas[this.i]+2)+".png"));
+		for(this.i=0;this.i<5;this.i++){
+			this.respostas.push(new Imagem(20+(this.i*160),400,111,114,""));
+			this.respostas[this.respostas.length-1].img=tdsImagens[207+this.iRespostas[this.i]];
 		}
 		this.posRespCorreta.x=546;
 		this.posRespCorreta.y=136;
-		this.respCorreta = 3;
+		this.respCorreta = 4;
 	}else if(this.fase==2){
 		for(this.i=0;this.i<8;this.i++)this.iRespostas.push(this.i);
 		this.iRespostas = shuffle(this.iRespostas);
 		for(this.i=0;this.i<8;this.i++){
-			if(this.i<4)this.respostas.push(new Imagem(20,60+(this.i*133),111,114,"img/Sequencia/Sequencia2Answer"+(this.iRespostas[this.i]+1)+".png"));
-			else this.respostas.push(new Imagem(670,60+((this.i-4)*133),111,114,"img/Sequencia/Sequencia2Answer"+(this.iRespostas[this.i]+1)+".png"));
+			if(this.i<4)this.respostas.push(new Imagem(20,60+(this.i*133),111,114,""));
+			else this.respostas.push(new Imagem(670,60+((this.i-4)*133),111,114,""));
+			this.respostas[this.respostas.length-1].img=tdsImagens[212+this.iRespostas[this.i]];
 		}
 		this.posRespCorreta.x=520;
 		this.posRespCorreta.y=280;
@@ -82,10 +87,14 @@ Sequencia.prototype.Draw = function(){
 			this.respostas=new Array();
 			for(this.i=0;this.i<8;this.i++){
 				if(this.fase==1){
-					if(this.i<4)this.respostas.push(new Imagem(100+(this.i*160),400,111,114,"img/Sequencia/Sequencia1Answer"+(this.iRespostas[this.i]+2)+".png"));
+					if(this.i<5){
+						this.respostas.push(new Imagem(20+(this.i*160),400,111,114,""));
+						this.respostas[this.respostas.length-1].img=tdsImagens[207+this.iRespostas[this.i]];
+					}
 				}else{
-					if(this.i<4)this.respostas.push(new Imagem(20,60+(this.i*133),111,114,"img/Sequencia/Sequencia2Answer"+(this.iRespostas[this.i]+1)+".png"));
-					else this.respostas.push(new Imagem(670,60+((this.i-4)*133),111,114,"img/Sequencia/Sequencia2Answer"+(this.iRespostas[this.i]+1)+".png"));
+					if(this.i<4)this.respostas.push(new Imagem(20,60+(this.i*133),111,114,""));
+					else this.respostas.push(new Imagem(670,60+((this.i-4)*133),111,114,""));
+					this.respostas[this.respostas.length-1].img=tdsImagens[212+this.iRespostas[this.i]];
 				}
 			}
 		}	
@@ -99,7 +108,7 @@ Sequencia.prototype.Draw = function(){
 			}else{
 				for(this.i=0;this.i<this.respostas.length;this.i++){
 					if(this.fase==1){
-						this.respostas[this.i].x = 100+(this.i*160);
+						this.respostas[this.i].x = 20+(this.i*160);
 						this.respostas[this.i].y = 400;
 					}
 				}	

@@ -204,8 +204,10 @@ Escore.prototype.Calcula = function(){
 			}
 			this.progResult[this.i] = 1-((this.comandosProg[this.i]-this.Imin)*0.001)-(this.comandosProg[this.i]*0.05)-(this.limpouProg[this.i]*0.001)-((this.playProg[this.i]-this.Pmax)*0.01)-(this.tempoProg[this.i]*0.01);
 		}
+		if(this.progResult[this.i]>1)this.progResult[this.i]=1;
+		else if(this.progResult[this.i]<0)this.progResult[this.i]=0;
 		context.font="20px Georgia";
-		context.fillText("Nível "+(this.i+1)+": " + Math.round(this.progResult[this.i]*10) ,50,170+(30*this.i));
+		context.fillText("Nível "+(this.i+1)+": " + Math.round(this.progResult[this.i]*100) ,50,170+(30*this.i));
 	}
 	context.fillStyle="#FF003C";
 	context.font="20px Georgia";
@@ -292,7 +294,9 @@ Escore.prototype.Calcula = function(){
 			}	
 		}
 		context.font="20px Georgia";
-		context.fillText("Nível "+(this.i+1)+": " + Math.round(this.progLoopResult[this.i]*10),50,470+(30*this.i));
+		if(this.progLoopResult[this.i]>1)this.progLoopResult[this.i]=1;
+		else if(this.progLoopResult[this.i]<0)this.progLoopResult[this.i]=0;
+		context.fillText("Nível "+(this.i+1)+": " + Math.round(this.progLoopResult[this.i]*100),50,470+(30*this.i));
 	}
 	context.fillStyle="#C44D58";
 	context.font="20px Georgia";
@@ -303,8 +307,10 @@ Escore.prototype.Calcula = function(){
 			if(this.i<2)this.Cmin=9;
 			else this.Cmin=13;
 			this.pontosResult[this.i]=1-((this.cliquesPontos[this.i]-this.Cmin)*0.001)-(this.dicasPontos[this.i]*0.5)-(this.limpouPontos[this.i]*0.001)-(this.tempoPontos[this.i]*0.01);
+			if(this.pontosResult[this.i]>1)this.pontosResult[this.i]=1;
+			else if(this.pontosResult[this.i]<0)this.pontosResult[this.i]=0;
 		}
-		context.fillText("Nível "+(this.i+1)+": " + Math.round(this.pontosResult[this.i]*10),330,140+(30*(this.i+1)));
+		context.fillText("Nível "+(this.i+1)+": " + Math.round(this.pontosResult[this.i]*100),330,140+(30*(this.i+1)));
 	}
 	context.fillStyle="#FF6B6B";
 	context.font="20px Georgia";
@@ -324,8 +330,10 @@ Escore.prototype.Calcula = function(){
 				this.Cmin=14;
 			}
 			this.matchResult[this.i]=1-((this.cliquesMatch[this.i]-this.Cmin)*0.001)-((this.girosMatch[this.i]-this.Gmin)*0.001)-(this.dicasMatch[this.i]*0.05)-(this.tempoMatch[this.i]*0.01);
+			if(this.matchResult[this.i]>1)this.matchResult[this.i]=1;
+			else if(this.matchResult[this.i]<0)this.matchResult[this.i]=0;
 		}
-		context.fillText("Nível "+(this.i+1)+": " + Math.round(this.matchResult[this.i]*10),550,140+(30*(this.i+1)));
+		context.fillText("Nível "+(this.i+1)+": " + Math.round(this.matchResult[this.i]*100),550,140+(30*(this.i+1)));
 	}
 	context.fillStyle="#C7F464";
 	context.font="20px Georgia";
@@ -344,8 +352,10 @@ Escore.prototype.Calcula = function(){
 				this.Gmin=6;
 			}
 			this.tangramResult[this.i]=1-((this.cliquesTangram[this.i]-this.Cmin)*0.001)-((this.girosTangram[this.i]-this.Gmin)*0.001)-(this.dicasTangram[this.i]*0.2)-(this.tempoTangram[this.i]*0.005);
+			if(this.tangramResult[this.i]>1)this.tangramResult[this.i]=1;
+			else if(this.tangramResult[this.i]<0)this.tangramResult[this.i]=0;
 		}
-		context.fillText("Nível "+(this.i+1)+": " + Math.round(this.tangramResult[this.i]*10),550,280+(30*(this.i+1)));
+		context.fillText("Nível "+(this.i+1)+": " + Math.round(this.tangramResult[this.i]*100),550,280+(30*(this.i+1)));
 	}
 	context.fillStyle="#4ECDC4";
 	context.font="20px Georgia";
@@ -353,14 +363,18 @@ Escore.prototype.Calcula = function(){
 	for(this.i=0;this.i<this.seqResult.length;this.i++){
 		if(this.pulouSeq[this.i])this.seqResult[this.i]=0;
 		else this.seqResult[this.i]=1-(this.tentativasSeq[this.i]*0.001)-(this.dicasSeq[this.i]*0.5)-(this.tempoSeq[this.i]*0.01);
-		context.fillText("Nível "+(this.i+1)+": " + Math.round(this.seqResult[this.i]*10),330,440+(30*(this.i+1)));
+		if(this.seqResult[this.i]>1)this.seqResult[this.i]=1;
+		else if(this.seqResult[this.i]<0)this.seqResult[this.i]=0;
+		context.fillText("Nível "+(this.i+1)+": " + Math.round(this.seqResult[this.i]*100),330,440+(30*(this.i+1)));
 	}
 	context.fillStyle="#556270";
 	context.font="20px Georgia";
 	context.fillText("Fase Classificação",550,440);
 	if(this.pulouClas)this.clasResult = 0;
 	else this.clasResult = 1-(this.tentativasClas*0.01)-(this.limpouClas*0.001)-(this.dicasClas*0.4)-(this.tempoClas*0.001);
-	context.fillText("Nível único: "+ Math.round(this.clasResult*10),550,470);
+	if(this.clasResult>1)this.clasResult=1;
+	else if(this.clasResult<0)this.clasResult=0;
+	context.fillText("Nível único: "+ Math.round(this.clasResult*100),550,470);
 	
 	context.fillStyle="black";
 
@@ -370,8 +384,8 @@ Escore.prototype.Calcula = function(){
 	this.reconhecimento=(((this.progResult[0]*0.1)+(this.progResult[1]*0.1)+(this.progResult[2]*0.1)+(this.progResult[3]*0.1)+(this.progResult[4]*0.1)+(this.progResult[5]*0.1)+(this.progResult[6]*0.1)+(this.progLoopResult[0]*0.1)+(this.progLoopResult[1]*0.1)+(this.pontosResult[0]*0.4)+(this.pontosResult[1]*0.4)+(this.pontosResult[2]*0.4)+(this.pontosResult[3]*0.4)+(this.matchResult[0]*0.4)+(this.matchResult[1]*0.4)+(this.tangramResult[0]*0.4)+(this.tangramResult[1]*0.4)+(this.seqResult[0]*0.4)+(this.seqResult[1]*0.4)+(this.clasResult*0.3))/5.2);
 	
 	context.font="22px Georgia";
-	context.fillText("Algoritmo:" + Math.round(this.algoritmo*10) + "    Abstração: "+ Math.round(this.abstracao*10) + "    Decomposição:"+ Math.round(this.decomposicao*10) + "     Reconhecimento de padrões:" + Math.round(this.reconhecimento*10) ,10,90); 
+	context.fillText("Algoritmo:" + Math.round(this.algoritmo*100) + "    Abstração: "+ Math.round(this.abstracao*100) + "    Decomposição:"+ Math.round(this.decomposicao*100) + "     Reconhecimento de padrões:" + Math.round(this.reconhecimento*100) ,10,90); 
 	
 	context.font="40px Georgia";
-	context.fillText("Escore geral: " + Math.round((this.algoritmo+this.abstracao+this.decomposicao+this.reconhecimento)/4*10),260,40); 
+	context.fillText("Escore geral: " + Math.round((this.algoritmo+this.abstracao+this.decomposicao+this.reconhecimento)/4*100),260,40); 
 }

@@ -343,6 +343,16 @@ Pontos.prototype.MouseUp = function(mouseEvent) {
 									this.acertou[0]=true;
 									this.pontoAtivo.x=1000;
 									this.indPonto=-1;
+									if(!this.acertou[1]){
+										this.retas[4]=false;
+										this.retas[5]=false;
+										this.retas[6]=false;
+									}
+									if((this.fase==3 || this.fase==4) && !this.acertou[2]){
+										this.retas[7]=false;
+										this.retas[8]=false;
+										this.retas[9]=false;
+									}
 								}else if(this.retas[4] && this.retas[5] && this.retas[6] && !this.acertou[1]){
 									this.pontosX=new Array();	
 									this.pontosY=new Array();
@@ -351,6 +361,17 @@ Pontos.prototype.MouseUp = function(mouseEvent) {
 									this.acertou[1]=true;
 									this.pontoAtivo.x=1000;
 									this.indPonto=-1;
+									if(!this.acertou[0]){
+										this.retas[0]=false;	
+										this.retas[1]=false;	
+										this.retas[2]=false;	
+										this.retas[3]=false;	
+									}
+									if((this.fase==3 || this.fase==4) && !this.acertou[2]){
+										this.retas[7]=false;
+										this.retas[8]=false;
+										this.retas[9]=false;
+									}
 								}else if(this.retas[7] && this.retas[8] && this.retas[9] && !this.acertou[2]){
 									this.pontosX=new Array();	
 									this.pontosY=new Array();
@@ -359,6 +380,16 @@ Pontos.prototype.MouseUp = function(mouseEvent) {
 									this.acertou[2]=true;
 									this.pontoAtivo.x=1000;
 									this.indPonto=-1;
+									if(!this.acertou[0]){
+										this.retas[0]=false;	
+										this.retas[1]=false;	
+										this.retas[2]=false;	
+										this.retas[3]=false;	
+									}if(!this.acertou[1]){
+										this.retas[4]=false;
+										this.retas[5]=false;
+										this.retas[6]=false;
+									}
 								}
 								if(this.fase==3 || this.fase==4){
 									if(this.acertou[0] && this.acertou[1] && this.acertou[2])this.ganhou=true;
