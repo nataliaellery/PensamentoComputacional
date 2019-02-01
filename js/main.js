@@ -55,8 +55,8 @@ function draw(){
 			tela = new TelaNome();
 			telaAtual="EscolhaNome";
 		}else if(telaAtual=="EscolhaNome"){
-			var newNome = <?php echo teste(nomeJogador); ?>; //call the php add function
-  			alert(newNome);
+			/*var newNome = <?php echo teste(nomeJogador); ?>; //call the php add function
+  			alert(newNome);*/
 			tela = new Instrucoes(1);
 			telaAtual="Instrucoes1";
 		}else if(telaAtual=="Instrucoes1"){
