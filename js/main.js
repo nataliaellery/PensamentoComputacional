@@ -18,6 +18,7 @@ var genero=1;//0=menina//1=menino
 var nomeJogador="";
 var rect = 0;
 var tdsImagens = new Array();
+var saving = new Event('save');
 
 function begin() {
 	gameCanvas = document.getElementById("gameCanvas");
@@ -32,6 +33,7 @@ function begin() {
 	gameCanvas.addEventListener("touchend", handleEnd, false);
 	gameCanvas.addEventListener("touchmove", handleMove, false);
 	gameCanvas.addEventListener("save", saveBD, false);
+	gameCanvas.dispatchEvent(saving);
 	//VOU SER OBRIGADA A CARREGAR TODAS AS IMAGENS ANTES DE INICIAR PQ O SERVIDOR QUE TO USANDO
 	//GRATUITO É MUITO LENTO, E NÃO CARREGA  DIREITINHO
 	carregarImagens();
@@ -41,7 +43,7 @@ function begin() {
 }
 
 
-function saveBD(){
+function saveBD(saveEvent){
 	$.post( "dados.php" );
 }
 
