@@ -20,7 +20,11 @@ var rect = 0;
 var tdsImagens = new Array();
 
 var item = { teste1: "wwhelp" , 
-             save: function() { $.post( "js/dados.php", { name: "John", time: "2pm" } ); }              
+             save: function() { 
+				 $.post( "js/dados.php", { name: "John", time: "2pm" } ); 
+				 var simple = "<?php echo(Insere()); ?>";
+				alert(simple);
+			 }              
 			};
 
 function begin() {
@@ -47,14 +51,14 @@ function begin() {
 }
 
 
-function saveBD(e){
+/*function saveBD(e){
 	
 	$.post( "dados.php", { name: "John", time: "2pm" } );
 	var simple = "<?php echo($_POST['name']); ?>";
 	alert(simple);
 	var simple = "<?php echo(Insere()); ?>";
 	alert(simple);
-}
+}*/
 
 function draw(){
 	requestAnimationFrame(draw);
