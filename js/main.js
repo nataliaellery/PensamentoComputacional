@@ -35,7 +35,7 @@ function begin() {
 	//GRATUITO É MUITO LENTO, E NÃO CARREGA  DIREITINHO
 	carregarImagens();
 	tela = new TelaEscolha();
-	testePHP("lala");
+	//testePHP("lala");
 	//tela = new Classifica();
 	draw();	
 }

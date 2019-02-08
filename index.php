@@ -1,3 +1,6 @@
+<?php
+include 'dados.php';
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,8 +19,28 @@
         <script src="js/TelaEscolha.js"></script>
         <script src="js/TelaNome.js"></script>
         <script src="js/Instrucoes.js"></script>
-        <script src="js/main.js"></script>
+        <script src="js/main.js"></script>		
+  		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
         <link rel="stylesheet" href="css/style.css" />
+		
+		<script> 
+			function testePHP(nomeJogador){				
+				var xmlhttp;
+				if (window.XMLHttpRequest)
+				  {
+				  xmlhttp=new XMLHttpRequest();
+				  }
+				else
+				  {
+				  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+				  }
+				xmlhttp.open("POST","dados.php",true);
+				xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+				xmlhttp.send("foo="+foo);
+				var simple = "<?php echo(Insere()); ?>";
+				alert(simple);
+			}		
+		</script>
     </head>
     <body>
         <canvas id="gameCanvas" width="800" height="600">
@@ -25,6 +48,8 @@
 				begin();
 			</script>
 		</canvas>
+		<br>
+		<br>
 		<?php
 			try{
 				$pg_conn = pg_connect("host=ec2-54-83-17-151.compute-1.amazonaws.com dbname=dfcnomqkfc6nng user=gwdcijtyhvwnnc password=346eae8e68ed1902b1f768662c80579ebe927e8194ae0ee9f787e15802fbb144");
