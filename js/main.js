@@ -20,7 +20,7 @@ var rect = 0;
 var tdsImagens = new Array();
 
 var item = { teste1: "wwhelp" , 
-             save: function() { $.post( "dados.php", { name: "John", time: "2pm" } ); }              
+             save: function() { $.post( "js/dados.php", { name: "John", time: "2pm" } ); }              
 			};
 
 function begin() {
@@ -37,7 +37,7 @@ function begin() {
 	gameCanvas.addEventListener("touchend", handleEnd, false);
 	gameCanvas.addEventListener("touchmove", handleMove, false);
 	$(item).bind("save", function () { alert('save called'); } );
-	item.save();
+	$(item).trigger("save");
 	//VOU SER OBRIGADA A CARREGAR TODAS AS IMAGENS ANTES DE INICIAR PQ O SERVIDOR QUE TO USANDO
 	//GRATUITO É MUITO LENTO, E NÃO CARREGA  DIREITINHO
 	carregarImagens();
