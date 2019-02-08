@@ -22,25 +22,6 @@ include 'dados.php';
         <script src="js/main.js"></script>		
   		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
         <link rel="stylesheet" href="css/style.css" />
-		
-		<script> 
-			function testePHP(nomeJogador){				
-				var xmlhttp;
-				if (window.XMLHttpRequest)
-				  {
-				  xmlhttp=new XMLHttpRequest();
-				  }
-				else
-				  {
-				  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-				  }
-				xmlhttp.open("POST","dados.php",true);
-				xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-				xmlhttp.send("foo="+foo);
-				var simple = "<?php echo(Insere()); ?>";
-				alert(simple);
-			}		
-		</script>
     </head>
     <body>
         <canvas id="gameCanvas" width="800" height="600">
