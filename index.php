@@ -1,6 +1,3 @@
-<?php
-include 'js/dados.php';
-?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,7 +22,7 @@ include 'js/dados.php';
     </head>
     <body>
 		<br>
-		Teste PHP 9
+		Teste PHP 10
 		<br>
         <canvas id="gameCanvas" width="800" height="600">
 			<script>

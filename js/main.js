@@ -22,10 +22,12 @@ var tdsImagens = new Array();
 ///------------------UNICA COISA QUE PARECE FUNCIONAR POR ENQUANTO---------------------\\\
 var item = { teste1: "wwhelp" , 
              save: function() { 
+				 //--um jeito--\\
 				 /*$.post( "js/dados.php", { name: "John", time: "2pm" } ); 
 				 var simple = "<?php echo(Insere()); ?>";
 				alert(simple);*/
-				 jQuery.ajax({
+				 //-- outro jeito --\\
+				 /*jQuery.ajax({
 					type: "POST",
 					url: 'js/dados.php',
 					dataType: 'json',
@@ -35,7 +37,8 @@ var item = { teste1: "wwhelp" ,
                         {
                             alert(response);
                         }
-				});
+				});*/
+				//nenhum funciona hehe
 			 }              
 			};
 ///-------------------------------------------------------------------------------------\\\
@@ -54,8 +57,8 @@ function begin() {
 	gameCanvas.addEventListener("touchend", handleEnd, false);
 	gameCanvas.addEventListener("touchmove", handleMove, false);
 ///------------------UNICA COISA QUE PARECE FUNCIONAR POR ENQUANTO---------------------\\\
-	$(item).bind("save", function () { alert('save called'); } );
-	$(item).trigger("save");
+	/*$(item).bind("save", function () { alert('save called'); } );
+	$(item).trigger("save");*/
 ///-------------------------------------------------------------------------------------\\\
 	//VOU SER OBRIGADA A CARREGAR TODAS AS IMAGENS ANTES DE INICIAR PQ O SERVIDOR QUE TO USANDO
 	//GRATUITO É MUITO LENTO, E NÃO CARREGA  DIREITINHO
