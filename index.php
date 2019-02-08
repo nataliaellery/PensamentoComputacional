@@ -25,7 +25,7 @@ include 'js/dados.php';
     </head>
     <body>
 		<br>
-		Teste PHP 8
+		Teste PHP 9
 		<br>
         <canvas id="gameCanvas" width="800" height="600">
 			<script>

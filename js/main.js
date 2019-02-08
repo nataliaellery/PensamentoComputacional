@@ -19,13 +19,30 @@ var nomeJogador="";
 var rect = 0;
 var tdsImagens = new Array();
 
+///------------------UNICA COISA QUE PARECE FUNCIONAR POR ENQUANTO---------------------\\\
 var item = { teste1: "wwhelp" , 
              save: function() { 
-				 $.post( "js/dados.php", { name: "John", time: "2pm" } ); 
+				 /*$.post( "js/dados.php", { name: "John", time: "2pm" } ); 
 				 var simple = "<?php echo(Insere()); ?>";
-				alert(simple);
+				alert(simple);*/
+				 jQuery.ajax({
+					type: "POST",
+					url: 'js/dados.php',
+					dataType: 'json',
+					data: {name: 'nati'},
+
+					success: function (obj, textstatus) {
+						  if( !('error' in obj) ) {
+							  alert(obj.result);
+						  }
+						  else {
+							  alert(obj.error);
+						  }
+					}
+				});
 			 }              
 			};
+///-------------------------------------------------------------------------------------\\\
 
 function begin() {
 	gameCanvas = document.getElementById("gameCanvas");
@@ -40,8 +57,10 @@ function begin() {
 	gameCanvas.addEventListener("touchstart", handleStart, false);
 	gameCanvas.addEventListener("touchend", handleEnd, false);
 	gameCanvas.addEventListener("touchmove", handleMove, false);
+///------------------UNICA COISA QUE PARECE FUNCIONAR POR ENQUANTO---------------------\\\
 	$(item).bind("save", function () { alert('save called'); } );
 	$(item).trigger("save");
+///-------------------------------------------------------------------------------------\\\
 	//VOU SER OBRIGADA A CARREGAR TODAS AS IMAGENS ANTES DE INICIAR PQ O SERVIDOR QUE TO USANDO
 	//GRATUITO É MUITO LENTO, E NÃO CARREGA  DIREITINHO
 	carregarImagens();
