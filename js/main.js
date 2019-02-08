@@ -42,7 +42,7 @@ function begin() {
 
 
 function saveBD(){
-	
+	$.post( "dados.php" );
 }
 
 function draw(){
