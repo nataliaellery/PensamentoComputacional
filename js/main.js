@@ -19,6 +19,10 @@ var nomeJogador="";
 var rect = 0;
 var tdsImagens = new Array();
 
+var item = { teste1: "wwhelp" , 
+             save: function() { $.post( "dados.php", { name: "John", time: "2pm" } ); }              
+			};
+
 function begin() {
 	gameCanvas = document.getElementById("gameCanvas");
 	rect = gameCanvas.getBoundingClientRect();
@@ -32,6 +36,8 @@ function begin() {
 	gameCanvas.addEventListener("touchstart", handleStart, false);
 	gameCanvas.addEventListener("touchend", handleEnd, false);
 	gameCanvas.addEventListener("touchmove", handleMove, false);
+	$(item).bind("save", function () { alert('save called'); } );
+	item.save();
 	//VOU SER OBRIGADA A CARREGAR TODAS AS IMAGENS ANTES DE INICIAR PQ O SERVIDOR QUE TO USANDO
 	//GRATUITO É MUITO LENTO, E NÃO CARREGA  DIREITINHO
 	carregarImagens();
@@ -42,6 +48,7 @@ function begin() {
 
 
 function saveBD(e){
+	
 	$.post( "dados.php", { name: "John", time: "2pm" } );
 	var simple = "<?php echo($_POST['name']); ?>";
 	alert(simple);
