@@ -31,13 +31,18 @@ function begin() {
 	gameCanvas.addEventListener("touchstart", handleStart, false);
 	gameCanvas.addEventListener("touchend", handleEnd, false);
 	gameCanvas.addEventListener("touchmove", handleMove, false);
+	gameCanvas.addEventListener("save", saveBD, false);
 	//VOU SER OBRIGADA A CARREGAR TODAS AS IMAGENS ANTES DE INICIAR PQ O SERVIDOR QUE TO USANDO
 	//GRATUITO É MUITO LENTO, E NÃO CARREGA  DIREITINHO
 	carregarImagens();
 	tela = new TelaEscolha();
-	//testePHP("lala");
 	//tela = new Classifica();
 	draw();	
+}
+
+
+function saveBD(){
+	
 }
 
 function draw(){

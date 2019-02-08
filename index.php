@@ -24,6 +24,9 @@ include 'dados.php';
         <link rel="stylesheet" href="css/style.css" />
     </head>
     <body>
+		<br>
+		Teste PHP 1	
+		<br>
         <canvas id="gameCanvas" width="800" height="600">
 			<script>
 				begin();
