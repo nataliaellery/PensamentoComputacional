@@ -26,8 +26,8 @@ function begin() {
 	window.addEventListener('keydown',keyDown, false);
 	//window.addEventListener('keyup',keyUp, false);
 	gameCanvas.addEventListener("mousemove", mouseMove);
-	//gameCanvas.addEventListener("mousedown", mouseDown);
-	gameCanvas.addEventListener("mousedown", saveBD);
+	gameCanvas.addEventListener("mousedown", mouseDown);
+	//gameCanvas.addEventListener("mousedown", saveBD);
 	gameCanvas.addEventListener("mouseup", mouseUp);
 	gameCanvas.addEventListener("touchstart", handleStart, false);
 	gameCanvas.addEventListener("touchend", handleEnd, false);
