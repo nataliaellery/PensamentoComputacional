@@ -31,14 +31,10 @@ var item = { teste1: "wwhelp" ,
 					dataType: 'json',
 					data: {name: 'nati'},
 
-					success: function (obj, textstatus) {
-						  if( !('error' in obj) ) {
-							  alert(obj.result);
-						  }
-						  else {
-							  alert(obj.error);
-						  }
-					}
+					success: function (response)
+                        {
+                            alert(response);
+                        }
 				});
 			 }              
 			};
