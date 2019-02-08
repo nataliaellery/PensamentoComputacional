@@ -18,7 +18,6 @@ var genero=1;//0=menina//1=menino
 var nomeJogador="";
 var rect = 0;
 var tdsImagens = new Array();
-var saving = new Event('save');
 
 function begin() {
 	gameCanvas = document.getElementById("gameCanvas");
@@ -27,13 +26,12 @@ function begin() {
 	window.addEventListener('keydown',keyDown, false);
 	//window.addEventListener('keyup',keyUp, false);
 	gameCanvas.addEventListener("mousemove", mouseMove);
-	gameCanvas.addEventListener("mousedown", mouseDown);
+	//gameCanvas.addEventListener("mousedown", mouseDown);
+	gameCanvas.addEventListener("mousedown", saveBD);
 	gameCanvas.addEventListener("mouseup", mouseUp);
 	gameCanvas.addEventListener("touchstart", handleStart, false);
 	gameCanvas.addEventListener("touchend", handleEnd, false);
 	gameCanvas.addEventListener("touchmove", handleMove, false);
-	gameCanvas.addEventListener("save", saveBD, false);
-	gameCanvas.dispatchEvent(saving);
 	//VOU SER OBRIGADA A CARREGAR TODAS AS IMAGENS ANTES DE INICIAR PQ O SERVIDOR QUE TO USANDO
 	//GRATUITO É MUITO LENTO, E NÃO CARREGA  DIREITINHO
 	carregarImagens();
@@ -43,8 +41,12 @@ function begin() {
 }
 
 
-function saveBD(saveEvent){
-	$.post( "dados.php" );
+function saveBD(e){
+	$.post( "dados.php", { name: "John", time: "2pm" } );
+	var simple = "<?php echo($_POST['name']); ?>";
+	alert(simple);
+	var simple = "<?php echo(Insere()); ?>";
+	alert(simple);
 }
 
 function draw(){
