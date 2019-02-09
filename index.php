@@ -22,7 +22,6 @@
     </head>
     <body>
 		<br>
-		Teste PHP 10
 		<br>
         <canvas id="gameCanvas" width="800" height="600">
 			<script>
@@ -41,6 +40,5 @@
 				echo "erro" . $ex->getMessage();
 			}
 		?>
-		teste
 	</body>
 </html>
