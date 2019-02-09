@@ -21,7 +21,7 @@ var tdsImagens = new Array();
 
 ///------------------UNICA COISA QUE PARECE FUNCIONAR POR ENQUANTO---------------------\\\
 var item = { teste1: "wwhelp" , 
-             save: function() { 
+             save: function() {
 				 //--um jeito--\\
 				 /*$.post( "js/dados.php", { name: "John", time: "2pm" } ); 
 				 var simple = "<?php echo(Insere()); ?>";
