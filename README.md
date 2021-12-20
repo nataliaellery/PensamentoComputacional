@@ -1,1 +1,2 @@
-PensamentoComputacional
+Este projeto foi desenvolvido para a dissertação de Filipe Augusto Gonçalves "UM INSTRUMENTO PARA O DIAGNÓSTICO DO PENSAMENTO COMPUTACIONAL" em 2015 utilizando Actionscript 3.0 (flash). 
+O projeto foi reescrito em javascript para se tornar compatível com os browsers que não estão mais aceitando o flash. Além de reescrito em javascript, foram feitos novos testes e melhorias com novas amostragens na dissertação de Natália Ellery Ribeiro Couto "IMPACTO DA IMPLANTAÇÃO DE UMA DISCIPLINA DE PENSAMENTO COMPUTACIONAL EM ESTUDANTES UM ESTUDO DE CASO" em 2019.
