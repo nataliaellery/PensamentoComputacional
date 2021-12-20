@@ -12,71 +12,31 @@ var touchUp=false;
 var delayTouch=50000;
 
 var telaAtual = "EscolhaPersonagem";
-//var telaAtual = "Classifica";
 var tela;
 var genero=1;//0=menina//1=menino
 var nomeJogador="";
 var rect = 0;
 var tdsImagens = new Array();
 
-///------------------UNICA COISA QUE PARECE FUNCIONAR POR ENQUANTO---------------------\\\
-var item = { teste1: "wwhelp" , 
-             save: function() {
-				 //--um jeito--\\
-				 /*$.post( "js/dados.php", { name: "John", time: "2pm" } ); 
-				 var simple = "<?php echo(Insere()); ?>";
-				alert(simple);*/
-				 //-- outro jeito --\\
-				 /*jQuery.ajax({
-					type: "POST",
-					url: 'js/dados.php',
-					dataType: 'json',
-					data: {name: 'nati'},
-
-					success: function (response)
-                        {
-                            alert(response);
-                        }
-				});*/
-				//nenhum funciona hehe
-			 }              
-			};
-///-------------------------------------------------------------------------------------\\\
 
 function begin() {
 	gameCanvas = document.getElementById("gameCanvas");
 	rect = gameCanvas.getBoundingClientRect();
-    //context.drawImage(mouseImg, Math.random() * 800, Math.random() * 600);
+	//Rever o keydown, pois estou usando o touch
 	window.addEventListener('keydown',keyDown, false);
-	//window.addEventListener('keyup',keyUp, false);
 	gameCanvas.addEventListener("mousemove", mouseMove);
 	gameCanvas.addEventListener("mousedown", mouseDown);
-	//gameCanvas.addEventListener("mousedown", saveBD);
 	gameCanvas.addEventListener("mouseup", mouseUp);
 	gameCanvas.addEventListener("touchstart", handleStart, false);
 	gameCanvas.addEventListener("touchend", handleEnd, false);
 	gameCanvas.addEventListener("touchmove", handleMove, false);
-///------------------UNICA COISA QUE PARECE FUNCIONAR POR ENQUANTO---------------------\\\
-	/*$(item).bind("save", function () { alert('save called'); } );
-	$(item).trigger("save");*/
-///-------------------------------------------------------------------------------------\\\
-	//VOU SER OBRIGADA A CARREGAR TODAS AS IMAGENS ANTES DE INICIAR PQ O SERVIDOR QUE TO USANDO
-	//GRATUITO É MUITO LENTO, E NÃO CARREGA  DIREITINHO
+	//Estou carregando todas as imagens no início do jogo:
 	carregarImagens();
 	tela = new TelaEscolha();
-	//tela = new Classifica();
 	draw();	
 }
 
 
-/*function saveBD(e){
-	
-	$.post( "dados.php", { name: "John", time: "2pm" } );
-	var simple = "<?php echo($_POST['name']); ?>";
-	alert(simple);
-	var simple = "<?php echo(Insere()); ?>";
-	alert(simple);
-}*/
 
 function draw(){
 	requestAnimationFrame(draw);
@@ -225,15 +185,7 @@ function draw(){
 			telaAtual="Instrucoes17";
 		}
 	}	
-	//verificando se a tela tem ficado ativa ou não
-	//context.fillText(" " + tela.ativo ,160,40);
-	//tem que fazer a verificação se houve pulo e apresentar a tela de confirmação
 	context.drawImage(mouseImg, posMouseX, posMouseY,12,19);
-	/*-----------------------------------------------------------------------------*/
-	/*if(touchDown){
-		context.font="60px Georgia";
-		context.fillText("UEPA"+qtdTouch,0,440);		
-	}*/	
 	if(touchDown && touchUp){
 		if(delayTouch>0)delayTouch--;
 		else{
@@ -271,21 +223,8 @@ function mouseUp(mouseEvent) {
 	tela.MouseUp(mouseEvent);
 }
 function keyDown(e) {
-	//alert("entered here");
-	//var code = e.keyCode;	
-	tela.KeyDown(e.keyCode);
-    switch (code) {
-        //case 37: posX--; break; //Left key
-        //case 38: alert("Up"); break; //Up key
-        //case 39: posX++; break; //Right key
-        //case 40: alert("Down"); break; //Down key
-        //default: alert(code); //Everything else
-    }
-}/*
-window.onerror = function(msg, url, linenumber) {
-    alert('Error message: '+msg+'\nURL: '+url+'\nLine Number: '+linenumber);
-    return true;
-}*/
+	
+}
 
 function carregarImagens() {
 	for(var i=0;i<300;i++)tdsImagens[i]= new Image();
@@ -560,26 +499,4 @@ function carregarImagens() {
 	tdsImagens[273].src="img/Match/MatchDown.png";
 	tdsImagens[274].src="img/Match/MatchUp.png";
 	tdsImagens[275].src="img/Match/MatchLeft.png";
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

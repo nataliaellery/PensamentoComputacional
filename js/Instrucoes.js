@@ -351,8 +351,6 @@ Instrucoes.prototype.Draw = function(){
 			context.font="40px Georgia";
 			context.fillText("Clique para ver os seus resultados",120,40);  	
 		}
-		//ISSO AQUI FOI PARA ME AJUDAR A ACHAR AS POSIÇÕES DO MOUSE NAS INSTRUÇÕES QUE O MOUSE MEXE SOZINHO
-		//context.fillText("x:"+posMouseX+" - y:"+posMouseY,200,40);
 		this.cont++;
 		if(this.cont>10){
 			this.cont=0;

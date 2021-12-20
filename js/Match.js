@@ -126,8 +126,6 @@ var Match = function (fase) {
 			this.figs[this.figs.length-1].img=tdsImagens[179];
 			this.dicaImagem.push(new Imagem(20,40, 252, 252,""));
 			this.dicaImagem[this.dicaImagem.length-1].img=tdsImagens[180];
-			//ARRUMAR AQUI DEPOIS TBM
-			//this.rotacoes.push(this.dicaRotacao[this.i]);
 			this.rotacoes.push(8);
 			this.locked.push(false);
 			this.acertou.push(false);
@@ -137,8 +135,6 @@ var Match = function (fase) {
 		this.dicaImagem[1].x=233;this.dicaImagem[1].y=246;
 		this.dicaImagem[2].x=312;this.dicaImagem[2].y=246;
 		this.dicaImagem[3].x=559;this.dicaImagem[3].y=246;
-		//PRA CONFERIR SE TÁ CERTO, TIRAR DEPOIS
-		//for(this.i=0;this.i<4;this.i++)this.figs[this.i]=this.dicaImagem[this.i];
 	}else if(this.fase==6){
 		//easy
 		this.dicaRotacao=new Array(8,9,10,11,12,13,14,15,16);
@@ -149,7 +145,6 @@ var Match = function (fase) {
 			this.dicaImagem[this.dicaImagem.length-1].img=tdsImagens[182];
 			
 			//ARRUMAR AQUI DEPOIS TBM
-			//this.rotacoes.push(this.dicaRotacao[this.i]);
 			this.rotacoes.push(8);
 			this.locked.push(false);
 			this.acertou.push(false);
@@ -164,8 +159,6 @@ var Match = function (fase) {
 		this.dicaImagem[6].x=474;this.dicaImagem[6].y=198;
 		this.dicaImagem[7].x=492;this.dicaImagem[7].y=281;
 		this.dicaImagem[8].x=443;this.dicaImagem[8].y=356;
-		//PRA CONFERIR SE TÁ CERTO, TIRAR DEPOIS
-		//for(this.i=0;this.i<9;this.i++)this.figs[this.i]=this.dicaImagem[this.i];
 	}
 };
 
@@ -264,7 +257,7 @@ Match.prototype.Draw = function(){
 		context.save();
 		if(this.rotacoes[this.i]==1){
 			context.translate(this.figs[this.i].x+(this.figs[this.i].width/5*3),this.figs[this.i].y-(this.figs[this.i].height/3));
-			context.rotate((Math.PI/2.0)*4.5);//ok
+			context.rotate((Math.PI/2.0)*4.5);
 			context.translate(-(this.figs[this.i].x), -(this.figs[this.i].y)); 
 		}else if(this.rotacoes[this.i]==2){
 			context.translate(this.figs[this.i].x+this.figs[this.i].width,this.figs[this.i].y);
@@ -272,7 +265,7 @@ Match.prototype.Draw = function(){
 			context.translate(-(this.figs[this.i].x), -(this.figs[this.i].y)); 
 		}else if(this.rotacoes[this.i]==3){
 			context.translate(this.figs[this.i].x+(this.figs[this.i].width+(this.figs[this.i].width/3)),this.figs[this.i].y+(this.figs[this.i].height/5*3));
-			context.rotate((Math.PI/2.0)*1.5);//ok
+			context.rotate((Math.PI/2.0)*1.5);
 			context.translate(-(this.figs[this.i].x), -(this.figs[this.i].y)); 
 		}else if(this.rotacoes[this.i]==4){
 			context.translate(this.figs[this.i].x+this.figs[this.i].width,this.figs[this.i].y+this.figs[this.i].height);
@@ -280,7 +273,7 @@ Match.prototype.Draw = function(){
 			context.translate(-(this.figs[this.i].x), -(this.figs[this.i].y)); 
 		}else if(this.rotacoes[this.i]==5){
 			context.translate(this.figs[this.i].x+(this.figs[this.i].width/5*2),this.figs[this.i].y+(this.figs[this.i].height+(this.figs[this.i].height/5*1.5)));
-			context.rotate((Math.PI/2.0)*2.5);//ok
+			context.rotate((Math.PI/2.0)*2.5);
 			context.translate(-(this.figs[this.i].x), -(this.figs[this.i].y)); 
 		}else if(this.rotacoes[this.i]==6){
 			context.translate(this.figs[this.i].x,this.figs[this.i].y+this.figs[this.i].height);
@@ -288,13 +281,13 @@ Match.prototype.Draw = function(){
 			context.translate(-(this.figs[this.i].x), -(this.figs[this.i].y)); 
 		}else if(this.rotacoes[this.i]==7){
 			context.translate(this.figs[this.i].x-(this.figs[this.i].width/5*1.5),this.figs[this.i].y+(this.figs[this.i].height/5*2));
-			context.rotate((Math.PI/2.0)*3.5);//ok
+			context.rotate((Math.PI/2.0)*3.5);
 			context.translate(-(this.figs[this.i].x), -(this.figs[this.i].y)); 
-		}else if(this.rotacoes[this.i]==8){//FASE 6 DEL DIABLO
+		}else if(this.rotacoes[this.i]==8){
 			context.translate(this.figs[this.i].x+this.figs[this.i].width,this.figs[this.i].y+this.figs[this.i].height);
 			context.rotate((Math.PI/2.0)*2);
 			context.translate(-(this.figs[this.i].x), -(this.figs[this.i].y)); 
-		}else if(this.rotacoes[this.i]==9){//FASE 6 DEL DIABLO
+		}else if(this.rotacoes[this.i]==9){
 			context.translate(this.figs[this.i].x+(this.figs[this.i].width/2),this.figs[this.i].y+this.figs[this.i].height+(this.figs[this.i].height/4));
 			context.rotate((Math.PI/2.0)*2.444444444);//angulo: 0,444444444
 			context.translate(-(this.figs[this.i].x), -(this.figs[this.i].y)); 
@@ -302,27 +295,27 @@ Match.prototype.Draw = function(){
 			context.translate(this.figs[this.i].x,this.figs[this.i].y+this.figs[this.i].height+(this.figs[this.i].height/10));
 			context.rotate((Math.PI/2.0)*2.888888888);
 			context.translate(-(this.figs[this.i].x), -(this.figs[this.i].y)); 
-		}else if(this.rotacoes[this.i]==11){//FASE 6 DEL DIABLO
+		}else if(this.rotacoes[this.i]==11){
 			context.translate(this.figs[this.i].x-(this.figs[this.i].width/4),this.figs[this.i].y+(this.figs[this.i].height/5*3));
 			context.rotate((Math.PI/2.0)*3.333333332);
 			context.translate(-(this.figs[this.i].x), -(this.figs[this.i].y)); 
-		}else if(this.rotacoes[this.i]==12){//FASE 6 DEL DIABLO
+		}else if(this.rotacoes[this.i]==12){
 			context.translate(this.figs[this.i].x-(this.figs[this.i].width/5),this.figs[this.i].y+(this.figs[this.i].height/8));
 			context.rotate((Math.PI/2.0)*3.777777776);
 			context.translate(-(this.figs[this.i].x), -(this.figs[this.i].y)); 
-		}else if(this.rotacoes[this.i]==13){//FASE 6 DEL DIABLO
+		}else if(this.rotacoes[this.i]==13){
 			context.translate(this.figs[this.i].x+(this.figs[this.i].width/4),this.figs[this.i].y-(this.figs[this.i].height/4));
 			context.rotate((Math.PI/2.0)*4.22222222);
 			context.translate(-(this.figs[this.i].x), -(this.figs[this.i].y)); 
-		}else if(this.rotacoes[this.i]==14){//FASE 6 DEL DIABLO
+		}else if(this.rotacoes[this.i]==14){
 			context.translate(this.figs[this.i].x+(this.figs[this.i].width/7*5),this.figs[this.i].y-(this.figs[this.i].height/4));
 			context.rotate((Math.PI/2.0)*4.666666664);
 			context.translate(-(this.figs[this.i].x), -(this.figs[this.i].y)); 
-		}else if(this.rotacoes[this.i]==15){//FASE 6 DEL DIABLO
+		}else if(this.rotacoes[this.i]==15){
 			context.translate(this.figs[this.i].x+this.figs[this.i].width+(this.figs[this.i].width/10),this.figs[this.i].y+(this.figs[this.i].height/10));
 			context.rotate((Math.PI/2.0)*5.111111108);
 			context.translate(-(this.figs[this.i].x), -(this.figs[this.i].y)); 
-		}else if(this.rotacoes[this.i]==16){//FASE 6 DEL DIABLO
+		}else if(this.rotacoes[this.i]==16){
 			context.translate(this.figs[this.i].x+this.figs[this.i].width+(this.figs[this.i].width/4),this.figs[this.i].y+(this.figs[this.i].height/5*3));
 			context.rotate((Math.PI/2.0)*5.555555552);
 			context.translate(-(this.figs[this.i].x), -(this.figs[this.i].y)); 
@@ -334,7 +327,6 @@ Match.prototype.Draw = function(){
 	if(!this.pulou){
 		//Aqui faz as peças clicadas seguirem o mouse
 		if(this.follow!=-1){
-			//this.trace="x:"+this.figs[this.follow].x+"-y:"+this.figs[this.follow].y;
 			if(this.fase==1){
 				if(this.rotacoes[this.follow]==0){
 					this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/10*7);

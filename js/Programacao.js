@@ -91,7 +91,6 @@ var Programacao = function (fase) {
 	this.contInstrLoop=0;
 //Dados para passar por parâmetro
 	//prog1----------------------------------	
-//	this.trace="fase:" + fase;
 	this.fase=fase;
 	if(this.fase==1){
 		if(this.random<50){
@@ -407,25 +406,13 @@ var Programacao = function (fase) {
 Programacao.prototype.Draw = function(){
 	
 	if(this.ativo){
-		//context.drawImage(this.fundo, -10, -10,850,650);
 		context.drawImage(this.cenario, 80, -21);
 		context.font="30px Georgia";
 
 		if(this.ativo && !this.pulou && !this.ganhou)this.tempo+=0.02;
 		this.contTempo+=0.02;
 		if(this.tempo>=60)this.botaoPular.x=10;
-		//Essa partezinha é um outro estilo, pra se errar voltar pro começo ao invés de continuar de onde parou
-		//Mas acho que não vou usar isso não
-		/*if(this.errou){
-			if(this.contTempo+1<this.tempo){
-				this.personagem.x=this.pontos[this.pontoInicialX].j[this.pontoInicialY].x - (this.personagem.width/2);
-				this.personagem.y=this.pontos[this.pontoInicialX].j[this.pontoInicialY].y - this.personagem.height;
-				this.personagem.animaParado(this.direcaoInicial);
-				this.pontoX=pontoInicialX;
-				this.pontoY=pontoInicialY;
-				this.errou=false;
-			}
-		}else */
+		
 		if(this.ganhou && !this.executaComando){
 			//Essa parte é responsável por mostrar que está certo e ir pra próxima fase
 			context.fillText("Correto",220,590);
@@ -572,7 +559,6 @@ Programacao.prototype.Draw = function(){
 									}
 								}
 							//ESSA PARTE É PRA VER SE ALGUEM TÁ COLOCANDO O COMANDO DENTRO DO LOOP
-							//ACHO QUE É ISSO MESMO, ALI NO ADDCOMANDO ELE VAI VERIFICAR ESSS COISAS
 							}else if(this.comando[this.i]=="Loop"){
 								this.insideLoop=true;
 								this.highlightLoop.x=this.comandoPosicao[this.i].x;
@@ -690,7 +676,6 @@ Programacao.prototype.Draw = function(){
 							this.quantidade[this.i]=this.quantidadeTotal[this.i];
 						}
 						//o highlight sai da tela, bom, deveria voltar
-						//não entendi esse if aqui, pq será que fiz isso?
 						if(this.indice>0)this.highlightCom.x=this.comandoPosicao[this.indice-1].x;
 						this.highlightCom.x=1000;
 					}	
@@ -873,9 +858,7 @@ Programacao.prototype.VerificaRemoveuComando = function (){
 	//entre 1 e 1000 é a qtd certinha de comandos que tem em cada loop			
 	if(this.removeUltimo){
 		//Reorganizando os comandos para ficarem na ordem certa sem o que foi removido
-		//this.trace=this.excluiComando+"-"+this.comando.length;
 		if(this.comTotalLoop[this.excluiComando]==20000 && this.excluiComando==(this.comando.length-1)){
-			//this.trace="entrou aqui?";
 			if(this.comTotalLoop[this.excluiComando-1]<10000)this.comTotalLoop[this.excluiComando-1]--;
 			else{				
 				this.contLoop=1;
@@ -888,7 +871,6 @@ Programacao.prototype.VerificaRemoveuComando = function (){
 				this.comando[this.i]=this.comando[this.i+1];
 				this.quantidade[this.i]=this.quantidade[this.i+1];
 				this.quantidadeTotal[this.i]=this.quantidade[this.i];
-				//this.trace=this.comTotalLoop[this.i];
 				if(this.i==this.excluiComando && this.comTotalLoop[this.i]>0 && this.comTotalLoop[this.i]<10000){
 					this.comTotalLoop[this.i]=this.comTotalLoop[this.i]-1;
 				}else if(this.i==this.excluiComando && this.comTotalLoop[this.i]==20000){
@@ -995,12 +977,10 @@ Programacao.prototype.MoveBonecoDemo = function (){
 	}
 }
 Programacao.prototype.AddComando = function (stringComando){
-	//this.trace=stringComando;
 	if(this.comandoPosicao.length<=(6*4)+3){
 		this.contInstrucoes++;
 		//Entra aqui quando é mais de um comando por loop:
 		if(this.multipleLoop && this.excluiComando>-1){
-			//this.trace+="isMultipleLoop:"+this.excluiComando;
 			//10000 é o meio do loop//20000 é o fim do loop//0 é loop de um comando só
 			//entre 1 e 1000 é a qtd certinha de comandos que tem em cada loop
 			//essa informação ^ vai estar sempre no primeiro comTotalLoop do loop
@@ -1038,7 +1018,6 @@ Programacao.prototype.AddComando = function (stringComando){
 				this.comTotalLoop[this.excluiComando]++;
 				if(this.comTotalLoop[this.excluiComando]>1)this.comTotalLoop[this.excluiComando+this.comTotalLoop[this.excluiComando]-1]=10000;
 				this.comTotalLoop[this.excluiComando+this.comTotalLoop[this.excluiComando]]=20000;
-				//this.trace+="TotalLoop:"+this.comTotalLoop[this.excluiComando];
 				//Renomear os comandos pra na hora de repovoar eles no lugar certo
 				//Saber que é uma partezinha dentro do loop :DD
 				if(stringComando=="Up")this.comando[this.excluiComando+this.comTotalLoop[this.excluiComando]]="LoopUp";
@@ -1049,7 +1028,6 @@ Programacao.prototype.AddComando = function (stringComando){
 			}
 		//Entra aqui quando tenta colocar 1 comando dentro de um loop vazio
 		}else if(this.insideLoop && stringComando!="Loop"){
-			//this.trace+="isSingleLoop:"+this.excluiComando;
 			this.contInstrLoop++;
 			this.quantidade[this.excluiComando]=1;					
 			this.quantidadeTotal[this.excluiComando]=1;					

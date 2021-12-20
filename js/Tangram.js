@@ -19,7 +19,7 @@ var Tangram = function (fase) {
 	this.botaoDica= new Imagem(0,0,0,0,"");
 	this.botaoDica.img = tdsImagens[151];
 	this.figs= new Array();
-	//GAMBIARRA PQ AS FIGURAS TEM DIFERENTES TAMANHOS--
+	//FIZ ISSO PQ AS FIGURAS TEM DIFERENTES TAMANHOS--
 	this.tipoFigs = new Array();
 	this.newPosRot0=new Array();
 	this.newPosRot1=new Array();
@@ -35,7 +35,7 @@ var Tangram = function (fase) {
 	this.acertou=new Array();
 	this.dicaMostrada=new Array();
 	this.dicaImagem=new Array();
-	//GAMBIARRA PQ ME ESTRESSEI E TIVE QUE ARRUMAR AS DICAS
+	//FIZ ISSO PARA ARRUMAR AS DICAS
 	this.dicaPos=new Array();
 	this.dicaRotacao=new Array();
 	this.dicas = 3;
@@ -84,7 +84,7 @@ var Tangram = function (fase) {
 		this.figs[0].width=334;this.figs[0].height=85;
 		this.figs[1].width=167;this.figs[1].height=85;
 		this.figs[2].width=236;this.figs[2].height=118;
-		//Gambiarra pq as figuras tem tamanhos diferentes em cada rotacao
+		//Fiz isso pq as figuras tem tamanhos diferentes em cada rotacao
 		this.newPosRot0[0].x=0;this.newPosRot0[0].y=0;this.newPosRot0[0].width=334;this.newPosRot0[0].height=85;
 		this.newPosRot1[0].x=60;this.newPosRot1[0].y=-50;this.newPosRot1[0].width=300;this.newPosRot1[0].height=270;
 		this.newPosRot2[0].x=90;this.newPosRot2[0].y=0;this.newPosRot2[0].width=85;this.newPosRot2[0].height=334;
@@ -149,7 +149,6 @@ var Tangram = function (fase) {
 			this.dicaPos.push(new Imagem(20,70, 179, 179,""));
 			this.dicaPos[this.dicaPos.length-1].img=tdsImagens[197+this.i];
 			this.rotacoes.push(0);
-			//this.rotacoes.push(this.dicaRotacao[this.i]);
 			this.locked.push(false);
 			this.acertou.push(false);
 			this.dicaMostrada.push(false);
@@ -158,7 +157,7 @@ var Tangram = function (fase) {
 		this.figs[1].width=69;this.figs[1].height=69;this.figs[1].x=200;this.figs[1].y=100;
 		this.figs[2].width=100;this.figs[2].height=100;this.figs[2].x=20;this.figs[2].y=300;
 		this.figs[3].width=170;this.figs[3].height=340;this.figs[3].x=150;this.figs[3].y=200;
-		//Gambiarra pq as figuras tem tamanhos diferentes em cada rotacao
+		//Fiz isso pq as figuras tem tamanhos diferentes em cada rotacao
 		this.newPosRot0[0].x=0;this.newPosRot0[0].y=0;this.newPosRot0[0].width=69;this.newPosRot0[0].height=98;
 		this.newPosRot1[0].x=70;this.newPosRot1[0].y=0;this.newPosRot1[0].width=100;this.newPosRot1[0].height=110;
 		this.newPosRot2[0].x=98;this.newPosRot2[0].y=0;this.newPosRot2[0].width=95;this.newPosRot2[0].height=65;
@@ -231,7 +230,6 @@ Tangram.prototype.Draw = function(){
 	}
 	
 	//Aqui mostra as peças que são encaixadas
-	//if(this.selected!=-1)this.trace=""+this.figs[this.selected].x+"-"+this.figs[this.selected].y;
 	for(this.i=0;this.i<this.figs.length;this.i++){
 		context.save();
 		if(this.rotacoes[this.i]==1){
@@ -271,7 +269,6 @@ Tangram.prototype.Draw = function(){
 		if(this.follow!=-1){
 			this.figs[this.follow].x=posMouseX-(this.figs[this.follow].width/2);
 			this.figs[this.follow].y=posMouseY-(this.figs[this.follow].height/2);
-			//this.trace="x:"+this.figs[this.follow].x+"   y:"+this.figs[this.follow].y+"   rot:"+this.rotacoes[this.follow];
 		}
 	}
 	
@@ -298,14 +295,6 @@ Tangram.prototype.Draw = function(){
 	context.fillStyle="black";
 	context.font="40px Georgia";
 	
-	//Desenha pontinhos delimitando a parte ativa das peças
-	/*
-	if(this.selected != -1){
-		context.fillText("....",this.figs[this.selected].x,this.figs[this.selected].y);
-		context.fillText(".",this.figs[this.selected].x+this.figs[this.selected].width,this.figs[this.selected].y);
-		context.fillText("....",this.figs[this.selected].x,this.figs[this.selected].y+this.figs[this.selected].height);
-		context.fillText(".",this.figs[this.selected].x+this.figs[this.selected].width,this.figs[this.selected].y+this.figs[this.selected].height);
-	}*/
 	if(this.pulou){
 		context.drawImage(this.imgPular.img, 0, 0, 800, 600);
 	}
@@ -324,7 +313,7 @@ Tangram.prototype.MouseDown = function(mouseEvent) {
 					//gravei no aux//
 					this.aux=this.figs[this.figs.length-1];
 					this.auxR=this.rotacoes[this.rotacoes.length-1];
-					//Essa gambiarra aqui é pq tem umas figuras maiores que as outras, e atrapalha na hr
+					//Essa parte aqui é pq tem umas figuras maiores que as outras, e atrapalha na hr
 					//de selecionar -.-
 					this.auxTipo=this.tipoFigs[this.tipoFigs.length-1];
 					//o i recebe o ultimo//

@@ -33,13 +33,10 @@ var Classifica = function () {
 	this.idTabela=new Array();
 	this.contDicas=0;
 	this.limpou=0;
-	//for(this.i=0;this.i<4;this.i++)this.iRespostas.push(this.i);
-	//this.iRespostas = this.shuffle(this.iRespostas);
 	for(this.i=0;this.i<9;this.i++){
 		this.respostas.push(new ObjClassifica(100+(this.i*160),400,111,114,"","","",false,this.i));
 		this.idTabela.push(new ObjClassifica(0,0,0,0,"","","",false,-1));
 	}
-	//121x121
 	this.respostas[0].img=tdsImagens[222]; this.respostas[0].x=190; this.respostas[0].y=87; this.respostas[0].cor="yellow"; this.respostas[0].tipo="fruta";
 	this.respostas[1].img=tdsImagens[223]; this.respostas[1].x=620; this.respostas[1].y=270; this.respostas[1].cor="red"; this.respostas[1].tipo="roupa";
 	this.respostas[2].img=tdsImagens[224]; this.respostas[2].x=50; this.respostas[2].y=270; this.respostas[2].cor="green"; this.respostas[2].tipo="roupa";
@@ -94,7 +91,6 @@ Classifica.prototype.Draw = function(){
 			if(this.follow!=-1){
 				this.respostas[this.follow].x=posMouseX-(this.respostas[this.follow].width/2);
 				this.respostas[this.follow].y=posMouseY-(this.respostas[this.follow].height/2);
-			//	this.trace=this.respostas[this.follow].x+"/"+this.respostas[this.follow].y;
 				if(this.respostas[this.follow].x>150 && this.respostas[this.follow].x<560 && this.respostas[this.follow].y>140 && this.respostas[this.follow].y<560){
 					for(this.i=0;this.i<this.respostas.length; this.i++){
 						if(this.i<3){
@@ -157,9 +153,6 @@ Classifica.prototype.Draw = function(){
 	context.fillText("Dicas: " +this.contDicas ,470,40);
 	context.fillStyle="black";
 	context.font="40px Georgia";
-	//context.fillText("|"+this.idTabela[0].id+"|"+this.idTabela[1].id+"|"+this.idTabela[2].id+"|",20,520);
-	//context.fillText("|"+this.idTabela[3].id+"|"+this.idTabela[4].id+"|"+this.idTabela[5].id+"|",20,550);
-	//context.fillText("|"+this.idTabela[6].id+"|"+this.idTabela[7].id+"|"+this.idTabela[8].id+"|",20,570);
 	if(this.pulou){
 		context.drawImage(this.imgPular.img, 0, 0, 800, 600);
 	}
@@ -200,7 +193,6 @@ Classifica.prototype.MouseUp = function(mouseEvent) {
 				//Verificar se a resposta foi inserida dentro da tabela
 				this.dentroTabela=false;
 				
-				//this.msg="x:"+this.respostas[this.follow].x+"-y:"+this.respostas[this.follow].y;
 				for(this.i=0;this.i<this.respostas.length; this.i++){
 					if(this.i<3){
 						this.line=this.i;	

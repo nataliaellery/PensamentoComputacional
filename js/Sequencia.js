@@ -104,7 +104,6 @@ Sequencia.prototype.Draw = function(){
 			if(this.follow!=-1){
 				this.respostas[this.follow].x=posMouseX-(this.respostas[this.follow].width/2);
 				this.respostas[this.follow].y=posMouseY-(this.respostas[this.follow].height/2);
-			//	this.trace=this.respostas[this.follow].x+"/"+this.respostas[this.follow].y;
 			}else{
 				for(this.i=0;this.i<this.respostas.length;this.i++){
 					if(this.fase==1){

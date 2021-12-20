@@ -1,7 +1,6 @@
 var Pontos = function (fase) {
   	//this.fundo = new Image();
 	this.fase=fase;
-	///this.fundo.src = "img/Pontos/FundoBase.png";
 	this.ativo=true;
 	this.pulou=false;
 	this.imgPular= new Imagem(1000,560,0,0,"");
@@ -121,7 +120,6 @@ var Pontos = function (fase) {
 };
 
 Pontos.prototype.Draw = function(){
-	//context.drawImage(this.fundo, 0, 0);
 	context.font="40px Georgia";
 	if(this.ativo && !this.pulou && !this.ganhou && !this.perdeu)this.tempo+=0.02;
 	this.contTempo+=0.02;

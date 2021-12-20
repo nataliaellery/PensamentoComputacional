@@ -116,7 +116,6 @@ Escore.prototype.Classifica = function(tempo,tentativas,limpou,dicas,pulou){
 }
 
 Escore.prototype.Calcula = function(){
-//Programação: 
 	context.fillStyle="#FF8A00";
 	context.font="20px Georgia";
 	context.fillText("Fase Programação",30,140);
@@ -318,10 +317,6 @@ Escore.prototype.Calcula = function(){
 	for(this.i=0;this.i<this.matchResult.length;this.i++){
 		if(this.pulouMatch[this.i])this.matchResult[this.i]=0;
 		else{
-			//TALVEZ COM AS MELHORIAS QUE EU FIZ NO CÓDIGO VAI ACABAR DIMINUINDO MAIS AINDA O VALOR MINIMO DE CLIQUES
-			//POIS AGORA É POSSÍVEL POSICIONAR NO LUGAR, GIRAR, E SE GIRAR E TIVER NO LUGAR CERTO JÁ FICA
-			//SEM PRECISAR CLICAR UMA SEGUNDA VEZ... PRECISAMOS FAZER VÁRIOS TESTES PRA CONFIRMAR ISSO
-			
 			if(this.i==0){
 				this.Gmin=8;
 				this.Cmin=8;
@@ -341,9 +336,6 @@ Escore.prototype.Calcula = function(){
 	for(this.i=0;this.i<this.tangramResult.length;this.i++){
 		if(this.pulouTangram[this.i])this.tangramResult[this.i]=0;
 		else{
-			//TALVEZ COM AS MELHORIAS QUE EU FIZ NO CÓDIGO VAI ACABAR DIMINUINDO MAIS AINDA O VALOR MINIMO DE CLIQUES
-			//POIS AGORA É POSSÍVEL POSICIONAR NO LUGAR, GIRAR, E SE GIRAR E TIVER NO LUGAR CERTO JÁ FICA
-			//SEM PRECISAR CLICAR UMA SEGUNDA VEZ... PRECISAMOS FAZER VÁRIOS TESTES PRA CONFIRMAR ISSO
 			if(this.i==0){
 				this.Cmin=5;
 				this.Gmin=5;
